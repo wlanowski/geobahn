@@ -12,6 +12,14 @@
     <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js" integrity="sha512-A7vV8IFfih/D732iSSKi20u/ooOfj/AGehOKq0f4vLT1Zr2Y+RX7C+w8A1gaSasGtRUZpF/NZgzSAu4/Gc41Lg=="
    crossorigin=""></script>
    
+   
+   <!-- Leaflet GLC -->
+   
+	<link rel="stylesheet" href = "leaflet-glc/leaflet.groupedlayercontrol.min.css">
+	<script src = "leaflet-glc/leaflet.groupedlayercontrol.min.js"></script>
+   
+   
+   
 	
    
   </head>
@@ -21,16 +29,19 @@
 	
 	<script>
 	
+	
 
 	
-		var mymap = L.map('mapid').setView([51.0588, 13.7068], 11);
 		
+// Basis-Layer
 
-		//	Basis-Layer	
-		L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png').addTo(mymap);
+		var base_Google = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{maxZoom: 20, subdomains:['mt0','mt1','mt2','mt3'], attribution: '&copy; 2017 GeoBasis-DE/BKG (&copy;2009), Google'});
+		var base_cartolight = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',{attribution: 'Map tiles by Carto, under CC BY 3.0. Data by OpenStreetMap, under ODbL.'});
+		
+		var base_OSM = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap-Mitwirkende</a>'});
 		
 		/*
-			Weitere Tile-Layer:
+			Weitere Tile-Server:
 			http://wiki.openstreetmap.org/wiki/Tiles
 			
 			http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
@@ -38,15 +49,58 @@
 			https://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png
 			http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png
 			
-		
-		
-		
+	
 		*/
+
+		var baseLayers = {
+		
+			"Google Satellit" : base_Google,
+			"Minimal (s/w)" : base_cartolight,
+			"OpenStreetMap" : base_OSM
+		
+		};
+		
+		
+// ORM-Overlays
+		var overlays_ORM = new L.LayerGroup();
+		
+		var ORM_INFRA = L.tileLayer('http://{s}.tiles.openrailwaymap.org/standard/{z}/{x}/{y}.png',{attribution: 'Data <a href="http://www.openstreetmap.org/copyright">© OpenStreetMap contributors</a>, Style: <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA 2.0</a> <a href="http://www.openrailwaymap.org/">OpenRailwayMap</a>'});
+		
+		var ORM_SPEED = L.tileLayer('http://{s}.tiles.openrailwaymap.org/maxspeed/{z}/{x}/{y}.png',{attribution: 'Data <a href="http://www.openstreetmap.org/copyright">© OpenStreetMap contributors</a>, Style: <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA 2.0</a> <a href="http://www.openrailwaymap.org/">OpenRailwayMap</a>'});
+		
+		var ORM_SIGNAL = L.tileLayer('http://{s}.tiles.openrailwaymap.org/signals/{z}/{x}/{y}.png',{attribution: 'Data <a href="http://www.openstreetmap.org/copyright">© OpenStreetMap contributors</a>, Style: <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA 2.0</a> <a href="http://www.openrailwaymap.org/">OpenRailwayMap</a>'});
+		
+		var ORM_empty = L.tileLayer('');
 		
 		
 		
-		//  Overlaylayer (ORM)
-		L.tileLayer('http://{s}.tiles.openrailwaymap.org/standard/{z}/{x}/{y}.png').addTo(mymap);
+		
+		
+		var groupedoverlays = {
+		"OpenRailwayMap": {
+			"<i>ausschalten</i>": ORM_empty,
+			"Infrastruktur": ORM_INFRA,
+			"Maximale Geschwindigkeiten": ORM_SPEED,
+			"Signalisierung": ORM_SIGNAL
+			
+		},
+		"Random": {}
+		};
+		
+		var mymap = L.map('mapid', {center: [51.0588, 13.7068], zoom: 11, layers: [base_cartolight, ORM_INFRA]});
+		
+		var options = {
+			exclusiveGroups: ["OpenRailwayMap"],
+			groupCheckboxes: true
+		
+		};
+		
+		var layerControl = L.control.groupedLayers(baseLayers, groupedoverlays, options);
+		mymap.addControl(layerControl);
+		
+		
+		
+		
 	
 
 	
