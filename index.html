@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Testseite für Leaflet</title>
+	
+	<!-- Stylesheets und Skripte im Header -->
+	
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ=="crossorigin=""/>
+	
+	<link rel="stylesheet" href="css/testmap.css">
+	
+    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js" integrity="sha512-A7vV8IFfih/D732iSSKi20u/ooOfj/AGehOKq0f4vLT1Zr2Y+RX7C+w8A1gaSasGtRUZpF/NZgzSAu4/Gc41Lg=="
+   crossorigin=""></script>
+   
+	
+   
+  </head>
+  <body>
+    
+	<div id="mapid"></div>
+	
+	<script>
+	
+
+	
+		var mymap = L.map('mapid').setView([51.0588, 13.7068], 11);
+		
+
+		//	Basis-Layer	
+		L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png').addTo(mymap);
+		
+		/*
+			Weitere Tile-Layer:
+			http://wiki.openstreetmap.org/wiki/Tiles
+			
+			http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
+			http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png
+			https://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png
+			http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png
+			
+		
+		
+		
+		*/
+		
+		
+		
+		//  Overlaylayer (ORM)
+		L.tileLayer('http://{s}.tiles.openrailwaymap.org/standard/{z}/{x}/{y}.png').addTo(mymap);
+	
+
+	
+	</script>
+	
+  </body>
+</html>
