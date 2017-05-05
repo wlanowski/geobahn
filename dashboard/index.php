@@ -1,10 +1,13 @@
-﻿<?php require_once("inc/funct.php"); ?>
+<?php
+    require_once("inc/funct.php");
+    $tools = new tools();
+?>
 
-<?php getHeader("Login", "class=\"login\""); ?>
+<?php $tools->getHeader("Login", "class=\"login\""); ?>
 
 <?php
 	echo "Servus :)";
 	
 ?>
 
-<?php getFooter(); ?>
+<?php $tools->getFooter(); ?>
