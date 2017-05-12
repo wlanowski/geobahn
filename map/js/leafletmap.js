@@ -66,7 +66,7 @@
 		
 		
 		
-		
+		// LayerGroups
 		var groupedoverlays = {
 		"OpenRailwayMap": {
 			"<i>ausschalten</i>": ORM_empty,
@@ -80,7 +80,7 @@
 		}
 		};
 		
-		var mymap = L.map('mapid', {center: [51.652, 11.250], zoom: 6, layers: [base_cartolight, ORM_empty]});
+		var mymap = L.map('mapid', {center: [51.652, 11.250], zoom: 10, layers: [base_cartolight, ORM_empty]});
 		
 		var options = {
 			exclusiveGroups: ["OpenRailwayMap"],
@@ -92,4 +92,17 @@
 		mymap.addControl(layerControl);
 		
 		
+		// Zoomausblendungen
 		
+		/*
+		mymap.on('zoomend', function() {
+    if (mymap.getZoom() <10){
+        if (mymap.hasLayer(markers_dbnetz_stationen)) {
+            mymap.removeLayer(markers_dbnetz_stationen);
+						}	
+	}
+});
+
+
+//TODO: Bleibt entfernt beim rauszoomen
+*/
