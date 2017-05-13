@@ -60,6 +60,7 @@ $.getJSON("geojsondbnetz/railwayStationNodes.geojson", function(data) {
 
             // USE A CUSTOM MARKER
             //layer.setIcon(L.mapbox.marker.icon({'marker-symbol': 'circle-stroked', 'marker-color': '59245f'}));
+			layer.setIcon(L.AwesomeMarkers.icon({icon: 'train', prefix: 'fa', markerColor: 'red', iconColor: 'white'}));
 
             // ADD A POPUP WITH A CHART
             layer.bindPopup("<b>" + feature.properties.geographicalName + "</b><br>Kürzel: <tab id=t1>" + feature.properties.railwayStationCode + "<br>ID: <tab to=t1>" + feature.properties.id);
