@@ -5,13 +5,13 @@ http://wiki.selfhtml.org/wiki/Benutzer:Suit/Loginsystem_und_Benutzerregistrierun
 */
 
 $seitentitel = 'Login';
-require(__DIR__.'/inc/header.php');
+require_once(__DIR__.'/inc/header.php');
 
 //require für Datenbankverbindungseinstellungen
-require(__DIR__.'/globalconfig.php');
+require_once(__DIR__.'/globalconfig.php');
 
 if (isset($_SESSION['login'])) {
-	header('Location: http://' . $_SERVER['HTTP_HOST'] . '/index.php');
+	header('Location: ./index.php');
 } else {
 	if (!empty($_POST)) {
 		if (
@@ -41,7 +41,7 @@ if (isset($_SESSION['login'])) {
 							)
 						);
 						$message['success'] = 'Anmeldung erfolgreich, <a href="index.php">weiter zum Inhalt.';
-						header('Location: http://' . $_SERVER['HTTP_HOST'] . '/index.php');
+						header('Location: ./index.php');
 					} else {
 						$message['error'] = 'Das Kennwort ist nicht korrekt.';
 					}
@@ -90,6 +90,35 @@ if (isset($_SESSION['login'])) {
 						if (isset($message['notice'])): ?>
 							<!-- <fieldset class="notice"><legend>Hinweis</legend><?php echo $message['notice'] ?></fieldset> -->
 				<?php endif; ?>
+				
+				
+		<?php 
+		if (isset($_GET['status']))
+		{
+			if ($_GET['status']=='logout') 
+			{
+			echo '
+				<div class="alert alert-info alert-dismissible fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                    </button>
+                    <strong>Erfolgreich!</strong> Sie wurden erfolgreich abgemeldet.
+				</div>';
+			}	
+			elseif ($_GET['status']=='notloggedin')
+			{
+			echo '
+				<div class="alert alert-warning alert-dismissible fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                    </button>
+                    <strong>Fehler!</strong> Sie sind nicht angemeldet!
+				</div> ';
+			}
+		}
+		
+		?>
+		
+		
+
 		
           <section class="login_content">
 		  
@@ -137,4 +166,5 @@ if (isset($_SESSION['login'])) {
       </div>
     </div>
  <?php
-require(__DIR__.'/inc/footer.php');
+require_once(__DIR__.'/inc/footer.php');
+?>

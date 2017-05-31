@@ -20,5 +20,10 @@
 	
 	
 	
+	// Relativerpfad zu dieser Datei ohne Dateiname!
+	$con_relpath = '/wlanowski.github.io/dash/wip/';
+	
+	
+	
 	
 ?>

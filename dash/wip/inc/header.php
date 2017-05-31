@@ -1,5 +1,5 @@
 <?php
- require('globalconfig.php')
+ require_once('globalconfig.php');
  ?>
 <!DOCTYPE html>
 <html lang="de">
