@@ -20,10 +20,11 @@
 	
 	
 	
-	// Relativerpfad zu dieser Datei ohne Dateiname!
+	// relativer Pfad zu dieser Datei ohne Dateiname!
 	$con_relpath = '/wlanowski.github.io/dash/wip/';
 	
-	
+	// relativer Pfad zur Karte
+	$con_maprelpath = '/wlanowski.github.io/map/';
 	
 	
 ?>

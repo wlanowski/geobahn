@@ -100,5 +100,10 @@
       });*/
     </script>
     <!-- /Custom Notification -->
+	
+	<!-- Viewport für die Map von John -->
+	<script src="js/viewportmap.js"></script>
+	
+	
   </body>
 </html>

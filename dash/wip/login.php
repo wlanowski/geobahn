@@ -25,7 +25,7 @@ if (isset($_SESSION['login'])) {
 				$message['error'] = 'Datenbankverbindung fehlgeschlagen: ' . $mysqli->connect_error;
 			} else {
 				$query = sprintf(
-					"SELECT username, password FROM " . $db_pref . "_users WHERE username = '%s'",
+					"SELECT username, password, nameclear FROM " . $db_pref . "_users WHERE username = '%s'",
 					$mysqli->real_escape_string($_POST['f']['username'])
 				);
 				$result = $mysqli->query($query);
@@ -40,6 +40,7 @@ if (isset($_SESSION['login'])) {
 							'username'  => $row['username']
 							)
 						);
+						setcookie("nameclear", $row['nameclear'], time()+7200);
 						$message['success'] = 'Anmeldung erfolgreich, <a href="index.php">weiter zum Inhalt.';
 						header('Location: ./index.php');
 					} else {
