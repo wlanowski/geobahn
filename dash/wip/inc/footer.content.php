@@ -1,7 +1,9 @@
  <!-- footer content -->
+ 
+ <?php require_once('globalconfig.php'); ?>
         <footer>
           <div class="pull-right">
-            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+            <?php echo $projectxname ?> - Ein Projekt von John Nitzsche. Informationen und Quelltext: <a href="https://github.com/wlanowski/tktestmap">github.com</a>
           </div>
           <div class="clearfix"></div>
         </footer>
