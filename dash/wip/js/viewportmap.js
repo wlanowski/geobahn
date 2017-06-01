@@ -7,7 +7,7 @@ Code entnommen aus: https://andylangton.co.uk/blog/development/get-viewportwindo
 und http://www.knothemedia.de/iframe-responsive-gestalten.html
 
 
-Nachteil: Seite muss neu geladen werden, kein Skalierung des Fensters dynamisch notwendig
+Nachteil: Seite muss neu geladen werden, keine Skalierung des Fensters dynamisch möglich
 
 Eingebaut: 01062017
 
@@ -43,7 +43,9 @@ Eingebaut: 01062017
        viewportwidth = document.getElementsByTagName('body')[0].clientWidth,
        viewportheight = document.getElementsByTagName('body')[0].clientHeight
  }
-document.write('<p>Your viewport width is '+viewportwidth+'x'+viewportheight+'</p>');
+
+ 
+ //DEBUG: document.write('<p>Your viewport width is '+viewportwidth+'x'+viewportheight+'</p>');
 
 
 function iframeLoaded() {
