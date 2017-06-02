@@ -1,4 +1,4 @@
-#tktest_users.sql
+# tktest_users.sql
 
 Beispiel-Datenbank zu Entwicklungszwecken.
 
