@@ -70,17 +70,38 @@ $.getJSON("geojsondbnetz/railwayStationNodes.geojson", function(data) {
         }
     });
     markers_dbnetz_stationen.addLayer(geojson);
-
-    //markers_dbnetz.addTo(mymap);
-
-
-    //geojsonLayer_dbnetz.addTo(mymap);
 });
 
 
 
+// Start Layer aus Projekte-Datenbank
+var geojsonLayer_projekte = L.markerClusterGroup();
+
+//Pfad eventuell anpassen, gerade auf Repository angepasst
+$.getJSON("../dash/wip/func/mysqltogeojson.php", function(data) {
+    var geojson_projekte = L.geoJson(data, {
+        onEachFeature: function(feature, layer) {
+
+            // USE A CUSTOM MARKER
+            //layer.setIcon(L.mapbox.marker.icon({'marker-symbol': 'circle-stroked', 'marker-color': '59245f'}));
+			layer.setIcon(L.AwesomeMarkers.icon({icon: 'tasks', prefix: 'fa', markerColor: 'blue', iconColor: 'white'}));
+
+            // ADD A POPUP WITH A CHART
+            layer.bindPopup("<b>" + feature.properties.projektname + "</b><br>Ansprechpartner: <tab id=t1>" + feature.properties.ansprechpartner + "<br>angelegt: <tab to=t1>" + feature.properties.erstellt);
+
+
+
+        }
+    });
+    geojsonLayer_projekte.addLayer(geojson_projekte);
+});
+
+
 // LayerGroups
 var groupedoverlays = {
+	"Projekte": {
+		"Projekte aus TKTESTMAP": geojsonLayer_projekte
+	},
     "OpenRailwayMap": {
         "<i>ausschalten</i>": ORM_empty,
         "Infrastruktur": ORM_INFRA,
@@ -90,13 +111,13 @@ var groupedoverlays = {
     },
     "DB Netz AG": {
         "Bahnhöfe/Stationen (CC-BY 4.0)": markers_dbnetz_stationen
-    }
+    }	
 };
 
 var mymap = L.map('mapid', {
-    center: [51.652, 11.250],
-    zoom: 10,
-    layers: [base_cartolight, ORM_empty]
+    center: [51.679, 9.866],
+    zoom: 6,
+    layers: [base_cartolight, ORM_empty, geojsonLayer_projekte]
 });
 
 var options = {

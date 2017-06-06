@@ -23,6 +23,7 @@ body .container.body .right_col {
 
 
   <body class="nav-md">
+  <?php setlocale(LC_TIME, "de_DE.utf8");?>
     <div class="container body">
       <div class="main_container">
         <div class="col-md-3 left_col menu_fixed">
@@ -88,6 +89,7 @@ body .container.body .right_col {
                           <th>Projektname</th>
                           <th>Ort</th>
                           <th>Ansprechpartner</th>
+						  <th>Angelegt</th>
                         </tr>
                       </thead>
 
@@ -101,19 +103,24 @@ body .container.body .right_col {
 		$sql = "SELECT * FROM ".$db_pref."_projekte";
 		foreach ($pdo->query($sql) as $row) 
 		{
-			//echo $row['projektname']." ".$row['ort']."<br />";
 			echo "<tr>\n<td>";
+			
 			echo $row['projektname'];
 			echo "</td>\n<td>";
+			
 			echo $row['ort'];			
 			echo "</td>\n<td>";
 			
 			$sqlname = "SELECT nameclear FROM ".$db_pref."_users WHERE username='".$row['ansprechpartner']."'";
 			$stmt = $pdo->query($sqlname);
 			$rowname = $stmt->fetchObject();
-			
 			echo "<a href =user.php?username=".$row['ansprechpartner'].">".$rowname->nameclear."  <i class='fa fa-external-link'></i></a>";
+			echo "</td>\n<td>";
 			
+			$date = new DateTime($row['erstellt']);
+			echo $date->format('d.m.y H:i:s')."<br />";
+			
+			echo "</td>\n</tr>";
 			
 		}
 	?>
