@@ -21,13 +21,16 @@
 			
 			<!-- sidebar menu -->
             
+			
+			
+			<!-- Todo: Klasse "menu_fixed" einbauen? -->
 			<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
-                <h3>General</h3>
+                <!-- <h3>General</h3> -->
                 <ul class="nav side-menu">
 				
 					<li><a href = "map.php"><i class="fa fa-globe"></i> Projektkarte </a>
-					
+					<li><a href = "projects.php"><i class = "fa fa-tasks"></i> Projektübersicht </a>
 				
 				
 				
@@ -230,7 +233,7 @@
 			--> 
 			
 			<a data-toggle="tooltip" data-placement="top" title="Support" href="mailto:john.nitzsche@deutschebahn.com">
-				<span class= "glyphicon glyphicon-earphone" aria-hidden="true"></span>
+				<span class= "fa fa-comment" aria-hidden="true"></span>
 			</a>
             <a data-toggle="tooltip" data-placement="top" title="Logout" href="logout.php">
                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>

@@ -11,9 +11,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title><?php
-		echo $projectxname;
+		echo $seitentitel;
 		echo ' | ';
-		echo $seitentitel; ?>
+		echo $projectxname;?>
 	</title>
 
     <!-- Bootstrap -->
@@ -36,6 +36,16 @@
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+	
+	
+	
+	<!-- Tabellen -->
+    <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+
 	
 	<!--<link href="css/map.css" rel="stylesheet"> -->
 	
