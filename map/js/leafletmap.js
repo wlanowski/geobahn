@@ -60,7 +60,12 @@ $.getJSON("geojsondbnetz/railwayStationNodes.geojson", function(data) {
 
             // USE A CUSTOM MARKER
             //layer.setIcon(L.mapbox.marker.icon({'marker-symbol': 'circle-stroked', 'marker-color': '59245f'}));
-			layer.setIcon(L.AwesomeMarkers.icon({icon: 'train', prefix: 'fa', markerColor: 'red', iconColor: 'white'}));
+            layer.setIcon(L.AwesomeMarkers.icon({
+                icon: 'train',
+                prefix: 'fa',
+                markerColor: 'red',
+                iconColor: 'white'
+            }));
 
             // ADD A POPUP WITH A CHART
             layer.bindPopup("<b>" + feature.properties.geographicalName + "</b><br>Kürzel: <tab id=t1>" + feature.properties.railwayStationCode + "<br>ID: <tab to=t1>" + feature.properties.id);
@@ -84,7 +89,12 @@ $.getJSON("../dash/wip/func/mysqltogeojson.php", function(data) {
 
             // USE A CUSTOM MARKER
             //layer.setIcon(L.mapbox.marker.icon({'marker-symbol': 'circle-stroked', 'marker-color': '59245f'}));
-			layer.setIcon(L.AwesomeMarkers.icon({icon: 'tasks', prefix: 'fa', markerColor: 'blue', iconColor: 'white'}));
+            layer.setIcon(L.AwesomeMarkers.icon({
+                icon: 'tasks',
+                prefix: 'fa',
+                markerColor: 'blue',
+                iconColor: 'white'
+            }));
 
             // ADD A POPUP WITH A CHART
             layer.bindPopup("<b>" + feature.properties.projektname + "</b><br>Ansprechpartner: <tab id=t1>" + feature.properties.ansprechpartner + "<br>angelegt: <tab to=t1>" + feature.properties.erstellt);
@@ -99,9 +109,9 @@ $.getJSON("../dash/wip/func/mysqltogeojson.php", function(data) {
 
 // LayerGroups
 var groupedoverlays = {
-	"Projekte": {
-		"Projekte aus TKTESTMAP": geojsonLayer_projekte
-	},
+    "Projekte": {
+        "Projekte aus TKTESTMAP": geojsonLayer_projekte
+    },
     "OpenRailwayMap": {
         "<i>ausschalten</i>": ORM_empty,
         "Infrastruktur": ORM_INFRA,
@@ -111,7 +121,7 @@ var groupedoverlays = {
     },
     "DB Netz AG": {
         "Bahnhöfe/Stationen (CC-BY 4.0)": markers_dbnetz_stationen
-    }	
+    }
 };
 
 var mymap = L.map('mapid', {
