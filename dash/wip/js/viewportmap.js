@@ -9,7 +9,7 @@ und http://www.knothemedia.de/iframe-responsive-gestalten.html
 
 Nachteil: Seite muss neu geladen werden, keine Skalierung des Fensters dynamisch möglich
 
-Eingebaut: 01062017
+Eingebaut: 01.06.2017
 
 */
 
