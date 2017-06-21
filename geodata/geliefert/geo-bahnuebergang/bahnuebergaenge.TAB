@@ -1,0 +1,23 @@
+!table
+!version 300
+!charset WindowsLatin1
+
+Definition Table
+  Type NATIVE Charset "WindowsLatin1"
+  Fields 10
+    mifcode Char (11) ;
+    strecke_nr Smallint ;
+    richtung Char (8) ;
+    km_i Integer ;
+    km_l Char (56) ;
+    bezeichnung Char (200) ;
+    techn_sicherung Char (120) ;
+    strassenart Char (160) ;
+    geogr_laenge Decimal (13, 8) ;
+    geogr_breite Decimal (13, 8) ;
+begin_metadata
+"\IsReadOnly" = "FALSE"
+"\MapInfo" = ""
+"\MapInfo\TableID" = "3e959889-dfbe-48e7-9bdb-4f0267783829"
+"\MapInfo\ParentTableID" = "f18c036e-9389-4ce3-b7da-5e6f286f210f"
+end_metadata
