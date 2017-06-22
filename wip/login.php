@@ -37,11 +37,12 @@ if (isset($_SESSION['login'])) {
 						$_SESSION = array(
 							'login' => true,
 							'user'  => array(
-							'username'  => $row['username']
+							'username'  => $row['username'],
+							'username_clear' => $row['nameclear']
 							)
 						);
 						// setcookie("nameclear", $row['nameclear'], time()+7200);
-						setcookie("nameclear", $row['nameclear']);
+						// setcookie("nameclear", $row['nameclear']);
 
 						$message['success'] = 'Anmeldung erfolgreich, <a href="map.php">weiter zum Inhalt.';
 						header('Location: ./map.php');

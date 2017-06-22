@@ -36,7 +36,11 @@
                 <ul class="nav side-menu">
 				
 					<li><a href = "map.php"><i class="fa fa-globe"></i> Karte </a></li>
-					<li><a href = "projects.php"><i class = "fa fa-tasks"></i> Projektübersicht </a>
+					<li><a><i class="fa fa-tasks"></i>Projekte<span class="fa fa-chevron-down"></span></a>
+						<ul class="nav child_menu">
+							<li><a href="projects.php">Projektübersicht</a></li>
+							<li><a href="myprojects.php">Meine Projekte</a></li>
+						</ul>
 					<li><a href = "inspector.php"><i class = "fa fa-search"></i> Streckeninspektor </a></li>
 					<li><a href = "dateien.php"><i class = "fa fa-file-o"></i> Dateidownload </a></li>
 					
@@ -83,7 +87,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <?php echo $_COOKIE["nameclear"]; ?>
+                    <?php echo ($_SESSION['user']['username_clear']); ?>
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">

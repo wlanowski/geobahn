@@ -37,7 +37,8 @@
     <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
 	
 	 <!-- Datatables -->
-    <script>
+    <script class="init">
+	
       $(document).ready(function() {
         var handleDataTableButtons = function() {
           if ($("#datatable-buttons").length) {
@@ -69,7 +70,6 @@
             });
           }
         };
-
         TableManageButtons = function() {
           "use strict";
           return {
@@ -78,14 +78,11 @@
             }
           };
         }();
-
         $('#datatable').dataTable();
         $('#datatable-keytable').DataTable({
           keys: true
         });
-
         $('#datatable-responsive').DataTable();
-
         $('#datatable-scroller').DataTable({
           ajax: "js/datatables/json/scroller-demo.json",
           deferRender: true,
@@ -93,16 +90,43 @@
           scrollCollapse: true,
           scroller: true
         });
-
+		
         var table = $('#datatable-fixed-header').DataTable({
-          fixedHeader: true
+          fixedHeader: true,
+		  "pageLength": 20
         });
-
         TableManageButtons.init();
 		
-
-    } );
+  
 		
+
+
+    // Setup - add a text input to each footer cell
+    $('#datatable-buttons tfoot th').each( function () {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder="Suche '+title+'" />' );
+    } );
+ 
+    // DataTable
+      var table = $('#datatable-buttons').DataTable();
+	  table.page.len( 20 ).draw();
+ 
+    // Apply the search
+    table.columns().every( function () {
+        var that = this;
+ 
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+	
+
+  } );
+	
 		
   </script>
     <!-- /Datatables -->

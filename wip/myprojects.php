@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 $seitentitel = 'Projektübersicht';
 require_once (__DIR__ . '/inc/header.php');
 
@@ -51,7 +51,11 @@ echo $seitentitel; ?></h3><br />
 
 
 
-
+<div class="alert alert-warning alert-dismissible fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                    </button>
+                    <strong>TODO!</strong> Tasten von englisch ins Deutsche übersetzen! (06.06.17)
+</div>
 
 
 
@@ -59,8 +63,7 @@ echo $seitentitel; ?></h3><br />
 		
 <!-- Start der Tabelle -->			
 <div class="col-md-12 col-sm-12 col-xs-12">	
-
-<table id="datatable-buttons" class="display table table-striped table-bordered" cellspacing="0" width="100%">
+<table id="datatable-buttons" class="table table-striped table-bordered">
                       <thead>
                         <tr>
                           <th>Projektname</th>
@@ -69,15 +72,6 @@ echo $seitentitel; ?></h3><br />
 						  <th>Angelegt</th>
                         </tr>
                       </thead>
-					  
-					  <tfoot>
-						<tr>
-						  <th>Projektname</th>
-                          <th>Ort</th>
-                          <th>Ansprechpartner</th>
-						  <th>Angelegt</th>
-						</tr>
-					</tfoot>
 
 
                       <tbody>
@@ -86,7 +80,7 @@ echo $seitentitel; ?></h3><br />
 	<?php
 		$pdo = new PDO('mysql:host='.$db_host.';dbname='.$db_name, $db_user, $db_pass);
 
-		$sql = "SELECT * FROM ".$db_pref."_projekte";
+		$sql = "SELECT * FROM ".$db_pref."_projekte WHERE ansprechpartner='".($_SESSION['user']['username'])."'";
 		foreach ($pdo->query($sql) as $row) 
 		{
 			echo "<tr>\n<td>";
@@ -113,7 +107,7 @@ echo $seitentitel; ?></h3><br />
 	</tbody></table>	
 </div>
 <!-- Ende der Tabelle -->
-
+	
 	
 	
 	

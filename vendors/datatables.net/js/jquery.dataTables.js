@@ -11208,7 +11208,7 @@
 				 *      } );
 				 *    } );
 				 */
-				"sSortAscending": ": activate to sort column ascending",
+				"sSortAscending": ": aktivieren, um die Spalte aufsteigend zu sortieren",
 	
 				/**
 				 * ARIA label that is added to the table headers when the column may be
@@ -11231,7 +11231,7 @@
 				 *      } );
 				 *    } );
 				 */
-				"sSortDescending": ": activate to sort column descending"
+				"sSortDescending": ": aktivieren, um die Spalte absteigend zu sortieren"
 			},
 	
 			/**
@@ -11261,7 +11261,7 @@
 				 *      } );
 				 *    } );
 				 */
-				"sFirst": "First",
+				"sFirst": "Erste Seite",
 	
 	
 				/**
@@ -11284,7 +11284,7 @@
 				 *      } );
 				 *    } );
 				 */
-				"sLast": "Last",
+				"sLast": "Letzte Seite",
 	
 	
 				/**
@@ -11307,7 +11307,7 @@
 				 *      } );
 				 *    } );
 				 */
-				"sNext": "Next",
+				"sNext": "Nächste Seite",
 	
 	
 				/**
@@ -11330,7 +11330,7 @@
 				 *      } );
 				 *    } );
 				 */
-				"sPrevious": "Previous"
+				"sPrevious": "Vorherige Seite"
 			},
 	
 			/**
@@ -11353,7 +11353,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sEmptyTable": "No data available in table",
+			"sEmptyTable": "Keine Daten verfügbar",
 	
 	
 			/**
@@ -11385,7 +11385,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
+			"sInfo": "Einträge _START_ bis _END_ von insgesamt _TOTAL_ Einträgen",
 	
 	
 			/**
@@ -11406,7 +11406,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfoEmpty": "Showing 0 to 0 of 0 entries",
+			"sInfoEmpty": "Keine Einträge",
 	
 	
 			/**
@@ -11428,7 +11428,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfoFiltered": "(filtered from _MAX_ total entries)",
+			"sInfoFiltered": "(gefiltertert von insgesamt _MAX_ einträgen)",
 	
 	
 			/**
@@ -11505,7 +11505,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sThousands": ",",
+			"sThousands": "",
 	
 	
 			/**
@@ -11546,7 +11546,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sLengthMenu": "Show _MENU_ entries",
+			"sLengthMenu": "_MENU_ Einträge",
 	
 	
 			/**
@@ -11570,7 +11570,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sLoadingRecords": "Loading...",
+			"sLoadingRecords": "Laden...",
 	
 	
 			/**
@@ -11591,7 +11591,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sProcessing": "Processing...",
+			"sProcessing": "Berechne...",
 	
 	
 			/**
@@ -11626,7 +11626,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sSearch": "Search:",
+			"sSearch": "Suchen:",
 	
 	
 			/**
@@ -11637,7 +11637,7 @@
 			 *  @dtopt Language
 			 *  @name DataTable.defaults.language.searchPlaceholder
 			 */
-			"sSearchPlaceholder": "",
+			"sSearchPlaceholder": "Eingabe...",
 	
 	
 			/**
@@ -11684,7 +11684,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sZeroRecords": "No matching records found"
+			"sZeroRecords": "Keine Einträge vorhanden"
 		},
 	
 	

@@ -473,7 +473,7 @@ DataTable.ext.buttons.copyHtml5 = {
 	className: 'buttons-copy buttons-html5',
 
 	text: function ( dt ) {
-		return dt.i18n( 'buttons.copy', 'Kopieren' );
+		return dt.i18n( 'buttons.copy', 'Copy' );
 	},
 
 	action: function ( e, dt, button, config ) {
@@ -508,10 +508,10 @@ DataTable.ext.buttons.copyHtml5 = {
 				hiddenDiv.remove();
 
 				dt.buttons.info(
-					dt.i18n( 'buttons.copyTitle', 'In den Zwischenspeicher kopieren' ),
+					dt.i18n( 'buttons.copyTitle', 'Copy to clipboard' ),
 					dt.i18n( 'buttons.copySuccess', {
-							1: "Eine Zeile kopiert",
-							_: "%d Zeilen kopiert"
+							1: "Copied one row to clipboard",
+							_: "Copied %d rows to clipboard"
 						}, exportData.rows ),
 					2000
 				);
@@ -523,12 +523,12 @@ DataTable.ext.buttons.copyHtml5 = {
 
 		// Otherwise we show the text box and instruct the user to use it
 		var message = $('<span>'+dt.i18n( 'buttons.copyKeys',
-				'Drücken Sie <i>Strg</i> oder <i>\u2318</i> + <i>C</i> um die Daten<br>in den Zwischenspeicher zu koieren<br><br>'+
-				'Um abzubrechen drücken Sie auf diese Nachricht oder auf <i>Esc</i>.' )+'</span>'
+				'Press <i>ctrl</i> or <i>\u2318</i> + <i>C</i> to copy the table data<br>to your system clipboard.<br><br>'+
+				'To cancel, click this message or press escape.' )+'</span>'
 			)
 			.append( hiddenDiv );
 
-		dt.buttons.info( dt.i18n( 'buttons.copyTitle', 'In den Zwischenspeicher kopieren' ), message, 0 );
+		dt.buttons.info( dt.i18n( 'buttons.copyTitle', 'Copy to clipboard' ), message, 0 );
 
 		// Select the text so when the user activates their system clipboard
 		// it will copy that text
