@@ -13,4 +13,4 @@ if (empty($_SESSION[ 'login']))
 				<a href="./logout.php">Sitzung beenden</a>
 			</div>
 		'; */ //nichts
-	} ?>
+	}?>

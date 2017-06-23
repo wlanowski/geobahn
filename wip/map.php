@@ -49,7 +49,7 @@ require_once (__DIR__ . '/inc/layout.php');
 
 		
 	<!-- style="height: auto; min-height:500px;height:auto !important; height:500px; margin:0" -->		
-	<div class="col-md-12 col-sm-12 col-xs-12" style="height: 100%">	
+	<div class="col-md-12 col-sm-12 col-xs-12" style="height: 100%; border: 0; margin: 0">	
 	<div id="mapid" ></div>
     <script src="js/leafletmap.js"></script>
     <script src="js/viewportmap.js"></script>

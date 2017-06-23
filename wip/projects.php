@@ -39,7 +39,7 @@ require_once (__DIR__ . '/inc/layout.php');
 
         <!-- page content -->
 		
-<div class="right_col" role="main">
+<div class="right_col" role="main" style="background-color:#ffffff;">
 	<div class="">
 		<div class="page-title">
 			<div class="title_left">

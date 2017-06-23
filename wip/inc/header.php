@@ -53,17 +53,30 @@
 	</style>
 
 	
+	
+	<script type="text/javascript">
+	function zeigefehler(fehlertext){ new PNotify({
+                                  title: 'Fehler!',
+                                  text: fehlertext,
+                                  type: 'error',
+								  styling: 'bootstrap3'
+						})};
+	</script>
+
+	
+	
+	
+	
+	
 	<!--<link href="css/map.css" rel="stylesheet"> -->
 	
 	
 	<!-- Jetzt beginnt alles was für die Map ist -->
 	<?php
-		if (basename($_SERVER['SCRIPT_NAME']) == 'map.php')
+		if (basename($_SERVER['SCRIPT_NAME']) == 'map.php' OR basename($_SERVER['SCRIPT_NAME']) == 'projectdetail.php')
 		{ echo'
 				<meta name="viewport" content="width=device-width, initial-scale=1">
 				<meta charset="UTF-8">
-
-				<title>Testseite für Leaflet</title>
 
 				<!-- Stylesheets und Skripte im Header -->
 
@@ -131,9 +144,7 @@
 				<!-- awesome-markers -->
 				<link rel="stylesheet" href="src/leaflet-awesomemarkers/leaflet.awesome-markers.css">
 				<script src="src/leaflet-awesomemarkers/leaflet.awesome-markers.js"></script>
-		';}
-	?>
-	
+		';}?>	
 	
 	
 	
