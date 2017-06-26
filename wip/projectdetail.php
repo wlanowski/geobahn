@@ -1,12 +1,14 @@
 <?php
 require_once(__DIR__.'/auth.php');
-$seitentitel = 'Details';
+$seitentitel = 'Projektübersicht';
 require_once (__DIR__ . '/inc/header.php');
 
 // require für Datenbankverbindungseinstellungen
 
 require_once (__DIR__ . '/globalconfig.php');
 
+
+require_once (__DIR__ . '/inc/layout.php');
 
 ?>
 
@@ -15,24 +17,6 @@ require_once (__DIR__ . '/globalconfig.php');
 
 
 
-  <body class="nav-md">
-  <!-- Body wird in footer geschlossen, in Footer wird nur Body und HTML geschlossen -->
-  <!-- Hier Hintergrund soll weiß, wegen Tabelle -->
-
-  <?php
-setlocale(LC_TIME, "de_DE.utf8"); ?>
-    <div class="container body">
-      <div class="main_container">
-        <div class="col-md-3 left_col menu_fixed">
-          <div class="left_col scroll-view">
-            <div class="navbar nav_title" style="border: 0;">
-              <a href="index.php" class="site_title"><i class="fa fa-paw"></i> <span><?php
-echo $projectxname ?></span></a>
-            </div>
-
-				<?php
-require_once (__DIR__ . '/inc/layout.php');
- ?>
 
 
 
@@ -54,49 +38,76 @@ if (!isset($_GET['projectid']))
 	} else {
 		
 		
-		
+		// Frage Projektinfos aus Datenbank ab
 		$pdo = new PDO('mysql:host=' . $db_host . ';dbname=' . $db_name, $db_user, $db_pass);
 		$pdo->exec("set names utf8");
 		
-		$sql = "SELECT * FROM " . $db_pref . "_projekte WHERE id=" . $_GET['projectid']." LIMIT 1";
+		$sqlprojekte = "SELECT * FROM " . $db_pref . "_projekte WHERE id=" . $_GET['projectid']." LIMIT 1";
+				
+		$projectinfo = $pdo->query($sqlprojekte)->fetch();
 		
-		$projectinfo = $pdo->query($sql)->fetch();
+		// Frage Benutzerinformationen ab
+		$sqlansprechpartner = "SELECT * FROM " . $db_pref . "_users WHERE username='" . $projectinfo['ansprechpartner']. "'	LIMIT 1";
+		$ansprechpartnerinfo = $pdo ->query($sqlansprechpartner)->fetch();
 		
-		
+		/*
 		echo '<div class=""><div class="page-title"><div class=""><h3>';
 		echo $projectinfo ['projektname'];
 		echo '</h3><br /></div></div></div> ';
-		//echo '<div class="row">';
-
-		/*
-		Für große Geräte soll die Verteilung 50/50 sein, links text, rechts karte.  --> col-sm-6 x2
-		Für kleine Geräte soll die Verteilung untereinander sein  --> col-xs-12 x2
 		*/
 		
-		// Linke Spalte, falls vorh. (nicht xs)
-		//echo '<div class="col-sm-6 col-xs-12">';
+		
+		
+		/* Start und Enddaten vorher auswerten durch neue funktion */
+		function datumpruefen($datum)
+		{
+			if ($datum == NULL)
+			{
+				$r="n. def.";
+			}else{
+				$date = new DateTime($datum);
+				$r= $date->format('d.m.Y');
+			}
+			return $r;			
+		}
+		
+		// Für Erstell- und Änderungsdaten brauchen wir die Uhrzeit
+		function datumpruefenuhr($datum)
+		{
+			if ($datum == NULL)
+			{
+				$r="n. def.";
+			}else{
+				$date = new DateTime($datum);
+				$r= $date->format('d.m.Y H:i:s');
+			}
+			return $r;			
+		}
+		
+		
+		
+		
+		// Auswertung des Projektstatus
+		
+		switch ($projectinfo['status'])
+		{
+			case 0: {$status_text = "in Bearbeitung"; $status_class="info"; break;}
+			case 1: {$status_text = "abgeschlossen"; $status_class="success"; break;}
+			case 2: {$status_text = "verzögert"; $status_class="warning"; break;}
+			case 3: {$status_text = "Es gibt Probleme/Projekt pausiert"; $status_class="danger"; break;}
+			default: {$status_text = "nicht definiert"; $status_class="primary"; }
+		}
+		
+		
+		
+
 		
 		echo '
 		<div class="row">
               <div class="col-md-12">
-                <div class="x_panel">
+                <!--<div class="x_panel">-->
                   <div class="x_title">
-                    <h2>New Partner Contracts Consultancy</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
+                    <h3>'.$projectinfo ['projektname'].'</h3>
                     <div class="clearfix"></div>
                   </div>
 
@@ -106,27 +117,30 @@ if (!isset($_GET['projectid']))
 
                       <ul class="stats-overview">
                         <li>
-                          <span class="name"> Estimated budget </span>
-                          <span class="value text-success"> 2300 </span>
+                          <span class="name"> Startdatum </span>
+                          <span class="value text-success"> '.datumpruefen($projectinfo['start']).' </span>
                         </li>
                         <li>
-                          <span class="name"> Total amount spent </span>
-                          <span class="value text-success"> 2000 </span>
+                          <span class="name"> Enddatum </span>
+                          <span class="value text-success"> '.datumpruefen($projectinfo['ende']).' </span>
                         </li>
-                        <li class="hidden-phone">
-                          <span class="name"> Estimated project duration </span>
-                          <span class="value text-success"> 20 </span>
+                        <li>
+                          <span class="name"> Aktueller Status </span><br />
+                          <span class="label label-'.$status_class.'"> '.$status_text.' </span>
                         </li>
                       </ul>
                       <br />
 
-                      <div id="mainb" style="height:350px;"></div>
+                      <div id="mainb" style="height:350px;"><p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+					  </p></div>
+					  
+					  
+					
+                     <!-- <div> 
 
-                      <div>
+                        <h4>Verlauf</h4>
 
-                        <h4>Recent Activity</h4>
-
-                        <!-- end of user messages -->
+                        
                         <ul class="messages">
                           <li>
                             <img src="images/img.jpg" class="avatar" alt="Avatar">
@@ -177,10 +191,10 @@ if (!isset($_GET['projectid']))
                             </div>
                           </li>
                         </ul>
-                        <!-- end of user messages -->
+                        
 
 
-                      </div>
+                      </div>  -->
 
 
                     </div>
@@ -191,33 +205,25 @@ if (!isset($_GET['projectid']))
                       <section class="panel">
 
 
-/*
-Hier bin ich am Freitag 230617 stehen geblieben
-*/
-
 
 
 
                         <div class="x_title">
-                          <h2>Project Description</h2>
+                          <h2>Projektdaten</h2>
                           <div class="clearfix"></div>
                         </div>
-                        <div class="panel-body">
-                          <h3 class="green"><i class="fa fa-paint-brush"></i> Gentelella</h3>
-<div id="mapid" style="height: 250px; float: left;" class="clearfix"></div>
+                        <div class="panel-body" >
+                          
+						  
+<div id="mapid" style="height: 25em; position: relative; outline: none;"></div>
 <script src="js/leafletmap-projectonly.js"></script>
 <script> mymap.setView(new L.LatLng('.$projectinfo ['ort_geo_lat'].','.$projectinfo['ort_geo_lon'].'),15);</script>
-
-
-
-
-                          <p>Raw denim TESTETESTE probably haven\'t heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terr.</p>
-                          <br />
+						<br />
 
                           <div class="project_detail">
 
-                            <p class="title">Client Company</p>
-                            <p>Deveint Inc</p>
+                            <p class="title">Ansprechpartner</p>
+                            <p><a href=user.php?username='.$projectinfo['ansprechpartner'].'><i class="fa fa-external-link"></i> '.$ansprechpartnerinfo ['nameclear'].'</p>
                             <p class="title">Project Leader</p>
                             <p>Tony Chicken</p>
                           </div>
@@ -239,124 +245,38 @@ Hier bin ich am Freitag 230617 stehen geblieben
                           <br />
 
                           <div class="text-center mtop20">
-                            <a href="#" class="btn btn-sm btn-primary">Add files</a>
-                            <a href="#" class="btn btn-sm btn-warning">Report contact</a>
+                            <a href="mailto:'.$ansprechpartnerinfo['mail'].'" class="btn btn-sm btn-success"><i class="fa fa-envelope"></i> Mail</a>
+                            <a target="_tab" href="https://evi.intranet.deutschebahn.com/evi31/simpleSearchAction.do?filter='.$projectinfo['ansprechpartner'].'" class="btn btn-sm btn-primary"><i class="fa fa-phone"></i> EVI</a>
                           </div>
+						  
+						  
+						  
                         </div>
-
+							
+							<div class="project_detail">
+							<small>
+							<p class="title">Projekt angelegt von Benutzer</p>
+							<p><a href="user.php?username='.$projectinfo['erstelltvon'].'"><i class="fa fa-external-link"></i> '.$projectinfo['erstelltvon'].' am '.datumpruefenuhr($projectinfo['erstellt']).'</a></p>
+							<p class="title">Projekt zuletzt geändert von Benutzer</p>
+							<p><a href="user.php?username='.$projectinfo['geändertvon'].'"><i class="fa fa-external-link"></i> '.$projectinfo['geändertvon'].' am '.datumpruefenuhr($projectinfo['geändert']).'</a></p>
+							</small>
+							</div>
+						  
                       </section>
 
                     </div>
                     <!-- end project-detail sidebar -->
 
                   </div>
-                </div>
+                <!--</div>-->
               </div>
             </div>
           
         <!-- /page content -->';
-
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		
-/*
-		echo'</div>'; // col-sm-6 col-xs-12
-
-		
-		// Rechte Spalte, falls vorh. (nicht xs)
-		echo '<div class="col-sm-6 col-xs-12">';
-		echo '<div id="mapid" style="height: 5px"></div>';
-		echo '<script src="js/leafletmap-projectonly.js"></script>';
-		echo '<script> mymap.setView(new L.LatLng('.$projectinfo ['ort_geo_lat'].','.$projectinfo['ort_geo_lon'].'),15);</script>';
-		echo '</div>';
-		echo '</div>'; // class="row"
-*/
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	}
-
-
-
-
-
-
-
-
-
-
-
 ?>
    
     </div>
-	<div class="clearfix"></div>
-	<div class="clearfix"></div>
-	<div class="clearfix"></div>
-	<div class="clearfix"></div>
-	<div class="clearfix"></div>
-	<div class="clearfix"></div>
-	<div class="clearfix"></div>
-	<div class="clearfix"></div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 	</div>
 	</div>
 

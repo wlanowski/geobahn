@@ -1,5 +1,23 @@
 <!-- Anfang Layout -->
-            
+  <body class="nav-md">
+  <!-- Body wird in footer geschlossen, in Footer wird nur Body und HTML geschlossen -->
+  <!-- Hier Hintergrund soll weiß, wegen Tabelle -->
+
+  <?php
+setlocale(LC_TIME, "de_DE.utf8"); ?>
+    <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col menu_fixed">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a href="index.php" class="site_title"><i class="fa fa-subway"></i> <span><?php
+echo $projectxname ?></span></a>
+            </div>
+
+
+<!-- Ende Einfügungen -->
+
+			
 <div class="clearfix"></div>
 
             <!-- menu profile quick info -->
@@ -41,8 +59,8 @@
 							<li><a href="projects.php">Projektübersicht</a></li>
 							<li><a href="myprojects.php">Meine Projekte</a></li>
 						</ul>
-					<li><a href = "inspector.php"><i class = "fa fa-search"></i> Streckeninspektor </a></li>
-					<li><a href = "dateien.php"><i class = "fa fa-file-o"></i> Dateidownload </a></li>
+					<li><a href = "inspector.php"><i class = "fa fa-search"></i> Inspektor </a></li>
+					<li><a href = "dateien.php"><i class = "fa fa-file-o"></i> Download </a></li>
 					
 					<!-- <li><a href = "mailto:john.nitzsche@deutschebahn.com?cc=nitzschejohn@gmail.com?subject=Geodaten%20Bahn"><i class = "fa fa-comment"></i> Mailsupport </a></li> -->
 				</ul>

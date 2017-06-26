@@ -2,9 +2,12 @@
  
  <?php require_once('globalconfig.php'); ?>
         <footer>
-          <div class="pull-right">
-            <?php echo $projectxname ?> - Ein Projekt von John Nitzsche. Informationen und Quelltext: <a href="https://github.com/wlanowski/geobahn">github.com</a>
+          <div class="pull-left">
+             <?php echo $projectxname ?> - Ein Projekt von John Nitzsche. <a href="https://github.com/wlanowski/wlanowski.github.io">Informationen und Quelltext</a>
           </div>
+		  <div class="pull-right">
+			Hallo
+		  </div>
           <div class="clearfix"></div>
         </footer>
 
