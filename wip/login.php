@@ -1,64 +1,20 @@
-﻿<?php
+<?php
 /*
 In Anlehnung an:
 http://wiki.selfhtml.org/wiki/Benutzer:Suit/Loginsystem_und_Benutzerregistrierung_mit_PHP_und_MySQL
 */
 session_start();
+
+if(isset($_SESSION['login'])){
+    // dann sind wir ja schon eingeloggt :)
+    header('Location: ./map.php');
+}
+
 $seitentitel = 'Login';
 require_once(__DIR__ . '/inc/header.php');
 
 //require für Datenbankverbindungseinstellungen
 require_once(__DIR__ . '/globalconfig.php');
-
-if (isset($_SESSION['login'])) {
-    header('Location: ./map.php');
-} else {
-    if (!empty($_POST)) {
-        if (
-            empty($_POST['f']['username']) ||
-            empty($_POST['f']['password'])
-        ) {
-            $message['error'] = 'Es wurden nicht alle Felder ausgefüllt.';
-        } else {
-            $mysqli = @new mysqli($db_host, $db_user, $db_pass, $db_name);
-            if ($mysqli->connect_error) {
-                $message['error'] = 'Datenbankverbindung fehlgeschlagen: ' . $mysqli->connect_error;
-            } else {
-                $query = sprintf(
-                    "SELECT username, password, nameclear FROM " . $db_pref . "_users WHERE username = '%s'",
-                    $mysqli->real_escape_string($_POST['f']['username'])
-                );
-                $result = $mysqli->query($query);
-
-                if ($row = $result->fetch_array(MYSQLI_ASSOC)) {
-                    if (crypt($_POST['f']['password'], $row['password']) == $row['password']) {
-                        
-                        $_SESSION = array(
-                            'login' => true,
-                            'user' => array(
-                                'username' => $row['username'],
-                                'username_clear' => $row['nameclear']
-                            )
-                        );
-                        // setcookie("nameclear", $row['nameclear'], time()+7200);
-                        // setcookie("nameclear", $row['nameclear']);
-
-                        $message['success'] = 'Anmeldung erfolgreich, <a href="map.php">weiter zum Inhalt.';
-                        header('Location: ./map.php');
-                    } else {
-                        $message['error'] = 'Das Kennwort ist nicht korrekt.';
-                    }
-                } else {
-                    $message['error'] = 'Der Benutzer wurde nicht gefunden.';
-                }
-                $mysqli->close();
-            }
-        }
-    } else {
-        $message['notice'] = 'Geben Sie Ihre Zugangsdaten ein um sich anzumelden.<br />' .
-            'Wenn Sie noch kein Konto haben, gehen Sie <a href="./register.php">zur Registrierung</a>.';
-    }
-}
 ?>
 
 
@@ -121,7 +77,7 @@ if (isset($_SESSION['login'])) {
             <section class="login_content">
 
 
-                <form action="./login.php" method="post">
+                <form action="./login_task.php" method="post">
                     <h1>Login</h1>
 
 
