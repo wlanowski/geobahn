@@ -3,7 +3,7 @@
 In Anlehnung an:
 http://wiki.selfhtml.org/wiki/Benutzer:Suit/Loginsystem_und_Benutzerregistrierung_mit_PHP_und_MySQL
 */
-
+session_start();
 $seitentitel = 'Login';
 require_once(__DIR__ . '/inc/header.php');
 
@@ -32,8 +32,7 @@ if (isset($_SESSION['login'])) {
 
                 if ($row = $result->fetch_array(MYSQLI_ASSOC)) {
                     if (crypt($_POST['f']['password'], $row['password']) == $row['password']) {
-                        session_start();
-
+                        
                         $_SESSION = array(
                             'login' => true,
                             'user' => array(
