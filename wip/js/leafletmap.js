@@ -1,5 +1,3 @@
-
-
 // Basis-Layer
 var base_Google = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
     maxZoom: 20,
@@ -18,16 +16,16 @@ var base_TPM = L.tileLayer('http://{s}.tile2.opencyclemap.org/transport/{z}/{x}/
 });
 
 /*
-			Weitere Tile-Server:
-			http://wiki.openstreetmap.org/wiki/Tiles
-			
-			http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
-			http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png
-			https://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png
-			http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png
-			
-	
-		*/
+ Weitere Tile-Server:
+ http://wiki.openstreetmap.org/wiki/Tiles
+
+ http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
+ http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png
+ https://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png
+ http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png
+
+
+ */
 
 var baseLayers = {
 
@@ -66,9 +64,9 @@ var markers_dbnetz_betriebsstellen = L.markerClusterGroup();
  */
 
 // BST
-$.getJSON("../geodata/konvertiert/bst/bst.geojson", function(data) {
+$.getJSON("../geodata/konvertiert/bst/bst.geojson", function (data) {
     var geojson = L.geoJson(data, {
-        onEachFeature: function(feature, layer) {
+        onEachFeature: function (feature, layer) {
 
             // USE A CUSTOM MARKER
             //layer.setIcon(L.mapbox.marker.icon({'marker-symbol': 'circle-stroked', 'marker-color': '59245f'}));
@@ -96,9 +94,9 @@ var bueIcon = L.icon({
 
 var markers_dbnetz_bahnuebergang = L.markerClusterGroup();
 
-$.getJSON("../geodata/konvertiert/bue/bue.geojson", function(data) {
+$.getJSON("../geodata/konvertiert/bue/bue.geojson", function (data) {
     var geojson = L.geoJson(data, {
-        onEachFeature: function(feature, layer) {
+        onEachFeature: function (feature, layer) {
 
             // USE A CUSTOM MARKER
             //layer.setIcon(L.mapbox.marker.icon({'marker-symbol': 'circle-stroked', 'marker-color': '59245f'}));
@@ -113,14 +111,12 @@ $.getJSON("../geodata/konvertiert/bue/bue.geojson", function(data) {
 });
 
 
-
-
-// Kilometer 
+// Kilometer
 var markers_dbnetz_kilometer = L.markerClusterGroup();
 
-$.getJSON("../geodata/konvertiert/km/km.geojson", function(data) {
+$.getJSON("../geodata/konvertiert/km/km.geojson", function (data) {
     var geojson = L.geoJson(data, {
-        onEachFeature: function(feature, layer) {
+        onEachFeature: function (feature, layer) {
 
             // USE A CUSTOM MARKER
             //layer.setIcon(L.mapbox.marker.icon({'marker-symbol': 'circle-stroked', 'marker-color': '59245f'}));
@@ -143,9 +139,9 @@ $.getJSON("../geodata/konvertiert/km/km.geojson", function(data) {
 // Tunnel 
 var markers_dbnetz_tunnel = L.markerClusterGroup();
 
-$.getJSON("../geodata/konvertiert/tunnel/tunnel.geojson", function(data) {
+$.getJSON("../geodata/konvertiert/tunnel/tunnel.geojson", function (data) {
     var geojson = L.geoJson(data, {
-        onEachFeature: function(feature, layer) {
+        onEachFeature: function (feature, layer) {
 
 
             // ADD A POPUP WITH A CHART
@@ -165,20 +161,22 @@ var brueckIcon = L.icon({
 
 var markers_dbnetz_bruecken = L.markerClusterGroup();
 
-$.getJSON("../geodata/konvertiert/bruecken-gross/bruecken-gross.geojson", function(data) {
+$.getJSON("../geodata/konvertiert/bruecken-gross/bruecken-gross.geojson", function (data) {
     var geojson = L.geoJson(data, {
-        onEachFeature: function(feature, layer) {
+        onEachFeature: function (feature, layer) {
 
             // layer.setIcon(brueckIcon);
 
             // ADD A POPUP WITH A CHART
             // ALT: 	layer.bindPopup("Strecke: <tab to=t1>" + feature.properties.streckennu + "<br>Bkm: <tab to=t1>" + feature.properties.km_l + "<br>Länge (m): <tab to=t1>" + feature.properties.laenge);
-           layer.bindPopup("Strecke: <tab to=t1>" + feature.properties.streckennu + "<br>Bkm: <tab to=t1>" + feature.properties.von_km_l + " bis " + feature.properties.bis_km_l + "<br>Länge (m): <tab to=t1>" + feature.properties.laenge);
+            layer.bindPopup("Strecke: <tab to=t1>" + feature.properties.streckennu + "<br>Bkm: <tab to=t1>" + feature.properties.von_km_l + " bis " + feature.properties.bis_km_l + "<br>Länge (m): <tab to=t1>" + feature.properties.laenge);
         }
     });
-	
-	geojson.getAttribution = function() { return 'DB NETZ'; };
-	
+
+    geojson.getAttribution = function () {
+        return 'DB NETZ';
+    };
+
     markers_dbnetz_bruecken.addLayer(geojson);
 });
 
@@ -186,51 +184,32 @@ $.getJSON("../geodata/konvertiert/bruecken-gross/bruecken-gross.geojson", functi
 // Kleine Brücken
 
 
-$.getJSON("../geodata/konvertiert/bruecken/bruecken.geojson", function(data) {
+$.getJSON("../geodata/konvertiert/bruecken/bruecken.geojson", function (data) {
     var geojson = L.geoJson(data, {
-        onEachFeature: function(feature, layer) {
+        onEachFeature: function (feature, layer) {
 
-             layer.setIcon(brueckIcon);
+            layer.setIcon(brueckIcon);
 
             // ADD A POPUP WITH A CHART
             // ALT: 	layer.bindPopup("Strecke: <tab to=t1>" + feature.properties.streckennu + "<br>Bkm: <tab to=t1>" + feature.properties.km_l + "<br>Länge (m): <tab to=t1>" + feature.properties.laenge);
-           layer.bindPopup("Strecke: <tab to=t1>" + feature.properties.streckennu + "<br>Bkm: <tab to=t1>" + feature.properties.km_l + "<br>Länge (m): <tab to=t1>" + feature.properties.laenge);
+            layer.bindPopup("Strecke: <tab to=t1>" + feature.properties.streckennu + "<br>Bkm: <tab to=t1>" + feature.properties.km_l + "<br>Länge (m): <tab to=t1>" + feature.properties.laenge);
         }
     });
-	
-	geojson.getAttribution = function() { return 'DB NETZ'; };
-	
+
+    geojson.getAttribution = function () {
+        return 'DB NETZ';
+    };
+
     markers_dbnetz_bruecken.addLayer(geojson);
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // Strecke
 var markers_dbnetz_strecke = L.markerClusterGroup();
 
-$.getJSON("../geodata/konvertiert/strecke/strecke.geojson", function(data) {
+$.getJSON("../geodata/konvertiert/strecke/strecke.geojson", function (data) {
     var geojson = L.geoJson(data, {
-        onEachFeature: function(feature, layer) {
+        onEachFeature: function (feature, layer) {
 
             var strecke_richtung = "";
             switch (feature.properties.richtung) {
@@ -258,9 +237,9 @@ $.getJSON("../geodata/konvertiert/strecke/strecke.geojson", function(data) {
 var geojsonLayer_projekte = L.markerClusterGroup();
 
 //Pfad eventuell anpassen, gerade auf Repository angepasst
-$.getJSON("func/mysqltogeojson.php", function(data) {
+$.getJSON("func/mysqltogeojson.php", function (data) {
     var geojson_projekte = L.geoJson(data, {
-        onEachFeature: function(feature, layer) {
+        onEachFeature: function (feature, layer) {
 
             // USE A CUSTOM MARKER
             //layer.setIcon(L.mapbox.marker.icon({'marker-symbol': 'circle-stroked', 'marker-color': '59245f'}));
@@ -275,18 +254,15 @@ $.getJSON("func/mysqltogeojson.php", function(data) {
             layer.bindPopup("<b>" + feature.properties.projektname + "</b><br>Ansprechpartner: <tab id=t1>" + feature.properties.ansprechpartner + "<br>angelegt: <tab to=t1>" + feature.properties.erstellt);
 
 
-
         }
     });
     geojsonLayer_projekte.addLayer(geojson_projekte);
 });
 
 
-
-
 // LayerGroups
 var groupedoverlays = {
-	"Projekte": {
+    "Projekte": {
         "Projekte": geojsonLayer_projekte
     },
     "DB Netz AG (Stand: Januar 2017)": {
@@ -299,12 +275,12 @@ var groupedoverlays = {
         "Streckennetz": markers_dbnetz_strecke
 
     },
-	"OpenRailwayMap": {
+    "OpenRailwayMap": {
         "<i>ausschalten</i>": ORM_empty,
         "Infrastruktur": ORM_INFRA,
         "Maximale Geschwindigkeiten": ORM_SPEED,
         "Signalisierung": ORM_SIGNAL
-    
+
 
     }
 };
@@ -331,19 +307,19 @@ mymap.attributionControl.setPrefix('<a href="http://leafletjs.com">Leaflet</a> |
 // Zoomausblendungen
 
 /*
-		mymap.on('zoomend', function() {
-    if (mymap.getZoom() <10){
-        if (mymap.hasLayer(markers_dbnetz_stationen)) {
-            mymap.removeLayer(markers_dbnetz_stationen);
-						}	
-	}
-});
+ mymap.on('zoomend', function() {
+ if (mymap.getZoom() <10){
+ if (mymap.hasLayer(markers_dbnetz_stationen)) {
+ mymap.removeLayer(markers_dbnetz_stationen);
+ }
+ }
+ });
 
 
-//TODO: Bleibt entfernt beim rauszoomen
-*/
+ //TODO: Bleibt entfernt beim rauszoomen
+ */
 
-$(window).on("resize", function() {
-    $("#mapid").height($(window).height()-150);
+$(window).on("resize", function () {
+    $("#mapid").height($(window).height() - 150);
     mymap.invalidateSize();
 }).trigger("resize");

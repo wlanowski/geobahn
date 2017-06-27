@@ -1,113 +1,110 @@
 <?php
-require_once(__DIR__.'/auth.php');
+require_once(__DIR__ . '/auth.php');
 $seitentitel = 'Projektübersicht';
-require_once (__DIR__ . '/inc/header.php');
+require_once(__DIR__ . '/inc/header.php');
 
 // require für Datenbankverbindungseinstellungen
 
-require_once (__DIR__ . '/globalconfig.php');
+require_once(__DIR__ . '/globalconfig.php');
 
 
-require_once (__DIR__ . '/inc/layout.php');
+require_once(__DIR__ . '/inc/layout.php');
 
 ?>
 
 
+    <!-- page content -->
+
+    <div class="right_col" role="main" style="background-color:#FFFFFF;">
 
 
+        <?php
+
+        if (!isset($_GET['projectid'])) {
+            echo '<BODY onLoad="zeigefehler(\'Bitte Projekt in der Projektübersicht wählen!\')">';
+        } else {
 
 
+            // Frage Projektinfos aus Datenbank ab
+            $pdo = new PDO('mysql:host=' . $db_host . ';dbname=' . $db_name, $db_user, $db_pass);
+            $pdo->exec("set names utf8");
+
+            $sqlprojekte = "SELECT * FROM " . $db_pref . "_projekte WHERE id=" . $_GET['projectid'] . " LIMIT 1";
+
+            $projectinfo = $pdo->query($sqlprojekte)->fetch();
+
+            // Frage Benutzerinformationen ab
+            $sqlansprechpartner = "SELECT * FROM " . $db_pref . "_users WHERE username='" . $projectinfo['ansprechpartner'] . "'	LIMIT 1";
+            $ansprechpartnerinfo = $pdo->query($sqlansprechpartner)->fetch();
+
+            /*
+            echo '<div class=""><div class="page-title"><div class=""><h3>';
+            echo $projectinfo ['projektname'];
+            echo '</h3><br /></div></div></div> ';
+            */
 
 
+            /* Start und Enddaten vorher auswerten durch neue funktion */
+            function datumpruefen($datum)
+            {
+                if ($datum == NULL) {
+                    $r = "n. def.";
+                } else {
+                    $date = new DateTime($datum);
+                    $r = $date->format('d.m.Y');
+                }
+                return $r;
+            }
 
-        
+            // Für Erstell- und Änderungsdaten brauchen wir die Uhrzeit
+            function datumpruefenuhr($datum)
+            {
+                if ($datum == NULL) {
+                    $r = "n. def.";
+                } else {
+                    $date = new DateTime($datum);
+                    $r = $date->format('d.m.Y H:i:s');
+                }
+                return $r;
+            }
 
-        <!-- page content -->
-		
-<div class="right_col" role="main" style="background-color:#FFFFFF;">
-	
 
-		
-			
-	
-	<?php
+            // Auswertung des Projektstatus
 
-if (!isset($_GET['projectid']))
-	{
-	    echo '<BODY onLoad="zeigefehler(\'Bitte Projekt in der Projektübersicht wählen!\')">';
-	} else {
-		
-		
-		// Frage Projektinfos aus Datenbank ab
-		$pdo = new PDO('mysql:host=' . $db_host . ';dbname=' . $db_name, $db_user, $db_pass);
-		$pdo->exec("set names utf8");
-		
-		$sqlprojekte = "SELECT * FROM " . $db_pref . "_projekte WHERE id=" . $_GET['projectid']." LIMIT 1";
-				
-		$projectinfo = $pdo->query($sqlprojekte)->fetch();
-		
-		// Frage Benutzerinformationen ab
-		$sqlansprechpartner = "SELECT * FROM " . $db_pref . "_users WHERE username='" . $projectinfo['ansprechpartner']. "'	LIMIT 1";
-		$ansprechpartnerinfo = $pdo ->query($sqlansprechpartner)->fetch();
-		
-		/*
-		echo '<div class=""><div class="page-title"><div class=""><h3>';
-		echo $projectinfo ['projektname'];
-		echo '</h3><br /></div></div></div> ';
-		*/
-		
-		
-		
-		/* Start und Enddaten vorher auswerten durch neue funktion */
-		function datumpruefen($datum)
-		{
-			if ($datum == NULL)
-			{
-				$r="n. def.";
-			}else{
-				$date = new DateTime($datum);
-				$r= $date->format('d.m.Y');
-			}
-			return $r;			
-		}
-		
-		// Für Erstell- und Änderungsdaten brauchen wir die Uhrzeit
-		function datumpruefenuhr($datum)
-		{
-			if ($datum == NULL)
-			{
-				$r="n. def.";
-			}else{
-				$date = new DateTime($datum);
-				$r= $date->format('d.m.Y H:i:s');
-			}
-			return $r;			
-		}
-		
-		
-		
-		
-		// Auswertung des Projektstatus
-		
-		switch ($projectinfo['status'])
-		{
-			case 0: {$status_text = "in Bearbeitung"; $status_class="info"; break;}
-			case 1: {$status_text = "abgeschlossen"; $status_class="success"; break;}
-			case 2: {$status_text = "verzögert"; $status_class="warning"; break;}
-			case 3: {$status_text = "Es gibt Probleme/Projekt pausiert"; $status_class="danger"; break;}
-			default: {$status_text = "nicht definiert"; $status_class="primary"; }
-		}
-		
-		
-		
+            switch ($projectinfo['status']) {
+                case 0: {
+                    $status_text = "in Bearbeitung";
+                    $status_class = "info";
+                    break;
+                }
+                case 1: {
+                    $status_text = "abgeschlossen";
+                    $status_class = "success";
+                    break;
+                }
+                case 2: {
+                    $status_text = "verzögert";
+                    $status_class = "warning";
+                    break;
+                }
+                case 3: {
+                    $status_text = "Es gibt Probleme/Projekt pausiert";
+                    $status_class = "danger";
+                    break;
+                }
+                default: {
+                    $status_text = "nicht definiert";
+                    $status_class = "primary";
+                }
+            }
 
-		
-		echo '
+
+            echo '
 		<div class="row">
               <div class="col-md-12">
                 <!--<div class="x_panel">-->
                   <div class="x_title">
-                    <h3>'.$projectinfo ['projektname'].'</h3>
+                    <h3>' . $projectinfo ['projektname'] . '</h3>
                     <div class="clearfix"></div>
                   </div>
 
@@ -118,15 +115,15 @@ if (!isset($_GET['projectid']))
                       <ul class="stats-overview">
                         <li>
                           <span class="name"> Startdatum </span>
-                          <span class="value text-success"> '.datumpruefen($projectinfo['start']).' </span>
+                          <span class="value text-success"> ' . datumpruefen($projectinfo['start']) . ' </span>
                         </li>
                         <li>
                           <span class="name"> Enddatum </span>
-                          <span class="value text-success"> '.datumpruefen($projectinfo['ende']).' </span>
+                          <span class="value text-success"> ' . datumpruefen($projectinfo['ende']) . ' </span>
                         </li>
                         <li>
                           <span class="name"> Aktueller Status </span><br />
-                          <span class="label label-'.$status_class.'"> '.$status_text.' </span>
+                          <span class="label label-' . $status_class . '"> ' . $status_text . ' </span>
                         </li>
                       </ul>
                       <br />
@@ -135,8 +132,8 @@ if (!isset($_GET['projectid']))
 					  </p></div>
 					  
 					  
-					
-                     <!-- <div> 
+					    <!--
+                      <div> 
 
                         <h4>Verlauf</h4>
 
@@ -194,7 +191,7 @@ if (!isset($_GET['projectid']))
                         
 
 
-                      </div>  -->
+                      </div>--> 
 
 
                     </div>
@@ -217,17 +214,20 @@ if (!isset($_GET['projectid']))
 						  
 <div id="mapid" style="height: 25em; position: relative; outline: none;"></div>
 <script src="js/leafletmap-projectonly.js"></script>
-<script> mymap.setView(new L.LatLng('.$projectinfo ['ort_geo_lat'].','.$projectinfo['ort_geo_lon'].'),15);</script>
+<script> mymap.setView(new L.LatLng(' . $projectinfo ['ort_geo_lat'] . ',' . $projectinfo['ort_geo_lon'] . '),15);</script>
 						<br />
 
                           <div class="project_detail">
 
                             <p class="title">Ansprechpartner</p>
-                            <p><a href=user.php?username='.$projectinfo['ansprechpartner'].'><i class="fa fa-external-link"></i> '.$ansprechpartnerinfo ['nameclear'].'</p>
+                            <p><a href=user.php?username=' . $projectinfo['ansprechpartner'] . '><i class="fa fa-external-link"></i> ' . $ansprechpartnerinfo ['nameclear'] . '</p>
+                            <!--
                             <p class="title">Project Leader</p>
                             <p>Tony Chicken</p>
+                            -->
                           </div>
 
+<!--
                           <br />
                           <h5>Project files</h5>
                           <ul class="list-unstyled project_files">
@@ -245,20 +245,20 @@ if (!isset($_GET['projectid']))
                           <br />
 
                           <div class="text-center mtop20">
-                            <a href="mailto:'.$ansprechpartnerinfo['mail'].'" class="btn btn-sm btn-success"><i class="fa fa-envelope"></i> Mail</a>
-                            <a target="_tab" href="https://evi.intranet.deutschebahn.com/evi31/simpleSearchAction.do?filter='.$projectinfo['ansprechpartner'].'" class="btn btn-sm btn-primary"><i class="fa fa-phone"></i> EVI</a>
+                            <a href="mailto:' . $ansprechpartnerinfo['mail'] . '" class="btn btn-sm btn-success"><i class="fa fa-envelope"></i> Mail</a>
+                            <a target="_tab" href="https://evi.intranet.deutschebahn.com/evi31/simpleSearchAction.do?filter=' . $projectinfo['ansprechpartner'] . '" class="btn btn-sm btn-primary"><i class="fa fa-phone"></i> EVI</a>
                           </div>
-						  
+-->		  
 						  
 						  
                         </div>
 							
-							<div class="project_detail">
+							<div class="project_detail" style="margin-left: 1em;">
 							<small>
 							<p class="title">Projekt angelegt von Benutzer</p>
-							<p><a href="user.php?username='.$projectinfo['erstelltvon'].'"><i class="fa fa-external-link"></i> '.$projectinfo['erstelltvon'].' am '.datumpruefenuhr($projectinfo['erstellt']).'</a></p>
+							<p><a href="user.php?username=' . $projectinfo['erstelltvon'] . '"><i class="fa fa-external-link"></i> ' . $projectinfo['erstelltvon'] . '</a> am ' . datumpruefenuhr($projectinfo['erstellt']) . '</p>
 							<p class="title">Projekt zuletzt geändert von Benutzer</p>
-							<p><a href="user.php?username='.$projectinfo['geändertvon'].'"><i class="fa fa-external-link"></i> '.$projectinfo['geändertvon'].' am '.datumpruefenuhr($projectinfo['geändert']).'</a></p>
+							<p><a href="user.php?username=' . $projectinfo['geändertvon'] . '"><i class="fa fa-external-link"></i> ' . $projectinfo['geändertvon'] . '</a> am ' . datumpruefenuhr($projectinfo['geändert']) . '</p>
 							</small>
 							</div>
 						  
@@ -273,19 +273,17 @@ if (!isset($_GET['projectid']))
             </div>
           
         <!-- /page content -->';
-	}
-?>
-   
+        }
+        ?>
+
     </div>
-	</div>
-	</div>
-
-
+    </div>
+    </div>
 
 
 <?php
-require_once (__DIR__ . '/inc/footer.content.php');
- ?>
+require_once(__DIR__ . '/inc/footer.content.php');
+?>
 <?php
-require_once (__DIR__ . '/inc/footer.php');
- ?>
+require_once(__DIR__ . '/inc/footer.php');
+?>

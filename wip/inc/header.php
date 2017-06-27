@@ -1,19 +1,19 @@
 <?php
- require_once('globalconfig.php');
- ?>
+require_once('globalconfig.php');
+?>
 <!DOCTYPE html>
 <html lang="de">
-  <head>
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title><?php
-		echo $seitentitel;
-		echo ' | ';
-		echo $projectxname;?>
-	</title>
+        echo $seitentitel;
+        echo ' | ';
+        echo $projectxname; ?>
+    </title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -23,8 +23,8 @@
     <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- Animate.css -->
     <link href="../vendors/animate.css/animate.min.css" rel="stylesheet">
-	
-	 <!-- iCheck -->
+
+    <!-- iCheck -->
     <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
     <!-- bootstrap-progressbar -->
     <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
@@ -35,46 +35,42 @@
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
-	
-	
-	
-	<!-- Tabellen -->
+
+
+    <!-- Tabellen -->
     <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
-	<style type="text/css" class="init">
-		tfoot input {
-        width: 100%;
-        padding: 3px;
-        box-sizing: border-box;
-		}
-	</style>
+    <style type="text/css" class="init">
+        tfoot input {
+            width: 100%;
+            padding: 3px;
+            box-sizing: border-box;
+        }
+    </style>
 
-	
-	
-	<script type="text/javascript">
-	function zeigefehler(fehlertext){ new PNotify({
-                                  title: 'Fehler!',
-                                  text: fehlertext,
-                                  type: 'error',
-								  styling: 'bootstrap3'
-						})};
-	</script>
 
-	
-	
-	
-	
-	
-	<!--<link href="css/map.css" rel="stylesheet"> -->
-	
-	
-	<!-- Jetzt beginnt alles was für die Map ist -->
-	<?php
-		if (basename($_SERVER['SCRIPT_NAME']) == 'map.php' OR basename($_SERVER['SCRIPT_NAME']) == 'projectdetail.php')
-		{ echo'
+    <script type="text/javascript">
+        function zeigefehler(fehlertext) {
+            new PNotify({
+                title: 'Fehler!',
+                text: fehlertext,
+                type: 'error',
+                styling: 'bootstrap3'
+            })
+        };
+    </script>
+
+
+    <!--<link href="css/map.css" rel="stylesheet"> -->
+
+
+    <!-- Jetzt beginnt alles was für die Map ist -->
+    <?php
+    if (basename($_SERVER['SCRIPT_NAME']) == 'map.php' OR basename($_SERVER['SCRIPT_NAME']) == 'projectdetail.php') {
+        echo '
 				<meta name="viewport" content="width=device-width, initial-scale=1">
 				<meta charset="UTF-8">
 
@@ -144,13 +140,9 @@
 				<!-- awesome-markers -->
 				<link rel="stylesheet" href="src/leaflet-awesomemarkers/leaflet.awesome-markers.css">
 				<script src="src/leaflet-awesomemarkers/leaflet.awesome-markers.js"></script>
-		';}?>	
-	
-	
-	
-	
+		';
+    } ?>
 
 
-
-  </head>
+</head>
 
