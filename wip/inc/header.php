@@ -97,7 +97,7 @@ require_once('globalconfig.php');
 				<script src="src/leaflet-markercluster/leaflet.markercluster.js"></script>
 
 				<!-- Jquery -->
-				<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+				<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
 
 				<!-- font-awesome -->
 				<link rel="stylesheet" href="src/font-awesome-4.7.0/css/font-awesome.min.css">
@@ -130,9 +130,6 @@ require_once('globalconfig.php');
 				<link rel="stylesheet" href="src/leaflet-markercluster/MarkerCluster.css">
 				<link rel="stylesheet" href="src/leaflet-markercluster/MarkerCluster.Default.css">
 				<script src="src/leaflet-markercluster/leaflet.markercluster.js"></script>
-
-				<!-- Jquery -->
-				<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 
 				<!-- font-awesome -->
 				<link rel="stylesheet" href="src/font-awesome-4.7.0/css/font-awesome.min.css">
