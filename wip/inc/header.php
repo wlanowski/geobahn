@@ -33,8 +33,7 @@ require_once('globalconfig.php');
     <link href="../vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
     <link href="../vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet">
 
-    <!-- Custom Theme Style -->
-    <link href="../build/css/custom.min.css" rel="stylesheet">
+
 
 
     <!-- Tabellen -->
@@ -139,6 +138,11 @@ require_once('globalconfig.php');
 				<script src="src/leaflet-awesomemarkers/leaflet.awesome-markers.js"></script>
 		';
     } ?>
+
+    <!-- Custom Theme Style -->
+    <!--<link href="../build/css/custom.min.css" rel="stylesheet">-->
+    <!-- Custom Theme Style -->
+    <link href="https://colorlib.com/polygon/build/css/custom.min.css" rel="stylesheet">
 
 
 </head>

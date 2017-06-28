@@ -49,7 +49,7 @@ setlocale(LC_TIME, "de_DE.utf8"); ?>
                         <ul class="nav side-menu">
 
                             <li><a href="map.php"><i class="fa fa-globe"></i> Karte </a></li>
-                            <li><a><i class="fa fa-tasks"></i>Projekte<span class="fa fa-chevron-down"></span></a>
+                            <li><a><i class="fa fa-tasks"></i> Projekte<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a href="projects.php">Projektübersicht</a></li>
                                     <li><a href="myprojects.php">Meine Projekte</a></li>

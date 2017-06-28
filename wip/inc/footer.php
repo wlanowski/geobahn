@@ -214,12 +214,13 @@
 <!-- <script src="js/viewportmap.js"></script> -->
 
 <!-- Wizard -->
+<!--
 <script type="text/javascript">
     $(document).ready(function() {
         // Initialize Smart Wizard
         $('#wizard').smartWizard();
     });
-</script>
+</script>-->
 <script src="../vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script>
 
 
