@@ -5,7 +5,7 @@ http://wiki.selfhtml.org/wiki/Benutzer:Suit/Loginsystem_und_Benutzerregistrierun
 */
 session_start();
 
-if(isset($_SESSION['login'])){
+if (isset($_SESSION['login'])) {
     // dann sind wir ja schon eingeloggt :)
     header('Location: ./map.php');
 }
@@ -18,13 +18,6 @@ require_once(__DIR__ . '/globalconfig.php');
 ?>
 
 
-
-
-
-
-
-
-
     <body class="login">
 <div>
     <a class="hiddenanchor" id="signup"></a>
@@ -33,85 +26,87 @@ require_once(__DIR__ . '/globalconfig.php');
     <div class="login_wrapper">
         <div class="animate form login_form">
 
-            <?php if (isset($message['error'])): ?>
-
-                <div class="alert alert-warning alert-dismissible fade in" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                                aria-hidden="true">×</span>
-                    </button>
-                    <strong>Fehler!</strong> <?php echo $message['error']; ?>
-                </div>
-
-
-            <?php endif;
-            if (isset($message['success'])): ?>
-                <!-- <fieldset class="success"><legend>Erfolg</legend><?php echo $message['success'] ?></fieldset> -->
-            <?php endif;
-            if (isset($message['notice'])): ?>
-                <!-- <fieldset class="notice"><legend>Hinweis</legend><?php echo $message['notice'] ?></fieldset> -->
-            <?php endif; ?>
-
 
             <?php
+            //Fehlermeldungen
             if (isset($_GET['status'])) {
-                if ($_GET['status'] == 'logout') {
-                    echo '
-				<div class="alert alert-info alert-dismissible fade in" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-                    </button>
-                    <strong>Erfolgreich!</strong> Sie wurden erfolgreich abgemeldet.
-				</div>';
-                } elseif ($_GET['status'] == 'notloggedin') {
-                    echo '
-				<div class="alert alert-warning alert-dismissible fade in" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-                    </button>
-                    <strong>Fehler!</strong> Sie sind nicht angemeldet!
-				</div> ';
+                switch ($_GET['status']) {
+                    case 'logout':
+                        $klasse = 'success';
+                        $message = '<strong>Erfolgreich!</strong> Sie wurden erfolgreich abgemeldet';
+                        break;
+                    case 'notloggedin':
+                        $klasse = 'warning';
+                        $message = '<strong>Achtung!</strong> Sie müssen sich anmelden um diese Seite besuchen zu können';
+                        break;
+                    case 'naf':
+                        $klasse = 'danger';
+                        $message = '<strong>Fehler!</strong> Sie haben nicht alle Felder ausgefüllt';
+                        break;
+                    case 'fpass':
+                        $klasse = 'danger';
+                        $message = '<strong>Fehler!</strong> Das Passwort ist nicht korrekt';
+                        break;
+                    case 'fuser':
+                        $klasse = 'danger';
+                        $message = '<strong>Fehler!</strong> Der Benutzer ist nicht bekannt';
+                        break;
+                    default:
+                        $klasse = 'danger';
+                        $message = '<strong>Fehler!</strong> Ein unbekannter Fehler ist eingetreten...';
                 }
-            }
 
+                echo '<div class="alert alert-' . $klasse . ' alert-dismissible fade in" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>' . $message . '</div>';
+            }
             ?>
 
 
             <section class="login_content">
 
 
-                <form action="./login_task.php" method="post">
-                    <h1>Login</h1>
+                <?php
+                if (ISSET($_GET["weiter"])) {
+                    echo '<form action="./login_task.php?weiter=' . $_GET['weiter'] . '" method="post">';
+                } else {
+                    echo '<form action="./login_task.php" method = "post" > ';
+                }
+                ?>
 
+
+                <h1>Login</h1>
+
+
+                <div>
+                    <input type="TEXT" class="form-control" placeholder="Benutzername" required=""
+                           name="f[username]"/>
+                </div>
+                <div>
+                    <input type="password" class="form-control" placeholder="Passwort" required=""
+                           name="f[password]"/>
+                </div>
+                <div>
+
+                    <input type="submit" class="btn btn-default submit" name="submit" value="Login"/>
+                    <a class="reset_pass" href="#">Passwort vergessen?</a>
+
+                </div>
+
+                <div class="clearfix">
+
+
+                </div>
+
+                <div class="separator">
+
+                    </p>
+
+                    <div class="clearfix"></div>
+                    <br/>
 
                     <div>
-                        <input type="text" class="form-control" placeholder="Benutzername" required=""
-                               name="f[username]"/>
+                        <p>WIP! von John Nitzsche (2017)</p>
                     </div>
-                    <div>
-                        <input type="password" class="form-control" placeholder="Passwort" required=""
-                               name="f[password]"/>
-                    </div>
-                    <div>
-
-                        <input type="submit" class="btn btn-default submit" name="submit" value="Login"/>
-                        <a class="reset_pass" href="#">Passwort vergessen?</a>
-
-                    </div>
-
-                    <div class="clearfix">
-
-
-                    </div>
-
-                    <div class="separator">
-
-                        </p>
-
-                        <div class="clearfix"></div>
-                        <br/>
-
-                        <div>
-                            <p>WIP! von John Nitzsche (2017)</p>
-                        </div>
-                    </div>
+                </div>
                 </form>
             </section>
         </div>

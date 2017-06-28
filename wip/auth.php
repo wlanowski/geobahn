@@ -2,7 +2,7 @@
 session_start();
 session_regenerate_id();
 if (empty($_SESSION['login'])) {
-    header('Location: ./login.php?status=notloggedin');
+    header('Location: ./login.php?status=notloggedin&weiter=' . basename($_SERVER['SCRIPT_NAME']));
     exit;
 } else {
     /* $login_status='

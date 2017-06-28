@@ -15,12 +15,12 @@ if (!empty($_POST)) {
         empty($_POST['f']['password'])
     ) {
         //$message['error'] = 'Es wurden nicht alle Felder ausgefüllt.';
-        header('Location: ./login.php');
+        header('Location: ./login.php?status=`naf');
     } else {
         $mysqli = @new mysqli($db_host, $db_user, $db_pass, $db_name);
         if ($mysqli->connect_error) {
             //$message['error'] = 'Datenbankverbindung fehlgeschlagen: ' . $mysqli->connect_error;
-            header('Location: ./login.php');
+            header('Location: ./login.php?status=nodb');
         } else {
             $query = sprintf(
                 "SELECT username, password, nameclear FROM " . $db_pref . "_users WHERE username = '%s'",
@@ -40,14 +40,18 @@ if (!empty($_POST)) {
                     );
 
                     //$message['success'] = 'Anmeldung erfolgreich, <a href="map.php">weiter zum Inhalt.';
-                    header('Location: ./map.php');
+                    if (isset($_GET['weiter'])) {
+                        header('location: ./' . $_GET['weiter']);
+                    } else {
+                        header('Location: ./map.php');
+                    }
                 } else {
                     //$message['error'] = 'Das Kennwort ist nicht korrekt.';
-                    header('Location: ./login.php');
+                    header('Location: ./login.php?status=fpass');
                 }
             } else {
                 //$message['error'] = 'Der Benutzer wurde nicht gefunden.';
-                header('Location: ./login.php');
+                header('Location: ./login.php?status=fuser');
             }
             $mysqli->close();
         }
