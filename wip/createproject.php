@@ -142,7 +142,7 @@ require_once(__DIR__ . '/inc/layout.php');
                             </div>
                             <!-- Ende Schritt 1; Anfang Schritt 2 -->
                             <div id="step-2">
-                                <h2 class="StepTitle">Step 2 Content</h2>
+                                <h2 class="StepTitle">Ort festlegen</h2>
                                 <?php require_once('./inc/geopicker.php'); ?>
                             </div>
                             <div id="step-3">
