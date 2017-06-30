@@ -62,6 +62,9 @@ require_once('globalconfig.php');
         };
     </script>
 
+    <!-- Switchery -->
+    <link href="../vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+
 
     <!--<link href="css/map.css" rel="stylesheet"> -->
 

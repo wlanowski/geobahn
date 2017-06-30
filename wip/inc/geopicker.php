@@ -1,17 +1,23 @@
 <div class="form-group">
     <h4>Orte übernehmen aus...</h4>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">
+        Betriebsstellensuche
+    </button>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Strecke und
+        Kilometer
     </button>
 </div>
-<h4>Karte</h4>
+<h4>Karte
+    <small>Der Marker ist verschiebbar</small>
+</h4>
 <div id="map" style="height: 25em; position: relative; outline: none;"></div>
 <h4>Manuelle Eingabe</h4>
 <form class="form-horizontal form-label-left">
     <div class="form-group">
         <label for="latitude">Latitude:</label>
-        <input id="latitude" type="number"/>
+        <input id="latitude" type="number" value="51.133333"/>
         <label for="longitude">Longitude:</label>
-        <input id="longitude" type="number"/>
+        <input id="longitude" type="number" value="10.416667"/>
         <button type="button" class="btn btn-primary" onclick="setzeOrtKarte()">Übernehmen</button>
     </div>
 </form>
@@ -28,15 +34,31 @@
                 <h4 class="modal-title" id="myModalLabel">Aus Betriebsstellen wählen</h4>
             </div>
             <div class="modal-body">
-                <h4>Text in a modal</h4>
-                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue
-                    laoreet rutrum faucibus dolor auctor.</p>
-                <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
-                    consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+
+
+                <form class="form-horizontal form-label-left">
+                    <div class="form-group">
+                        <label for="eingabe_bst">Bezeichnung/DS100:</label><br/>
+
+                        <input id="eingabe_bst" type="text" placeholder="Bsp. Dresden oder DH"/>
+                        <br/><br/>
+                        <div class="">
+                            <label>
+                                Bezeichnung <input type="checkbox" id="abfrageart_bst" value="abfrageart_bst"
+                                                   class="js-switch" checked/> DS100
+                            </label>
+                        </div>
+
+                        <button type="button" class="btn btn-primary" onclick="suchebst()">Suchen</button>
+                    </div>
+
+                    <div id="bstauswahl"></div>
+
+
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Abschließen</button>
+
             </div>
 
         </div>
@@ -110,5 +132,36 @@
                 "animate": true,
                 "pan": {duration: 10}
             });
+    }
+
+    function waehleort(breite, laenge) {
+        marker.setLatLng([breite, laenge]);
+        document.getElementById('latitude').value = breite;
+        document.getElementById('longitude').value = laenge;
+        map.setView([breite, laenge], 12);
+        $('.bs-example-modal-lg').modal('hide');
+
+
+    }
+
+
+    function suchebst() {
+        if (document.getElementById('abfrageart_bst').checked) {
+            var t = 'k';
+        }
+        else {
+            var t = 's';
+        }
+
+        var abfrage = "./func/return_geopicker_bst.php?";
+        abfrage += t + '=' + document.getElementById('eingabe_bst').value;
+
+        console.log(abfrage);
+
+        $.get(abfrage, function (data) {
+            $('#bstauswahl').html(data);
+        })
+
+
     }
 </script>
