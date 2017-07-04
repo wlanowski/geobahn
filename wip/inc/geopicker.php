@@ -10,7 +10,7 @@
 <h4>Karte
     <small>Der Marker ist verschiebbar</small>
 </h4>
-<div id="map" style="height: 25em; position: relative; outline: none;"></div>
+<div id="map" style="height: 40em; position: relative; outline: none;"></div>
 <h4>Manuelle Eingabe</h4>
 <form class="form-horizontal form-label-left">
     <div class="form-group">
@@ -36,23 +36,33 @@
             <div class="modal-body">
 
 
-                <form class="form-horizontal form-label-left">
+                <!--<form class="form-horizontal form-label-left">
                     <div class="form-group">
-                        <label for="eingabe_bst">Bezeichnung/DS100:</label><br/>
-
-                        <input id="eingabe_bst" type="text" placeholder="Bsp. Dresden oder DH"/>
-                        <br/><br/>
+-->
                         <div class="">
                             <label>
                                 Bezeichnung <input type="checkbox" id="abfrageart_bst" value="abfrageart_bst"
-                                                   class="js-switch" checked/> DS100
+                                                   class="js-switch" unchecked/> DS100
                             </label>
                         </div>
 
-                        <button type="button" class="btn btn-primary" onclick="suchebst()">Suchen</button>
-                    </div>
+
+
+                        <input class="col-md-7 col-xs-12" id="eingabe_bst" type="text" placeholder="Bsp. Buxtehude oder ABX"/>
+                        <br/><br/>
+
+
+
+
+
+
+                        <button id="button_bst" type="button" class="btn btn-primary" onclick="suchebst()">Suchen</button>
+                    <!--</div>
+                </form>-->
+
 
                     <div id="bstauswahl"></div>
+                    <!-- bstauswahl wird von JS aufgefüllt -->
 
 
             </div>
@@ -63,6 +73,20 @@
 
         </div>
     </div>
+
+    <script>
+        //Fange Enter ab!
+
+        document.getElementById("eingabe_bst")
+            .addEventListener("keyup", function(event) {
+                event.preventDefault();
+                if (event.keyCode == 13) {
+                    document.getElementById("button_bst").click();
+                }
+            });
+
+    </script>
+
 </div>
 <!-- /Large modal (BST) -->
 
@@ -156,7 +180,7 @@
         var abfrage = "./func/return_geopicker_bst.php?";
         abfrage += t + '=' + document.getElementById('eingabe_bst').value;
 
-        console.log(abfrage);
+        //console.log(abfrage);
 
         $.get(abfrage, function (data) {
             $('#bstauswahl').html(data);
