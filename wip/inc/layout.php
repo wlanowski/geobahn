@@ -53,6 +53,7 @@ setlocale(LC_TIME, "de_DE.utf8"); ?>
                                 <ul class="nav child_menu">
                                     <li><a href="projects.php">Projektübersicht</a></li>
                                     <li><a href="myprojects.php">Meine Projekte</a></li>
+                                    <li><a href="createproject.php">Projekt erstellen</a></li>
                                 </ul>
                             <li><a href="inspector.php"><i class="fa fa-search"></i> Inspektor </a></li>
                             <li><a href="dateien.php"><i class="fa fa-file-o"></i> Download </a></li>

@@ -81,7 +81,7 @@ require_once(__DIR__ . '/inc/layout.php');
                                             <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" id="first-name" required="required"
+                                            <input type="text" id="project_name" required="required"
                                                    class="form-control col-md-7 col-xs-12 "
                                                    placeholder="Bsp: AP Bffm Dresden-Neustadt">
                                         </div>

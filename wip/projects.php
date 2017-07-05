@@ -13,6 +13,9 @@ require_once(__DIR__ . '/inc/layout.php');
 
 
     <!-- page content -->
+<?php if (isset($_GET['nos'])) {
+    echo '<BODY onLoad="zeigefehler(\'Bitte Projekt in der Projektübersicht wählen!\')">';
+} ?>
 
     <div class="right_col" role="main" style="background-color:#ffffff;">
         <div class="">

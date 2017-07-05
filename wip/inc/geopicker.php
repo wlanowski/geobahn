@@ -3,7 +3,7 @@
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">
         Betriebsstellensuche
     </button>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Strecke und
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg-km">Strecke und
         Kilometer
     </button>
 </div>
@@ -34,35 +34,23 @@
                 <h4 class="modal-title" id="myModalLabel">Aus Betriebsstellen wählen</h4>
             </div>
             <div class="modal-body">
+                <div class="">
+                    <label>
+                        Bezeichnung <input type="checkbox" id="abfrageart_bst" value="abfrageart_bst"
+                                           class="js-switch" unchecked/> DS100
+                    </label>
+                </div>
 
 
-                <!--<form class="form-horizontal form-label-left">
-                    <div class="form-group">
--->
-                        <div class="">
-                            <label>
-                                Bezeichnung <input type="checkbox" id="abfrageart_bst" value="abfrageart_bst"
-                                                   class="js-switch" unchecked/> DS100
-                            </label>
-                        </div>
+                <input class="col-md-7 col-xs-12" id="eingabe_bst" type="text" placeholder="Bsp. Buxtehude oder ABX"/>
+                <br/><br/>
 
 
-
-                        <input class="col-md-7 col-xs-12" id="eingabe_bst" type="text" placeholder="Bsp. Buxtehude oder ABX"/>
-                        <br/><br/>
+                <button id="button_bst" type="button" class="btn btn-primary" onclick="suchebst()">Suchen</button>
 
 
-
-
-
-
-                        <button id="button_bst" type="button" class="btn btn-primary" onclick="suchebst()">Suchen</button>
-                    <!--</div>
-                </form>-->
-
-
-                    <div id="bstauswahl"></div>
-                    <!-- bstauswahl wird von JS aufgefüllt -->
+                <div id="bstauswahl"></div>
+                <!-- bstauswahl wird von JS aufgefüllt -->
 
 
             </div>
@@ -78,7 +66,7 @@
         //Fange Enter ab!
 
         document.getElementById("eingabe_bst")
-            .addEventListener("keyup", function(event) {
+            .addEventListener("keyup", function (event) {
                 event.preventDefault();
                 if (event.keyCode == 13) {
                     document.getElementById("button_bst").click();
@@ -89,6 +77,83 @@
 
 </div>
 <!-- /Large modal (BST) -->
+
+<!-- Large modal (BKM) -->
+<div class="modal fade bs-example-modal-lg-km" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Bahnstrecke und Bahnkilometer eingeben!</h4>
+            </div>
+            <div class="modal-body">
+                <div class="">
+                    <!-- Eingabe Strecke -->
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="eingabe_strecke">Streckennummer
+                        <span class="required">*</span>
+                    </label>
+                    <input class="col-md-9 col-md-9 col-xs-12" id="eingabe_strecke" type="number"
+                           placeholder="Streckennummer, Bsp: 6363">
+
+                    <br/>
+                    <br/>
+
+                    <!-- Eingabe Km -->
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="eingabe_km">Kilometer
+                        <span class="required">*</span>
+                    </label>
+
+
+                    <input class="col-md-9 col-md-9 col-xs-12" id="eingabe_km" type="numer" placeholder="12,251"/>
+                    <br/>
+                    <br/>
+                    <br/>
+
+                    <div class="alert alert-warning">Die Kilometerangabe wird ggf. auf volle Kilometer gerundet!</div>
+
+                </div>
+                <br/><br/>
+
+
+                <button id="button_bkm" type="button" class="btn btn-primary" onclick="suchebkm()">Suchen</button>
+
+
+                <div id="bkmauswahl"></div>
+                <!-- bkm auswahl wird von JS aufgefüllt -->
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Abschließen</button>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        //Fange Enter ab!
+        document.getElementById("eingabe_km")
+            .addEventListener("keyup", function (event) {
+                event.preventDefault();
+                if (event.keyCode == 13) {
+                    document.getElementById("button_bkm").click();
+                }
+            });
+        document.getElementById("eingabe_strecke")
+            .addEventListener("keyup", function (event) {
+                event.preventDefault();
+                if (event.keyCode == 13) {
+                    document.getElementById("button_bkm").click();
+                }
+            });
+
+    </script>
+
+</div>
+<!-- /Large modal (BKM) -->
 
 
 <!-- Skripte und Styles -->
@@ -164,6 +229,7 @@
         document.getElementById('longitude').value = laenge;
         map.setView([breite, laenge], 12);
         $('.bs-example-modal-lg').modal('hide');
+        $('.bs-example-modal-lg-km').modal('hide');
 
 
     }
@@ -184,6 +250,24 @@
 
         $.get(abfrage, function (data) {
             $('#bstauswahl').html(data);
+        })
+
+
+    }
+
+    function suchebkm() {
+
+
+        var abfragekm = "./func/return_geopicker_bkm.php?s=";
+        abfragekm += document.getElementById('eingabe_strecke').value;
+        // var js_bkm = document.getElementById('eingabe_km').value;
+        // js_bkm.replace(",",".");
+        abfragekm += "&k=" + document.getElementById('eingabe_km').value.replace(",", ".");
+
+        //console.log(abfrage);
+
+        $.get(abfragekm, function (data) {
+            $('#bkmauswahl').html(data);
         })
 
 
