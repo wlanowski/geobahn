@@ -1,3 +1,31 @@
+<!-- tabelleorte wird ggf. von JS gefüllt -->
+
+<h4>Beschreibung des Ortes</h4>
+<form name="geopicker1" class="form-horizontal form-label-left">
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ort_bezeichnung">Bezeichnung des Ortes<span
+                    class="required">*</span>:</label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input class="form-control col-md-7 col-xs-12" id="ort_bezeichnung" type="text"
+                   placeholder="Bsp.: Stw Halle Ab" required="required"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ort_strecke">Strecke (optional):</label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input class="form-control col-md-7 col-xs-12" id="ort_strecke" type="number" placeholder="Bsp.: 6363"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ort_kilometer">Kilometer (optional):</label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input class="form-control col-md-7 col-xs-12" id="ort_kilometer" type="number" placeholder="Bsp.: 12.960"/>
+        </div>
+    </div>
+
+</form>
+
 <div class="form-group">
     <h4>Orte übernehmen aus...</h4>
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">
@@ -6,21 +34,24 @@
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg-km">Strecke und
         Kilometer
     </button>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg-geo">Koordinaten
+        manuell eingeben
+    </button>
 </div>
+
+<br/>
+<br/>
+
 <h4>Karte
     <small>Der Marker ist verschiebbar</small>
 </h4>
+<div id="aktuellekoordinaten"></div>
 <div id="map" style="height: 40em; position: relative; outline: none;"></div>
-<h4>Manuelle Eingabe</h4>
-<form class="form-horizontal form-label-left">
-    <div class="form-group">
-        <label for="latitude">Latitude:</label>
-        <input id="latitude" type="number" value="51.133333"/>
-        <label for="longitude">Longitude:</label>
-        <input id="longitude" type="number" value="10.416667"/>
-        <button type="button" class="btn btn-primary" onclick="setzeOrtKarte()">Übernehmen</button>
-    </div>
-</form>
+
+
+<button class="col-md-12 col-xs-12 col-sm-12 btn btn-success" onclick="orthinzufügen()">Ort hinzufügen</button>
+<h4>Bisher ausgewählte Orte</h4>
+<div id="tabelleorte" style="height: 10em">Bisher keine Orte ausgewählt</div>
 
 
 <!-- Large modal (BST) -->
@@ -155,6 +186,62 @@
 </div>
 <!-- /Large modal (BKM) -->
 
+<!-- Large modal (Koordinaten) -->
+<div class="modal fade bs-example-modal-lg-geo" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Koordinaten eingeben</h4>
+            </div>
+            <div class="modal-body">
+                <div class="">
+
+                    <form name="geopicker2" class="form-horizontal form-label-left">
+                        <div class="form-group">
+                            <label for="latitude">Latitude:</label>
+                            <input id="latitude" type="number" value="51.133333"/>
+                            <label for="longitude">Longitude:</label>
+                            <input id="longitude" type="number" value="10.416667"/>
+                            <button type="button" class="btn btn-primary" onclick="setzeOrtKarte()">Übernehmen</button>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Abschließen</button>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        //Fange Enter ab!
+        document.getElementById("eingabe_km")
+            .addEventListener("keyup", function (event) {
+                event.preventDefault();
+                if (event.keyCode == 13) {
+                    document.getElementById("button_bkm").click();
+                }
+            });
+        document.getElementById("eingabe_strecke")
+            .addEventListener("keyup", function (event) {
+                event.preventDefault();
+                if (event.keyCode == 13) {
+                    document.getElementById("button_bkm").click();
+                }
+            });
+
+    </script>
+
+</div>
+<!-- /Large modal (Koordinaten) -->
+
 
 <!-- Skripte und Styles -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css"
@@ -179,6 +266,8 @@
      attribution: 'Map tiles by Carto, under CC BY 3.0. Data by OpenStreetMap, under ODbL.'
      });
      */
+
+
     var tileLayer = L.tileLayer('http://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     });
@@ -196,24 +285,42 @@
         iconColor: 'white'
     });
 
+    var awesome_nicht = L.AwesomeMarkers.icon({
+        icon: 'train',
+        prefix: 'fa',
+        markerColor: 'blue',
+        iconColor: 'white'
+    });
+
     var marker = L.marker([51.133333, 10.416667], {
         icon: awesome,
         draggable: true
     }).addTo(map);
 
+
     marker.on('dragend', function (e) {
         document.getElementById('latitude').value = marker.getLatLng().lat;
         document.getElementById('longitude').value = marker.getLatLng().lng;
+        anzeigeaktuell();
     });
 
     function onMapClick(e) {
         marker.setLatLng(e.latlng);
         document.getElementById('latitude').value = marker.getLatLng().lat;
         document.getElementById('longitude').value = marker.getLatLng().lng;
+        anzeigeaktuell();
     }
 
     map.on('click', onMapClick);
+    anzeigeaktuell();
 
+
+    function anzeigeaktuell() {
+        document.getElementById('aktuellekoordinaten').innerHTML = "aktuelle Koordinaten: "
+        document.getElementById('aktuellekoordinaten').innerHTML += document.getElementById('latitude').value
+        document.getElementById('aktuellekoordinaten').innerHTML += ", "
+        document.getElementById('aktuellekoordinaten').innerHTML += document.getElementById('longitude').value
+    }
     function setzeOrtKarte() {
         marker.setLatLng([document.getElementById('latitude').value, document.getElementById('longitude').value]);
         map.setView([document.getElementById('latitude').value, document.getElementById('longitude').value], 12,
@@ -221,6 +328,7 @@
                 "animate": true,
                 "pan": {duration: 10}
             });
+
     }
 
     function waehleort(breite, laenge) {
@@ -230,6 +338,8 @@
         map.setView([breite, laenge], 12);
         $('.bs-example-modal-lg').modal('hide');
         $('.bs-example-modal-lg-km').modal('hide');
+        $('.bs-example-modal-lg-geo').modal('hide');
+        anzeigeaktuell();
 
 
     }
@@ -269,7 +379,92 @@
         $.get(abfragekm, function (data) {
             $('#bkmauswahl').html(data);
         })
+    }
+
+
+    var arrayorte = [];
+
+    function ortlöschen(index) {
+        arrayorte = arrayorte.slice(0, index).concat(arrayorte.slice(index + 1));
+        zeichnetabelleorte();
+        console.log(arrayorte);
+    }
+
+    function zeichnetabelleorte() {
+        //Quelltext für Tabelle zusammenbasteln
+
+
+        qt = '<table id="datatable-buttons" class="display table table-striped table-bordered" style="background-color:#FFFFFF" cellspacing="0"';
+        qt += 'width="100%">';
+        qt += '<thead>';
+        qt += '<tr>';
+        qt += '<th>Bezeichnung</th>';
+        qt += '<th>Strecke</th>';
+        qt += '<th>Kilometer</th>';
+        qt += '<th>Longitude</th>';
+        qt += '<th>Latitude</th>';
+        qt += '<th>entfernen</th>';
+        qt += '</tr>';
+        qt += '</thead>';
+        qt += '<tbody>"';
+
+        for (var i = 0; i < arrayorte.length; i++) {
+            qt += '<tr>\n<td>' + arrayorte[i][0];
+            qt += '</td>\n<td>' + arrayorte[i][1];
+            qt += '</td>\n<td>' + arrayorte[i][2];
+            qt += '</td>\n<td>' + arrayorte[i][3];
+            qt += '</td>\n<td>' + arrayorte[i][4];
+            qt += '</td>\n<td>' + '<button class="btn btn-primary" onclick="ortlöschen(' + i + ')">entfernen</button>';
+            qt += '</td>\n</tr>';
+
+
+            L.marker([arrayorte[i][4], arrayorte[i][3]], {
+                icon: awesome_nicht,
+            }).addTo(map).bindPopup(arrayorte[i][0]);
+
+
+        }
+
+        qt += '</tbody></table><br /><br />';
+
+        qt += '<input type="text" class="col-md-12 col-xs-12 col-sm-12" id="weitergabeorte" name="weitergabeorte" value="';
+        qt += arrayorte;
+        qt += '" disabled>';
+
+
+        document.getElementById('tabelleorte').innerHTML = qt;
+
+    }
+
+    function orthinzufügen() {
+
+        /*
+         Format des Arrays
+         Ort1, Ort2, Ortn
+
+         Aufbau Ort
+         Bezeichnung, Strecke, Kilometer, Lat, Lon
+         */
+
+        if (document.getElementById('ort_bezeichnung').value == "") {
+            zeigefehler("Sie haben keine Bezeichnung für den Ort eingegeben!");
+        } else {
+
+            arrayorte.push([document.getElementById('ort_bezeichnung').value, document.getElementById('ort_strecke').value, document.getElementById('ort_kilometer').value, document.getElementById('longitude').value, document.getElementById('latitude').value]);
+
+            //Debug:
+            //console.log(arrayorte);
+
+            //Setze Formulare zurück
+            document.geopicker1.reset();
+            document.geopicker2.reset();
+
+
+            zeichnetabelleorte();
+        }
 
 
     }
+
+
 </script>

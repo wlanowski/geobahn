@@ -10,6 +10,11 @@
  
 require_once('../globalconfig.php'); //für DB-Verbindungen
 
+// WICHTIG! QUELLE: https://kau-boys.de/643/webentwicklung/arrays-und-andere-komplexe-daten-mit-php-in-einer-mysql-datenbank-speichern
+
+
+
+
 # Connect to MySQL database
 //Klartext (XAMPP nicht Web!)
 // $conn = new PDO('mysql:host=localhost;dbname=tktestmap;charset=utf8','root','',array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));

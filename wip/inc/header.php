@@ -65,6 +65,9 @@ require_once('globalconfig.php');
     <!-- Switchery -->
     <link href="../vendors/switchery/dist/switchery.min.css" rel="stylesheet">
 
+    <!-- bootstrap-daterangepicker -->
+    <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
 
     <!--<link href="css/map.css" rel="stylesheet"> -->
 

@@ -17,7 +17,7 @@ require_once(__DIR__ . '/inc/layout.php');
         <div class="">
             <div class="page-title">
                 <div class="title_left">
-                    <h3><?php echo $seitentitel;?></h3>
+                    <h3><?php echo $seitentitel; ?></h3>
                 </div>
 
 
@@ -74,67 +74,10 @@ require_once(__DIR__ . '/inc/layout.php');
                                 </li>
                             </ul>
                             <div id="step-1">
-                                <form class="form-horizontal form-label-left">
-
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="project_name">Projektname
-                                            <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" id="project_name" required="required"
-                                                   class="form-control col-md-7 col-xs-12 "
-                                                   placeholder="Bsp: AP Bffm Dresden-Neustadt">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Last
-                                            Name <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" id="last-name" name="last-name" required="required"
-                                                   class="form-control col-md-7 col-xs-12">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Middle
-                                            Name / Initial</label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text"
-                                                   name="middle-name">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender</label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <div id="gender" class="btn-group" data-toggle="buttons">
-                                                <label class="btn btn-default" data-toggle-class="btn-primary"
-                                                       data-toggle-passive-class="btn-default">
-                                                    <input type="radio" name="gender" value="male"> &nbsp; Male &nbsp;
-                                                </label>
-                                                <label class="btn btn-primary" data-toggle-class="btn-primary"
-                                                       data-toggle-passive-class="btn-default">
-                                                    <input type="radio" name="gender" value="female"> Female
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Birth <span
-                                                    class="required">*</span>
-                                        </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="birthday" class="date-picker form-control col-md-7 col-xs-12"
-                                                   required="required" type="text">
-                                        </div>
-                                    </div>
-
-                                </form>
-
+                                <?php require_once('./inc/project_step1.php'); ?>
                             </div>
-                            <!-- Ende Schritt 1; Anfang Schritt 2 -->
                             <div id="step-2">
-                                <h2 class="StepTitle">Ort festlegen</h2>
-                                <?php require_once('./inc/geopicker.php'); ?>
+                                <?php require_once('./inc/project_step2.php'); ?>
                             </div>
                             <div id="step-3">
                                 <h2 class="StepTitle">Step 3 Content</h2>

@@ -288,7 +288,7 @@ var groupedoverlays = {
 var mymap = L.map('mapid', {
     center: [51.679, 9.866],
     zoom: 6,
-    layers: [base_cartolight, ORM_empty, markers_dbnetz_empty]
+    layers: [base_cartolight, ORM_empty, markers_dbnetz_empty, geojsonLayer_projekte]
 });
 
 var options = {

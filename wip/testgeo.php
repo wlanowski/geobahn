@@ -27,7 +27,7 @@ require_once(__DIR__ . '/inc/layout.php');
         <br/>
         <br/>
 
-        <?php require_once './inc/geopicker.php'; ?>
+        <?php require_once './inc/project_step2.php'; ?>
 
 
     </div>
