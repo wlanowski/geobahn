@@ -1,17 +1,28 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Smart Wizard 2 - Multiple Wizard Example - a javascript jQuery wizard control plugin</title>
+    <title>Smart Wizard 3 - Multiple Wizard Example - a javascript jQuery wizard control plugin</title>
 <link href="styles/demo_style.css" rel="stylesheet" type="text/css">
 
 <link href="styles/smart_wizard.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="js/jquery-2.0.0.min.js"></script>
 <script type="text/javascript" src="js/jquery.smartWizard.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function(){
     	//  Wizard 1  	
-  		$('#wizard1').smartWizard({transitionEffect:'fade',onFinish:onFinishCallback});
+        $('#wizard1').smartWizard({
+            transitionEffect: 'fade',
+            onFinish: onFinishCallback,
+            onLeaveStep: leaveAStepCallback,
+        });
+        function leaveAStepCallback(obj, context) {
+            // To check and enable finish button if needed
+            if (context.fromStep >= 2) {
+                $('#wizard1').smartWizard('enableFinish', true);
+            }
+            return true;
+        }
     	//  Wizard 2
       $('#wizard2').smartWizard({transitionEffect:'slide',onFinish:onFinishCallback});
       function onFinishCallback(){
@@ -69,7 +80,7 @@
                 <label class="stepNumber">2</label>
                 <span class="stepDesc">
                    Step 2<br />
-                   <small>Step 2 description</small>
+                   <small>Enable Finish Button</small>
                 </span>
             </a></li>
   				<li><a href="#step-3">

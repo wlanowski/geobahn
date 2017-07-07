@@ -3,6 +3,8 @@
 Version 3 and later at
 http://mstratman.github.com/jQuery-Smart-Wizard/
 
+*NOTE:*  This is not being actively maintained.
+
 Original version 2 and earlier are from
 http://www.techlaboratory.net/products.php?product=smartwizard
 
@@ -10,6 +12,8 @@ Licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License.
 http://creativecommons.org/licenses/by-sa/3.0/
 
 ## Getting Started
+
+To see some examples, please visit http://mstratman.github.com/jQuery-Smart-Wizard/
 
 Basic Usage:
 
@@ -37,10 +41,12 @@ $('#wizard').smartWizard({
     labelPrevious:'Previous', // label for Previous button
     labelFinish:'Finish',  // label for Finish button        
     noForwardJumping:false,
+    ajaxType: 'POST',
   // Events
     onLeaveStep: null, // triggers when leaving a step
     onShowStep: null,  // triggers when showing a step
-    onFinish: null  // triggers when Finish button is clicked
+    onFinish: null,  // triggers when Finish button is clicked  
+    buttonOrder: ['finish', 'next', 'prev']  // button order, to hide a button remove it from the list
 }); 
 ```
 
@@ -60,7 +66,7 @@ To include the files copy and paste the below lines inside the head tag (`<head>
 Make sure the paths to the files are correct with your working environment.
 
 ```html
-<script type="text/javascript" src="jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="jquery-2.0.0.min.js"></script>
 <link href="smart_wizard.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="jquery.smartWizard.js"></script>
 ```
@@ -411,6 +417,41 @@ example:
         <td>Boolean</td>
         <td>false</td>
     </tr>
+    <tr>
+        <td><strong>ajaxType</strong></td>
+        <td>The "type" parameter for ajax requests.</td>
+        <td>String</td>
+        <td>POST</td>
+    </tr>
+     <tr>
+        <td><strong>includeFinishButton</strong></td>
+        <td><strong>[DEPRECATED: This option will be removed in the next release]</strong> If true, adds a finish button</td>
+        <td>
+            true = show
+            <br />
+            false= don't show
+        </td>
+        <td>true</td>
+     </tr>
+     <tr>
+        <td><strong>reverseButtonsOrder</strong></td>
+        <td><strong>[DEPRECATED: This option will be removed in the next release]</strong> If true, shows buttons ordered as: prev, next, finished</td>
+        <td>
+            true = prev, next, finished
+            <br />
+            false= finished, next, prev
+        </td>
+        <td>false</td>        
+     </tr>
+     <tr>
+        <td><strong>buttonOrder</strong></td>
+        <td>Defines the display order of the buttons. To hide a button simply remove it from the list.</td>
+        <td>
+             String[]
+        </td>
+        <td>['finish', 'next', 'prev']</td>        
+     </tr>
+
 </table>
  
 ## Event Description:
@@ -539,6 +580,17 @@ Here are the available methods:
         <td><strong>currentStep</strong></td>
         <td>None</td>
         <td>Returns the number of the current step.</td>
+    </tr>
+    <tr>
+        <td><strong>enableFinish</strong></td>
+        <td>Boolean:
+            <br />
+            <br />
+            true = enabled 
+            <br />
+            false= disabled
+        </td>
+        <td>Returns the status of finish button after change.</td>
     </tr>
     <tr>
         <td><strong>fixHeight</strong></td>

@@ -80,52 +80,11 @@ require_once(__DIR__ . '/inc/layout.php');
                                 <?php require_once('./inc/project_step2.php'); ?>
                             </div>
                             <div id="step-3">
-                                <h2 class="StepTitle">Step 3 Content</h2>
-                                <p>
-                                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                                    veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                                    dolore
-                                    eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                                    culpa qui officia deserunt mollit anim id est laborum.
-                                </p>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                                    irure dolor
-                                    in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-                                    mollit anim id est laborum.
-                                </p>
+                                <?php require_once('./inc/project_step3.php'); ?>
+
                             </div>
                             <div id="step-4">
-                                <h2 class="StepTitle">Step 4 Content</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                                    fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
-                                    qui officia deserunt mollit anim id est laborum.
-                                </p>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                                    irure dolor
-                                    in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-                                    mollit anim id est laborum.
-                                </p>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                                    irure dolor
-                                    in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-                                    mollit anim id est laborum.
-                                </p>
+                                <?php require_once('./inc/project_step4.php'); ?>
                             </div>
 
                         </div>
@@ -137,6 +96,38 @@ require_once(__DIR__ . '/inc/layout.php');
     </div>
     <!-- /page content -->
 
+    <!-- Smart Wizard -->
+    <script src="../vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script>
+    <script>
+        $('#wizard').smartWizard({
+            // Properties
+            selected: 0,  // Selected Step, 0 = first step
+            keyNavigation: false, // Enable/Disable key navigation(left and right keys are used if enabled)
+            enableAllSteps: true,  // Enable/Disable all steps on first load
+            transitionEffect: 'fade', // Effect on navigation, none/fade/slide/slideleft
+            contentURL: null, // specifying content url enables ajax content loading
+            contentURLData: null, // override ajax query parameters
+            contentCache: true, // cache step contents, if false content is fetched always from ajax url
+            cycleSteps: false, // cycle step navigation
+            enableFinishButton: false, // makes finish button enabled always
+            hideButtonsOnDisabled: false, // when the previous/next/finish buttons are disabled, hide them instead
+            errorSteps: [],    // array of step numbers to highlighting as error steps
+            labelNext: 'Weiter', // label for Next button
+            labelPrevious: 'zurück', // label for Previous button
+            labelFinish: 'Fertigstellen',  // label for Finish button
+            noForwardJumping: false,
+            ajaxType: 'POST',
+            // Events
+            onLeaveStep: null, // triggers when leaving a step
+            onShowStep: null,  // triggers when showing a step
+            onFinish: null,  // triggers when Finish button is clicked
+            buttonOrder: ['prev', 'next', 'finish']  // button order, to hide a button remove it from the list
+        });
+
+        $('.buttonNext').addClass('btn btn-success');
+        $('.buttonPrevious').addClass('btn btn-primary');
+        $('.buttonFinish').addClass('btn btn-default');
+    </script>
 
 <?php
 require_once(__DIR__ . '/inc/footer.content.php');

@@ -221,8 +221,7 @@
         $('#wizard').smartWizard();
     });
 </script>-->
-<!-- Smart Wizard -->
-<script src="../vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script>
+
 <!-- Switchery -->
 <script src="../vendors/switchery/dist/switchery.min.js"></script>
 
