@@ -265,7 +265,9 @@
      var tileLayer = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
      attribution: 'Map tiles by Carto, under CC BY 3.0. Data by OpenStreetMap, under ODbL.'
      });
-     */
+     *
+
+     /* Start Karte */
 
 
     var tileLayer = L.tileLayer('http://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png', {
@@ -297,6 +299,7 @@
         draggable: true
     }).addTo(map);
 
+    var markersalt = new L.FeatureGroup();
 
     marker.on('dragend', function (e) {
         document.getElementById('latitude').value = marker.getLatLng().lat;
@@ -313,6 +316,16 @@
 
     map.on('click', onMapClick);
     anzeigeaktuell();
+
+    document.getElementById('map').style.cursor = 'crosshair'
+
+
+    /*
+
+     Ende Karte
+     Start Funktionen!
+
+     */
 
 
     function anzeigeaktuell() {
@@ -386,8 +399,10 @@
 
     function ortlöschen(index) {
         arrayorte = arrayorte.slice(0, index).concat(arrayorte.slice(index + 1));
+        markersalt.clearLayers();
         zeichnetabelleorte();
-        console.log(arrayorte);
+        anzeigeaktuell();
+        //console.log(arrayorte);
     }
 
     function zeichnetabelleorte() {
@@ -418,12 +433,16 @@
             qt += '</td>\n</tr>';
 
 
-            L.marker([arrayorte[i][4], arrayorte[i][3]], {
+            var gesetztermarker = L.marker([arrayorte[i][4], arrayorte[i][3]], {
                 icon: awesome_nicht,
-            }).addTo(map).bindPopup(arrayorte[i][0]);
+            }).bindPopup(arrayorte[i][0]);
+
+            markersalt.addLayer(gesetztermarker);
 
 
         }
+
+        map.addLayer(markersalt);
 
         qt += '</tbody></table><br /><br />';
 
