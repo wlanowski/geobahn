@@ -24,5 +24,8 @@ $salt = "1ch.schR3183.31NfacH.Hier.EtW@s.h!n";
 // relativer Pfad zur Karte
 //$con_maprelpath = '/wlanowski.github.io/map/';
 
+// API-Key für Thunderforest
+$tf_apikey = "0e72ac8aee594e88a11c60cf491fc265";
+
 
 ?>
