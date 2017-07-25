@@ -50,7 +50,7 @@ require_once(__DIR__ . '/inc/layout.php');
                                         <span class="step_no">2</span>
                                         <span class="step_descr">
                                               Schritt 2<br/>
-                                              <small>Ort festlegen</small>
+                                              <small>Orte festlegen</small>
                                           </span>
                                     </a>
                                 </li>
