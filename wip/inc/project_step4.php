@@ -1,12 +1,12 @@
 <h2>Bitte überprüfen Sie Ihre Daten!</h2>
-<form class="form-horizontal form-label-left" action="func/submitproject.php" method = "post">
+<form class="form-horizontal form-label-left" id="form-fin" action="func/submitproject.php" method = "post">
 
     <div class="form-group">
         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fin-name">Projektname
             <span class="required">*</span>
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="fin-name"
+            <input type="text" id="fin-name" name="fin-name"
                    class="form-control col-md-7 col-xs-12" disabled>
         </div>
     </div>
@@ -16,7 +16,7 @@
             <span class="required">*</span>
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="fin-ansprechpartner"
+            <input type="text" id="fin-ansprechpartner" name="fin-ansprechpartner"
                    class="form-control col-md-7 col-xs-12" disabled>
         </div>
     </div>
@@ -25,7 +25,7 @@
         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fin-projektleiter">Projektleiter
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="fin-projektleiter"
+            <input type="text" id="fin-projektleiter" name="fin-projektleiter"
                    class="form-control col-md-7 col-xs-12" disabled>
         </div>
     </div>
@@ -35,7 +35,7 @@
             <span class="required">*</span>
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="fin-start"
+            <input type="text" id="fin-start" id="fin-name"
                    class="form-control col-md-7 col-xs-12" disabled>
         </div>
     </div>
@@ -45,7 +45,7 @@
             <span class="required">*</span>
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="fin-ende"
+            <input type="text" id="fin-ende" name="fin-ende"
                    class="form-control col-md-7 col-xs-12" disabled>
         </div>
     </div>
@@ -56,7 +56,7 @@
             <span class="required">*</span>
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="fin-status"
+            <input type="text" id="fin-status"  name="fin-status"
                    class="form-control col-md-7 col-xs-12" disabled>
         </div>
     </div>
@@ -65,10 +65,19 @@
         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fin-benutzer">Benutzer
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="fin-benutzer"
+            <input type="text" id="fin-benutzer" name="fin-benutzer"
                    class="form-control col-md-7 col-xs-12" disabled>
         </div>
     </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fin-zusatz">Zusatzinformationen
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <TEXTAREA form="form-fin" id="fin-zusatz" name="fin-zusatz" class="form-control col-md-7 col-xs-12" rows="20" disabled></TEXTAREA>
+        </div>
+    </div>
+
 
     <h3>Maschinelle Informationen zur Weiterverarbeitung</h3>
 
@@ -76,7 +85,7 @@
         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fin-statusnr">Statusnr
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="fin-statusnr"
+            <input type="text" id="fin-statusnr"  name="fin-statusnr"
                    class="form-control col-md-7 col-xs-12" disabled>
         </div>
     </div>
@@ -85,7 +94,7 @@
         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fin-benutzerids">Benutzer-IDS
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="fin-benutzerids"
+            <input type="text" id="fin-benutzerids" name="fin-benutzerids"
                    class="form-control col-md-7 col-xs-12" disabled>
         </div>
     </div>
@@ -95,7 +104,7 @@
             <span class="required">*</span>
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="fin-orte"
+            <input type="text" id="fin-orte" name="fin-orte"
                    class="form-control col-md-7 col-xs-12" disabled>
         </div>
     </div>
@@ -135,6 +144,8 @@
 
         document.getElementById('fin-benutzer').value = arraybenutzernamen;
         document.getElementById('fin-benutzerids').value = arraybenutzerids;
+
+        document.getElementById('fin-zusatz').value = document.getElementById('project_zusatz').value;
 
 
         if (document.getElementById('project_name').value == "") {

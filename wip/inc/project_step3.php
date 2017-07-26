@@ -1,4 +1,4 @@
-<form class="form-horizontal form-label-left">
+<form class="form-horizontal form-label-left" id="step3">
 
     <h2>Aktueller Status des Projektes<span class="required">*</span></h2>
 
@@ -33,7 +33,16 @@
     <div id="tabellebenutzer" style="height: 10em">Bisher keine Benutzer ausgewählt</div>
 
 
+
+
 </form>
+    Zusatzinformationen:
+    <TEXTAREA form="step3" id="project_zusatz" class="form-control col-md-7 col-xs-12" rows="20"></TEXTAREA>
+<div style="height: 10em"></div>
+<div class="bs-example-popovers">
+    <div class="alert alert-success">Das Einfügen von Dateien ist nach dem Erstellen des Projektes möglich!</div>
+</div>
+
 
 <!-- Large modal (Benutzer) -->
 <div class="modal fade bs-example-modal-lg-benutzer" tabindex="-1" role="dialog" aria-hidden="true">
