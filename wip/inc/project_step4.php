@@ -1,5 +1,5 @@
 <h2>Bitte überprüfen Sie Ihre Daten!</h2>
-<form class="form-horizontal form-label-left">
+<form class="form-horizontal form-label-left" action="func/submitproject.php" method = "post">
 
     <div class="form-group">
         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fin-name">Projektname

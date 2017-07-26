@@ -66,9 +66,9 @@ require_once(__DIR__ . '/globalconfig.php');
 
                 <?php
                 if (ISSET($_GET["weiter"])) {
-                    echo '<form action="./login_task.php?weiter=' . $_GET['weiter'] . '" method="post">';
+                    echo '<form action="func/login_task.php?weiter=' . $_GET['weiter'] . '" method="post">';
                 } else {
-                    echo '<form action="./login_task.php" method = "post" > ';
+                    echo '<form action="func/login_task.php" method = "post" > ';
                 }
                 ?>
 

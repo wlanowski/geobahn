@@ -1,7 +1,5 @@
 <?php
-/**
-    * Hier erfolgt die Loginmagie
-    */
+
 
 // Session starten
 session_start();
