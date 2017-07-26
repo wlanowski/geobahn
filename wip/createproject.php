@@ -119,14 +119,29 @@ require_once(__DIR__ . '/inc/layout.php');
             ajaxType: 'POST',
             // Events
             onLeaveStep: null, // triggers when leaving a step
-            onShowStep: null,  // triggers when showing a step
+            onShowStep: function () {
+                aktuallisierefin()
+            },  // triggers when showing a step
             onFinish: null,  // triggers when Finish button is clicked
-            buttonOrder: ['prev', 'next', 'finish']  // button order, to hide a button remove it from the list
+            buttonOrder: ['prev', 'next']  // button order, to hide a button remove it from the list
         });
 
         $('.buttonNext').addClass('btn btn-success');
         $('.buttonPrevious').addClass('btn btn-primary');
         $('.buttonFinish').addClass('btn btn-default');
+        $('.su')
+        $('.buttonNext').attr("id", "nextbutton");
+        /*
+        $("#nextbutton").click(function()
+        {
+           zeigefehler("hallo");
+        });
+        $(".wizard_steps").click(function()
+        {
+            zeigefehler("hallo");
+        });
+        */
+
     </script>
 
 <?php

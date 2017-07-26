@@ -51,7 +51,11 @@
 
 <button class="col-md-12 col-xs-12 col-sm-12 btn btn-success" onclick="orthinzufügen()">Ort hinzufügen</button>
 <h4>Bisher ausgewählte Orte</h4>
-<div id="tabelleorte" style="height: 10em">Bisher keine Orte ausgewählt</div>
+<div id="tabelleorte" style="height: 10em">
+    Bisher keine Orte ausgewählt
+
+
+</div>
 
 
 <!-- Large modal (BST) -->
@@ -334,6 +338,7 @@
         document.getElementById('aktuellekoordinaten').innerHTML += ", "
         document.getElementById('aktuellekoordinaten').innerHTML += document.getElementById('longitude').value
     }
+
     function setzeOrtKarte() {
         marker.setLatLng([document.getElementById('latitude').value, document.getElementById('longitude').value]);
         map.setView([document.getElementById('latitude').value, document.getElementById('longitude').value], 12,
@@ -446,9 +451,11 @@
 
         qt += '</tbody></table><br /><br />';
 
+        /*
         qt += '<input type="text" class="col-md-12 col-xs-12 col-sm-12" id="weitergabeorte" name="weitergabeorte" value="';
         qt += arrayorte;
         qt += '" disabled>';
+        */
 
 
         document.getElementById('tabelleorte').innerHTML = qt;

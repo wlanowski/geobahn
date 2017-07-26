@@ -31,7 +31,7 @@
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
             <input type="text" placeholder="Bsp.: max.mustermann" value="<?php echo $_SESSION['user']['username']; ?>"
-                   id="project_ansprechpartner" required="required"
+                   id="project_projektleiter" required="required"
                    class="form-control col-md-7 col-xs-12">
         </div>
     </div>
@@ -39,7 +39,7 @@
 
     <!-- Start -->
     <div class="form-group">
-        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="project_projektleiter">Startdatum<span
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="project_start">Startdatum<span
                     class="required">*</span>
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
@@ -48,7 +48,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="project_projektleiter">voraussichtliches Ende
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="project_ende">voraussichtliches Ende
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
             <input type="text" id="project_ende" name="project_ende"

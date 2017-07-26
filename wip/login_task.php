@@ -23,7 +23,7 @@ if (!empty($_POST)) {
             header('Location: ./login.php?status=nodb');
         } else {
             $query = sprintf(
-                "SELECT username, password, nameclear FROM " . $db_pref . "_users WHERE username = '%s'",
+                "SELECT ID, username, password, nameclear FROM " . $db_pref . "_users WHERE username = '%s'",
                 $mysqli->real_escape_string($_POST['f']['username'])
             );
             $result = $mysqli->query($query);
@@ -35,7 +35,8 @@ if (!empty($_POST)) {
                         'login' => true,
                         'user' => array(
                             'username' => $row['username'],
-                            'username_clear' => $row['nameclear']
+                            'username_clear' => $row['nameclear'],
+                            'userid' => $row['ID']
                         )
                     );
 
