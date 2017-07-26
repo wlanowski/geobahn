@@ -1,5 +1,5 @@
 // Basis-Layer
-var base_Google = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+var base_Google = L.tileLayer('http://{s}.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}&s=Ga', {
     maxZoom: 20,
     subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
     attribution: '&copy; 2017 GeoBasis-DE/BKG (&copy;2009), Google'
