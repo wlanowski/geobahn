@@ -1,8 +1,8 @@
 <?php
 //require für Datenbankverbindungseinstellungen
 require_once(dirname(__DIR__) . '/globalconfig.php');
+session_start();
 
-print_r($HTTP_POST_VARS);
 
 if (!empty($_POST)) {
 
@@ -10,31 +10,31 @@ if (!empty($_POST)) {
     $pdo->exec("set names utf8");
     //$sql = "SELECT * FROM " . $db_pref . "_alles WHERE strecke=" . $_GET['strecke'] . " ORDER BY km_i ASC";
 
-    $sql = "INSERT INTO ".$db_pref."_projekte (projektname, ortgeo, ansprechpartner, projektleiter, start, ende, zusatz, erstelltvon, benutzer, status) VALUES (";
-    $sql += $_POST['fin-name'];
-    $sql += ",";
-    $sql += serialize($_POST['fin-orte']);
-    $sql += ",";
-    $sql += $_POST['fin-ansprechpartner'];
-    $sql += ",";
-    $sql += $_POST['fin-projektleiter'];
-    $sql += ",";
-    $sql += $_POST['fin-start'];
-    $sql += ",";
-    $sql += $_POST['fin-ende'];
-    $sql += ",";
-    $sql += $_POST['fin-zusatz'];
-    $sql += ",";
-    $sql += $_SESSION['user']['userid'];
-    $sql += ",";
-    $sql += serialize($_POST['fin-benutzerids']);
-    $sql += ",";
-    $sql += $_POST['fin-statusnr'];
-    $sql += ");";
+    $sql = "INSERT INTO " . $db_pref . "_projekte (projektname, ortgeo, ansprechpartner, projektleiter, start, ende, zusatz, erstelltvon, benutzer, status) VALUES ('";
+    $sql .= $_POST['fin-name'];
+    $sql .= "',";
+    $sql .= serialize($_POST['fin-orte']);
+    $sql .= ",'";
+    $sql .= $_POST['fin-ansprechpartner'];
+    $sql .= "','";
+    $sql .= $_POST['fin-projektleiter'];
+    $sql .= "',";
+    $sql .= $_POST['fin-start'];
+    $sql .= ",";
+    $sql .= $_POST['fin-ende'];
+    $sql .= ",'";
+    $sql .= $_POST['fin-zusatz'];
+    $sql .= "',";
+    $sql .= $_SESSION['user']['userid'];
+    $sql .= ",";
+    $sql .= serialize($_POST['fin-benutzerids']);
+    $sql .= ",";
+    $sql .= $_POST['fin-statusnr'];
+    $sql .= ");";
 
-    $pdo->query($sql);
+    // $pdo->query($sql);
 
-
+    echo 'SQL-Abfrage=' . $sql;
 
 
 

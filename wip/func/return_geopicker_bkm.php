@@ -8,7 +8,16 @@ include "../globalconfig.php";
 $pdo = new PDO('mysql:host=' . $db_host . ';dbname=' . $db_name, $db_user, $db_pass);
 $pdo->exec("set names utf8");
 
-$sqlabfrage = 'SELECT streckennu, km_l, geogr_breite, geogr_laenge from ' . $db_pref . '_kilometer WHERE streckennu = ' . $_GET['s'] . ' AND (km_klar = TRUNCATE(' . $_GET['k'] . ',0) OR km_klar = TRUNCATE(' . $_GET['k'] . ',0)-1 OR km_klar = TRUNCATE(' . $_GET['k'] . ',0)+1);';
+//$sqlabfrage = 'SELECT streckennu, km_l, geogr_breite, geogr_laenge from ' . $db_pref . '_kilometer WHERE streckennu = ' . $_GET['s'] . ' AND (km_klar = TRUNCATE(' . $_GET['k'] . ',0) OR km_klar = TRUNCATE(' . $_GET['k'] . ',0)-1 OR km_klar = TRUNCATE(' . $_GET['k'] . ',0)+1);';
+$sqlabfrage = $pdo->prepare('SELECT streckennu, km_l, geogr_breite, geogr_laenge from ' . $db_pref . '_kilometer WHERE streckennu = :uebergabe_s AND (km_klar = TRUNCATE(:uebergabe_k,0) OR km_klar = TRUNCATE(:uebergabe_k,0)-1 OR km_klar = TRUNCATE(:uebergabe_k,0)+1);');
+
+
+$sqlabfrage->bindParam(':uebergabe_s', $_GET['s']);
+$sqlabfrage->bindParam(':uebergabe_k', $_GET['k']);
+
+$sqlabfrage->execute();
+
+$ergebnis = $sqlabfrage->fetchAll();
 
 echo '<table id="datatable-buttons" class="display table table-striped table-bordered" cellspacing="0"
                    width="100%">
@@ -21,7 +30,7 @@ echo '<table id="datatable-buttons" class="display table table-striped table-bor
                 </thead>
                 <tbody>';
 
-foreach ($pdo->query($sqlabfrage) as $row) {
+foreach ($ergebnis as $row) {
     echo "<tr>\n<td>";
     echo $row['streckennu'];
     echo "</td>\n<td>";

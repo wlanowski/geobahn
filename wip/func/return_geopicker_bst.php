@@ -7,14 +7,23 @@ $pdo->exec("set names utf8");
 
 //$sqlprojekte = "SELECT * FROM " . $db_pref . "_projekte WHERE id=" . $_GET['projectid'] . " LIMIT 1";
 if (isset($_GET['s'])) {
-    $sqlabfrage = 'SELECT bezeichnung, kuerzel, geogr_breite, geogr_laenge from ' . $db_pref . '_bst WHERE bezeichnung LIKE "%' . $_GET['s'] . '%" LIMIT 100;';
+    $sqlabfrage = 'SELECT bezeichnung, kuerzel, geogr_breite, geogr_laenge from ' . $db_pref . '_bst WHERE bezeichnung LIKE :uebergabe LIMIT 100;';
+    $str = "%" . $_GET['s'] . "%";
 }
 if (isset($_GET['k'])) {
-    $sqlabfrage = 'SELECT bezeichnung, kuerzel, geogr_breite, geogr_laenge from ' . $db_pref . '_bst WHERE kuerzel LIKE "' . $_GET['k'] . '" LIMIT 100;';
+    $sqlabfrage = 'SELECT bezeichnung, kuerzel, geogr_breite, geogr_laenge from ' . $db_pref . '_bst WHERE kuerzel LIKE :uebergabe LIMIT 100;';
+    $str = $_GET['k'];
 }
 if (!isset($_GET['k']) && !isset($_GET['s'])) {
     return NULL;
 }
+
+
+$sqlexe = $pdo->prepare($sqlabfrage);
+$sqlexe->bindParam(':uebergabe', $str);
+
+
+$sqlexe->execute();
 
 
 echo '<table id="datatable-buttons" class="display table table-striped table-bordered" cellspacing="0"
@@ -28,7 +37,7 @@ echo '<table id="datatable-buttons" class="display table table-striped table-bor
                 </thead>
                 <tbody>';
 
-foreach ($pdo->query($sqlabfrage) as $row) {
+foreach ($sqlexe->fetchAll() as $row) {
     echo "<tr>\n<td>";
     echo $row['kuerzel'];
     echo "</td>\n<td>";

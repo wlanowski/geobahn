@@ -48,9 +48,23 @@ if (isset($_GET['strecke']))
 
     $pdo = new PDO('mysql:host=' . $db_host . ';dbname=' . $db_name, $db_user, $db_pass);
     $pdo->exec("set names utf8");
-    $sql = "SELECT * FROM " . $db_pref . "_alles WHERE strecke=" . $_GET['strecke'] . " ORDER BY km_i ASC";
-    $sqlstrecke = 'SELECT strecke_ku FROM geo_strecke WHERE strecke=' . $_GET['strecke'] . ' LIMIT 1;';
-    $streckekurz = $pdo->query($sqlstrecke)->fetch();
+
+
+    $sql = $pdo->prepare("SELECT * FROM " . $db_pref . "_alles WHERE strecke= :uebergabe ORDER BY km_i ASC");
+    $sqlstrecke = $pdo->prepare('SELECT strecke_ku FROM " . $db_pref . "_strecke WHERE strecke= :uebergabe LIMIT 1;');
+
+    $sql->bindParam(':uebergabe', $_GET['strecke']);
+    $sqlstrecke->bindParam(':uebergabe', $_GET['strecke']);
+
+    $sql->execute();
+    $sqlstrecke->execute();
+
+
+    //$streckekurz = $pdo->query($sqlstrecke)->fetch();
+    $streckekurz = $sql->fetch();
+
+    $ergebnis = $sql->fetchAll();
+
     ?>
     <h4>Strecke <?php echo $_GET['strecke'] . ': ' . $streckekurz['strecke_ku'] ?></h4>
 
@@ -72,7 +86,7 @@ if (isset($_GET['strecke']))
     <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
         <ul class="messages">
             <?php
-            foreach ($pdo->query($sql) as $row) {
+            foreach ($ergebnis as $row) {
                 switch ($row['geoart']) {
                     case 'bruecke': // BRÜCKE
                         echo '							
@@ -278,7 +292,7 @@ if (isset($_GET['strecke']))
     <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
     <ul class="messages">
     <?php
-    foreach ($pdo->query($sql) as $row) {
+    foreach ($ergebnis as $row) {
         if ($row['geoart'] == 'strecke') {
             echo '							
 							<li>
