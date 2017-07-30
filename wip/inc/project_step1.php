@@ -67,7 +67,7 @@
         singleDatePicker: true,
         showDropdowns: true,
         locale: {
-            "format": "DD.MM.YY",
+            "format": "DD.MM.YYYY",
             "separator": " - ",
             "applyLabel": "Übernehmen",
             "cancelLabel": "Abbrechen",
