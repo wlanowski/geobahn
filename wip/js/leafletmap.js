@@ -237,7 +237,7 @@ $.getJSON("../geodata/konvertiert/strecke/strecke.geojson", function (data) {
 var geojsonLayer_projekte = L.markerClusterGroup();
 
 //Pfad eventuell anpassen, gerade auf Repository angepasst
-$.getJSON("func/mysqltogeojson.php", function (data) {
+$.getJSON("func/projecttogeo.php", function (data) {
     var geojson_projekte = L.geoJson(data, {
         onEachFeature: function (feature, layer) {
 
@@ -251,7 +251,7 @@ $.getJSON("func/mysqltogeojson.php", function (data) {
             }));
 
             // ADD A POPUP WITH A CHART
-            layer.bindPopup("<b>" + feature.properties.projektname + "</b><br>Ansprechpartner: <tab id=t1>" + feature.properties.ansprechpartner + "<br>angelegt: <tab to=t1>" + feature.properties.erstellt);
+            layer.bindPopup("<b><a href='projectdetail.php?projectid=" + feature.properties.projektid + "'>" + feature.properties.projektname + "</a></b></br>" + feature.properties.ortsname + "</br>Strecke: " + feature.properties.strecke + "(Bkm:" + feature.properties.bkm + ")");
 
 
         }

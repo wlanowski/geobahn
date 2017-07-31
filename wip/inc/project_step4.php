@@ -145,7 +145,7 @@
         document.getElementById('id-fin-statusnr').value = $('input[name="project_status"]:checked').val()
 
         document.getElementById('id-fin-benutzer').value = arraybenutzernamen;
-        document.getElementById('id-fin-benutzerids').value = arraybenutzerids;
+        document.getElementById('id-fin-benutzerids').value = JSON.stringify(arraybenutzerids);
 
         document.getElementById('id-fin-zusatz').value = document.getElementById('project_zusatz').value;
 
@@ -180,7 +180,8 @@
             finish = false;
         }
         else {
-            document.getElementById('id-fin-orte').value = arrayorte;
+            //document.getElementById('id-fin-orte').value = arrayorte;
+            document.getElementById('id-fin-orte').value = JSON.stringify(arrayorte);
             resetstyle('id-fin-orte');
         }
 

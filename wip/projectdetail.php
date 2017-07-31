@@ -17,14 +17,17 @@ require_once(__DIR__ . '/globalconfig.php');
 require_once(__DIR__ . '/inc/layout.php');
 
 ?>
-
-
     <!-- page content -->
 
     <div class="right_col" role="main" style="background-color:#FFFFFF;">
 
 
         <?php
+
+        if (isset($_GET['c']))
+        {
+            echo '<BODY onLoad="zeigeerfolg(\'Projekt wurde erfolgreich erstellt.\')">';
+        }
 
         if (!isset($_GET['projectid'])) {
             echo '<BODY onLoad="zeigefehler(\'Bitte Projekt in der Projektübersicht wählen!\')">';
@@ -219,8 +222,8 @@ require_once(__DIR__ . '/inc/layout.php');
                           
 						  
 <div id="mapid" style="height: 25em; position: relative; outline: none;"></div>
-<script src="js/leafletmap-projectonly.js"></script>
-<script> mymap.setView(new L.LatLng(' . $projectinfo ['ort_geo_lat'] . ',' . $projectinfo['ort_geo_lon'] . '),15);</script>
+
+
 						<br />
 
                           <div class="project_detail">
@@ -293,3 +296,64 @@ require_once(__DIR__ . '/inc/footer.content.php');
 <?php
 require_once(__DIR__ . '/inc/footer.php');
 ?>
+
+
+<script>
+
+
+    var base_TPM = L.tileLayer('https://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=<?php echo $tf_apikey;?>', {
+        attribution: '\'Maps © <a href=\'http://www.thunderforest.com\'>Thunderforest</a>, Data © <a href=\'http://www.openstreetmap.org/copyright\'>OpenStreetMap contributors</a>'
+    });
+
+    // Start Layer aus Projekte-Datenbank
+    var geojsonLayer_projekte = L.markerClusterGroup();
+
+
+
+    var parts = window.location.search.substr(1).split("&");
+    var $_GET = {};
+    for (var i = 0; i < parts.length; i++) {
+        var temp = parts[i].split("=");
+        $_GET[decodeURIComponent(temp[0])] = decodeURIComponent(temp[1]);
+    }
+
+    var geourl = 'func/projecttogeo.php' + window.location.search;
+
+    console.log(geourl);
+
+    //Pfad eventuell anpassen, gerade auf Repository angepasst
+    $.getJSON(geourl, function (data) {
+        var geojson_projekte = L.geoJson(data, {
+            onEachFeature: function (feature, layer) {
+
+                // USE A CUSTOM MARKER
+                //layer.setIcon(L.mapbox.marker.icon({'marker-symbol': 'circle-stroked', 'marker-color': '59245f'}));
+                layer.setIcon(L.AwesomeMarkers.icon({
+                    icon: 'tasks',
+                    prefix: 'fa',
+                    markerColor: 'blue',
+                    iconColor: 'white'
+                }));
+
+                // ADD A POPUP WITH A CHART
+                layer.bindPopup("<b><a href='projectdetail.php?projectid=" + feature.properties.projektid + "'>" + feature.properties.projektname + "</a></b></br>" + feature.properties.ortsname + "</br>Strecke: " + feature.properties.strecke + "(Bkm:" + feature.properties.bkm + ")");
+
+
+            }
+        });
+        geojsonLayer_projekte.addLayer(geojson_projekte);
+    });
+
+
+
+
+    // LayerGroups
+    var mymap = L.map('mapid', {
+        center: [51.679, 9.866],
+        zoom: 6,
+        layers: [base_TPM, geojsonLayer_projekte]
+    });
+
+    // mymap.fitBounds(geojson_projekte.getBounds());
+
+</script>

@@ -60,6 +60,15 @@ require_once('globalconfig.php');
                 styling: 'bootstrap3'
             })
         };
+
+        function zeigeerfolg(fehlertext) {
+            new PNotify({
+                title: 'Super!',
+                text: fehlertext,
+                type: 'success',
+                styling: 'bootstrap3'
+            })
+        };
     </script>
 
     <!-- Switchery -->

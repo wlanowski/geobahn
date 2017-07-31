@@ -426,7 +426,7 @@
         qt += '<th>entfernen</th>';
         qt += '</tr>';
         qt += '</thead>';
-        qt += '<tbody>"';
+        qt += '<tbody>';
 
         for (var i = 0; i < arrayorte.length; i++) {
             qt += '<tr>\n<td>' + arrayorte[i][0];
