@@ -25,7 +25,7 @@ require_once(__DIR__ . '/inc/layout.php');
         </div>
 
 
-    Geobahn ist eine freie Software von John Nitzsche. 
+    Geobahn ist eine freie Software von John Nitzsche.
 
 
     </div>
