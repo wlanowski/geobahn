@@ -17,98 +17,123 @@ require_once(__DIR__ . '/globalconfig.php');
 require_once(__DIR__ . '/inc/layout.php');
 
 ?>
-    <!-- page content -->
+<!-- page content -->
 
-    <div class="right_col" role="main" style="background-color:#FFFFFF;">
+<div class="right_col" role="main" style="background-color:#FFFFFF;">
 
 
-        <?php
+    <?php
 
-        if (isset($_GET['c']))
-        {
-            echo '<BODY onLoad="zeigeerfolg(\'Projekt wurde erfolgreich erstellt.\')">';
-        }
+    if (isset($_GET['c'])) {
+        echo '<BODY onLoad="zeigeerfolg(\'Projekt wurde erfolgreich erstellt.\')">';
+    }
 
-        if (!isset($_GET['projectid'])) {
-            echo '<BODY onLoad="zeigefehler(\'Bitte Projekt in der Projektübersicht wählen!\')">';
+    if (!isset($_GET['projectid'])) {
+        echo '<BODY onLoad="zeigefehler(\'Bitte Projekt in der Projektübersicht wählen!\')">';
+    } else {
+
+
+    // Frage Projektinfos aus Datenbank ab
+    $pdo = new PDO('mysql:host=' . $db_host . ';dbname=' . $db_name, $db_user, $db_pass);
+    $pdo->exec("set names utf8");
+
+    $sqlprojekte = "SELECT * FROM " . $db_pref . "_projekte WHERE id= :u_id LIMIT 1";
+    $abfrage = $pdo->prepare($sqlprojekte);
+
+    $abfrage->bindParam('u_id', $_GET['projectid']);
+
+    $abfrage->execute();
+
+    $projectinfo = $abfrage->fetch();
+
+    // Frage Benutzerinformationen ab ANSPRECHPARTNER
+    $sqlansprechpartner = "SELECT * FROM " . $db_pref . "_users WHERE username= :u_an LIMIT 1";
+    $abfragean = $pdo->prepare($sqlansprechpartner);
+    $abfragean->bindParam('u_an', $projectinfo['ansprechpartner']);
+    $abfragean->execute();
+
+    $ansprechpartnerinfo = $abfragean->fetch();
+
+    // Frage Benutzerinformationen ab ERSTELLT VON
+    $sqlerstellt = "SELECT * FROM " . $db_pref . "_users WHERE username= :u_an LIMIT 1";
+    $abfrageerstellt = $pdo->prepare($sqlerstellt);
+    $abfrageerstellt->bindParam('u_an', $projectinfo['erstelltvon']);
+    $abfrageerstellt->execute();
+
+    $erstelltinfo = $abfrageerstellt->fetch();
+
+    // Frage Benutzerinformationen ab geändert
+    $sqlge = "SELECT * FROM " . $db_pref . "_users WHERE username= :u_an LIMIT 1";
+    $abfragege = $pdo->prepare($sqlge);
+    $abfragege->bindParam('u_an', $projectinfo['gändertvon']);
+    $abfragege->execute();
+
+    $geändertinfo = $abfragege->fetch();
+
+
+    /*
+    echo '<div class=""><div class="page-title"><div class=""><h3>';
+    echo $projectinfo ['projektname'];
+    echo '</h3><br /></div></div></div> ';
+    */
+
+
+    /* Start und Enddaten vorher auswerten durch neue funktion */
+    function datumpruefen($datum)
+    {
+        if ($datum == NULL) {
+            $r = "n. def.";
         } else {
+            $date = new DateTime($datum);
+            $r = $date->format('d.m.Y');
+        }
+        return $r;
+    }
+
+    // Für Erstell- und Änderungsdaten brauchen wir die Uhrzeit
+    function datumpruefenuhr($datum)
+    {
+        if ($datum == NULL) {
+            $r = "n. def.";
+        } else {
+            $date = new DateTime($datum);
+            $r = $date->format('d.m.Y H:i:s');
+        }
+        return $r;
+    }
 
 
-            // Frage Projektinfos aus Datenbank ab
-            $pdo = new PDO('mysql:host=' . $db_host . ';dbname=' . $db_name, $db_user, $db_pass);
-            $pdo->exec("set names utf8");
+    // Auswertung des Projektstatus
 
-            $sqlprojekte = "SELECT * FROM " . $db_pref . "_projekte WHERE id=" . $_GET['projectid'] . " LIMIT 1";
-
-            $projectinfo = $pdo->query($sqlprojekte)->fetch();
-
-            // Frage Benutzerinformationen ab
-            $sqlansprechpartner = "SELECT * FROM " . $db_pref . "_users WHERE username='" . $projectinfo['ansprechpartner'] . "'	LIMIT 1";
-            $ansprechpartnerinfo = $pdo->query($sqlansprechpartner)->fetch();
-
-            /*
-            echo '<div class=""><div class="page-title"><div class=""><h3>';
-            echo $projectinfo ['projektname'];
-            echo '</h3><br /></div></div></div> ';
-            */
-
-
-            /* Start und Enddaten vorher auswerten durch neue funktion */
-            function datumpruefen($datum)
-            {
-                if ($datum == NULL) {
-                    $r = "n. def.";
-                } else {
-                    $date = new DateTime($datum);
-                    $r = $date->format('d.m.Y');
-                }
-                return $r;
-            }
-
-            // Für Erstell- und Änderungsdaten brauchen wir die Uhrzeit
-            function datumpruefenuhr($datum)
-            {
-                if ($datum == NULL) {
-                    $r = "n. def.";
-                } else {
-                    $date = new DateTime($datum);
-                    $r = $date->format('d.m.Y H:i:s');
-                }
-                return $r;
-            }
+    switch ($projectinfo['status']) {
+        case 0: {
+            $status_text = "in Bearbeitung";
+            $status_class = "info";
+            break;
+        }
+        case 1: {
+            $status_text = "abgeschlossen";
+            $status_class = "success";
+            break;
+        }
+        case 2: {
+            $status_text = "verzögert";
+            $status_class = "warning";
+            break;
+        }
+        case 3: {
+            $status_text = "Es gibt Probleme/Projekt pausiert";
+            $status_class = "danger";
+            break;
+        }
+        default: {
+            $status_text = "nicht definiert";
+            $status_class = "primary";
+        }
+    }
 
 
-            // Auswertung des Projektstatus
-
-            switch ($projectinfo['status']) {
-                case 0: {
-                    $status_text = "in Bearbeitung";
-                    $status_class = "info";
-                    break;
-                }
-                case 1: {
-                    $status_text = "abgeschlossen";
-                    $status_class = "success";
-                    break;
-                }
-                case 2: {
-                    $status_text = "verzögert";
-                    $status_class = "warning";
-                    break;
-                }
-                case 3: {
-                    $status_text = "Es gibt Probleme/Projekt pausiert";
-                    $status_class = "danger";
-                    break;
-                }
-                default: {
-                    $status_text = "nicht definiert";
-                    $status_class = "primary";
-                }
-            }
-
-
-            echo '
+    echo '
 		<div class="row">
               <div class="col-md-12">
                 <!--<div class="x_panel">-->
@@ -119,7 +144,7 @@ require_once(__DIR__ . '/inc/layout.php');
 
                   <div class="x_content">
 
-                    <div class="col-md-9 col-sm-9 col-xs-12">
+                    <div class="col-md-7 col-sm-7 col-xs-12">
 
                       <ul class="stats-overview">
                         <li>
@@ -137,7 +162,8 @@ require_once(__DIR__ . '/inc/layout.php');
                       </ul>
                       <br />
 
-                      <div id="mainb" style="height:350px;"><p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                      <div id="mainb" style="height:350px;"><p> ' . $projectinfo['zusatz'] . '
+          
 					  </p></div>
 					  
 					  
@@ -206,7 +232,7 @@ require_once(__DIR__ . '/inc/layout.php');
                     </div>
 
                     <!-- start project-detail sidebar -->
-                    <div class="col-md-3 col-sm-3 col-xs-12">
+                    <div class="col-md-5 col-sm-5 col-xs-12">
 
                       <section class="panel">
 
@@ -229,7 +255,7 @@ require_once(__DIR__ . '/inc/layout.php');
                           <div class="project_detail">
 
                             <p class="title">Ansprechpartner</p>
-                            <p><a href=user.php?username=' . $projectinfo['ansprechpartner'] . '><i class="fa fa-external-link"></i> ' . $ansprechpartnerinfo ['nameclear'] . '</p>
+                            <p><a href=user.php?username=' . $projectinfo['ansprechpartner'] . '><i class="fa fa-external-link"></i> ' . $ansprechpartnerinfo ['nameclear'] . '</a></p>
                             <!--
                             <p class="title">Project Leader</p>
                             <p>Tony Chicken</p>
@@ -252,12 +278,13 @@ require_once(__DIR__ . '/inc/layout.php');
                             </li>
                           </ul>
                           <br />
+-->
 
                           <div class="text-center mtop20">
                             <a href="mailto:' . $ansprechpartnerinfo['mail'] . '" class="btn btn-sm btn-success"><i class="fa fa-envelope"></i> Mail</a>
                             <a target="_tab" href="https://evi.intranet.deutschebahn.com/evi31/simpleSearchAction.do?filter=' . $projectinfo['ansprechpartner'] . '" class="btn btn-sm btn-primary"><i class="fa fa-phone"></i> EVI</a>
                           </div>
--->		  
+		  
 						  
 						  
                         </div>
@@ -265,35 +292,38 @@ require_once(__DIR__ . '/inc/layout.php');
 							<div class="project_detail" style="margin-left: 1em;">
 							<small>
 							<p class="title">Projekt angelegt von Benutzer</p>
-							<p><a href="user.php?username=' . $projectinfo['erstelltvon'] . '"><i class="fa fa-external-link"></i> ' . $projectinfo['erstelltvon'] . '</a> am ' . datumpruefenuhr($projectinfo['erstellt']) . '</p>
-							<p class="title">Projekt zuletzt geändert von Benutzer</p>
-							<p><a href="user.php?username=' . $projectinfo['geändertvon'] . '"><i class="fa fa-external-link"></i> ' . $projectinfo['geändertvon'] . '</a> am ' . datumpruefenuhr($projectinfo['geändert']) . '</p>
-							</small>
-							</div>
+							<p><a href="user.php?userid=' . $projectinfo['erstelltvon'] . '"><i class="fa fa-external-link"></i> ' . $erstelltinfo['username'] . '</a> am ' . datumpruefenuhr($projectinfo['erstellt']) . '</p>
+							';
+
+    if ($projectinfo['geändertvon']!="")
+{ echo '
+                        <p class="title">Projekt zuletzt geändert von Benutzer</p>
+                        <p><a href = "user.php?userid=' . $projectinfo['geändertvon'] . '"><i class="fa fa-external-link" ></i> ' . $geändertinfo['username'] . ' </a> am ' . datumpruefenuhr($projectinfo['geändert']) . ' </p>
+							 ';}
+        echo '</small>
+							</div >
 						  
-                      </section>
+                      </section >
 
-                    </div>
-                    <!-- end project-detail sidebar -->
+                    </div >
+                    <!--end project - detail sidebar-->
 
-                  </div>
-                <!--</div>-->
-              </div>
-            </div>
+                  </div >
+                <!--</div > -->
+              </div >
+            </div >
           
-        <!-- /page content -->';
+        <!-- /page content-->';
         }
         ?>
 
     </div>
-    </div>
-    </div>
+</div>
+</div>
 
 
 <?php
 require_once(__DIR__ . '/inc/footer.content.php');
-?>
-<?php
 require_once(__DIR__ . '/inc/footer.php');
 ?>
 
@@ -302,12 +332,11 @@ require_once(__DIR__ . '/inc/footer.php');
 
 
     var base_TPM = L.tileLayer('https://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=<?php echo $tf_apikey;?>', {
-        attribution: '\'Maps © <a href=\'http://www.thunderforest.com\'>Thunderforest</a>, Data © <a href=\'http://www.openstreetmap.org/copyright\'>OpenStreetMap contributors</a>'
-    });
+            attribution: '\'Maps © <a href=\'http://www.thunderforest.com\'>Thunderforest</a>, Data © <a href =\'http://www.openstreetmap.org/copyright\'>OpenStreetMap contributors</a>'
+        })
+    ;
 
     // Start Layer aus Projekte-Datenbank
-    var geojsonLayer_projekte = L.markerClusterGroup();
-
 
 
     var parts = window.location.search.substr(1).split("&");
@@ -319,7 +348,9 @@ require_once(__DIR__ . '/inc/footer.php');
 
     var geourl = 'func/projecttogeo.php' + window.location.search;
 
-    console.log(geourl);
+    //console.log(geourl);
+
+    var geojsonLayer_projekte = L.markerClusterGroup();
 
     //Pfad eventuell anpassen, gerade auf Repository angepasst
     $.getJSON(geourl, function (data) {
@@ -336,15 +367,16 @@ require_once(__DIR__ . '/inc/footer.php');
                 }));
 
                 // ADD A POPUP WITH A CHART
-                layer.bindPopup("<b><a href='projectdetail.php?projectid=" + feature.properties.projektid + "'>" + feature.properties.projektname + "</a></b></br>" + feature.properties.ortsname + "</br>Strecke: " + feature.properties.strecke + "(Bkm:" + feature.properties.bkm + ")");
+                layer.bindPopup("<b>feature.properties.ortsname" + "</b></br>Strecke: " + feature.properties.strecke + "(Bkm:" +
+                    feature.properties.bkm + ")");
 
 
             }
         });
-        geojsonLayer_projekte.addLayer(geojson_projekte);
+        // geojsonLayer_projekte.addLayer(geojson_projekte);
+        geojson_projekte.addTo(mymap);
+        mymap.fitBounds(geojson_projekte.getBounds());
     });
-
-
 
 
     // LayerGroups
@@ -354,6 +386,8 @@ require_once(__DIR__ . '/inc/footer.php');
         layers: [base_TPM, geojsonLayer_projekte]
     });
 
-    // mymap.fitBounds(geojson_projekte.getBounds());
+
+    //mymap.fitBounds(geojsonLayer_projekte.getBounds());
+    //console.log(geojsonLayer_projekte.getBounds());
 
 </script>

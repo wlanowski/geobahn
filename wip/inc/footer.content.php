@@ -7,7 +7,7 @@
                 href="https://github.com/wlanowski/wlanowski.github.io">Informationen und Quelltext</a>
     </div>
     <div class="pull-right">
-        Hallo
+        Theme: <a href="https://github.com/puikinsh/gentelella">Gentelella von colorlib</a>. <a href="license.php">Weiterhin verwendete Software</a>
     </div>
     <div class="clearfix"></div>
 </footer>

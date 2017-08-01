@@ -32,7 +32,7 @@ if (!empty($_POST)) {
     $sql->bindParam(':u_projektleiter', $_POST['fin-projektleiter']);
     $sql->bindParam(':u_start', $start);
     $sql->bindParam(':u_ende', $ende);
-    $sql->bindParam(':u_zusatz', $_POST['zusatz']);
+    $sql->bindParam(':u_zusatz', $_POST['fin-zusatz']);
     $sql->bindParam(':u_erstelltvon', $_SESSION['user']['userid']);
     //$tmp_b = serialize($_POST['fin-benutzerids']);
     $sql->bindParam(':u_benutzer', $_POST['fin-benutzerids']);
