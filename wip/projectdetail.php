@@ -28,6 +28,10 @@ require_once(__DIR__ . '/inc/layout.php');
         echo '<BODY onLoad="zeigeerfolg(\'Projekt wurde erfolgreich erstellt.\')">';
     }
 
+    if (isset($_GET['g'])) {
+        echo '<BODY onLoad="zeigeerfolg(\'Projekt erfolgreich aktuallisiert.\')">';
+    }
+
     if (!isset($_GET['projectid'])) {
         echo '<BODY onLoad="zeigefehler(\'Bitte Projekt in der Projektübersicht wählen!\')">';
     } else {

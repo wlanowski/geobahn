@@ -1,120 +1,123 @@
 <h2>Bitte überprüfen Sie Ihre Daten!</h2>
-<form class="form-horizontal form-label-left" id="form-fin" action="./func/submitproject.php" method="post">
-
-    <div class="form-group">
-        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id-fin-name">Projektname
-            <span class="required">*</span>
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="id-fin-name" name="fin-name"
-                   class="form-control col-md-7 col-xs-12" readonly>
-        </div>
+<?php if (!isset($_GET['bearbeiten'])) {
+    echo '<form class="form-horizontal form-label-left" id = "form-fin" action = "./func/submitproject.php" method = "post" >';
+} else {
+    echo '<form class="form-horizontal form-label-left" id = "form-fin" action = "./func/changeproject.php" method = "post" >';
+}
+?>
+<div class="form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id-fin-name">Projektname
+        <span class="required">*</span>
+    </label>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <input type="text" id="id-fin-name" name="fin-name"
+               class="form-control col-md-7 col-xs-12" readonly>
     </div>
+</div>
 
-    <div class="form-group">
-        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id-fin-ansprechpartner">Ansprechpartner
-            <span class="required">*</span>
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="id-fin-ansprechpartner" name="fin-ansprechpartner"
-                   class="form-control col-md-7 col-xs-12" readonly>
-        </div>
+<div class="form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id-fin-ansprechpartner">Ansprechpartner
+        <span class="required">*</span>
+    </label>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <input type="text" id="id-fin-ansprechpartner" name="fin-ansprechpartner"
+               class="form-control col-md-7 col-xs-12" readonly>
     </div>
+</div>
 
-    <div class="form-group">
-        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id-fin-projektleiter">Projektleiter
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="id-fin-projektleiter" name="fin-projektleiter"
-                   class="form-control col-md-7 col-xs-12" readonly>
-        </div>
+<div class="form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id-fin-projektleiter">Projektleiter
+    </label>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <input type="text" id="id-fin-projektleiter" name="fin-projektleiter"
+               class="form-control col-md-7 col-xs-12" readonly>
     </div>
+</div>
 
-    <div class="form-group">
-        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id-fin-start">Startdatum
-            <span class="required">*</span>
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="id-fin-start" name="fin-start" readonly
-                   class="form-control col-md-7 col-xs-12">
-        </div>
+<div class="form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id-fin-start">Startdatum
+        <span class="required">*</span>
+    </label>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <input type="text" id="id-fin-start" name="fin-start" readonly
+               class="form-control col-md-7 col-xs-12">
     </div>
+</div>
 
-    <div class="form-group">
-        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id-fin-ende">Enddatum
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="id-fin-ende" name="fin-ende"
-                   class="form-control col-md-7 col-xs-12" readonly>
-        </div>
+<div class="form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id-fin-ende">Enddatum
+    </label>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <input type="text" id="id-fin-ende" name="fin-ende"
+               class="form-control col-md-7 col-xs-12" readonly>
     </div>
+</div>
 
 
-    <div class="form-group">
-        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id-fin-status">Status
-            <span class="required">*</span>
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="id-fin-status" name="fin-status"
-                   class="form-control col-md-7 col-xs-12" readonly>
-        </div>
+<div class="form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id-fin-status">Status
+        <span class="required">*</span>
+    </label>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <input type="text" id="id-fin-status" name="fin-status"
+               class="form-control col-md-7 col-xs-12" readonly>
     </div>
+</div>
 
-    <div class="form-group">
-        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id-fin-benutzer">Benutzer
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="id-fin-benutzer" name="fin-benutzer"
-                   class="form-control col-md-7 col-xs-12" readonly>
-        </div>
+<div class="form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id-fin-benutzer">Benutzer
+    </label>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <input type="text" id="id-fin-benutzer" name="fin-benutzer"
+               class="form-control col-md-7 col-xs-12" readonly>
     </div>
+</div>
 
-    <div class="form-group">
-        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id-fin-zusatz">Zusatzinformationen
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
+<div class="form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id-fin-zusatz">Zusatzinformationen
+    </label>
+    <div class="col-md-6 col-sm-6 col-xs-12">
             <TEXTAREA form="form-fin" id="id-fin-zusatz" name="fin-zusatz" class="form-control col-md-7 col-xs-12"
                       rows="20" readonly></TEXTAREA>
-        </div>
     </div>
+</div>
 
 
-    <h3>Maschinelle Informationen zur Weiterverarbeitung</h3>
+<h3>Maschinelle Informationen zur Weiterverarbeitung</h3>
 
-    <div class="form-group">
-        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id-fin-statusnr">Statusnr
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="id-fin-statusnr" name="fin-statusnr"
-                   class="form-control col-md-7 col-xs-12" readonly>
-        </div>
+<div class="form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id-fin-statusnr">Statusnr
+    </label>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <input type="text" id="id-fin-statusnr" name="fin-statusnr"
+               class="form-control col-md-7 col-xs-12" readonly>
     </div>
+</div>
 
-    <div class="form-group">
-        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id-fin-benutzerids">Benutzer-IDS
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="id-fin-benutzerids" name="fin-benutzerids"
-                   class="form-control col-md-7 col-xs-12" readonly>
-        </div>
+<div class="form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id-fin-benutzerids">Benutzer-IDS
+    </label>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <input type="text" id="id-fin-benutzerids" name="fin-benutzerids"
+               class="form-control col-md-7 col-xs-12" readonly>
     </div>
+</div>
 
-    <div class="form-group">
-        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id-fin-orte">Orte
-            <span class="required">*</span>
-        </label>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="id-fin-orte" name="fin-orte"
-                   class="form-control col-md-7 col-xs-12" readonly>
-        </div>
+<div class="form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id-fin-orte">Orte
+        <span class="required">*</span>
+    </label>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <input type="text" id="id-fin-orte" name="fin-orte"
+               class="form-control col-md-7 col-xs-12" readonly>
     </div>
+</div>
+<br/>
+<br/>
 
-    <br/>
-    <br/>
-
-    <button id="submitbutton" class="btn btn-success col-lg-12 col-md-12 col-xs-12" type="submit"
-            disabled="disabled">Projekt erstellen
-    </button>
+<button id="submitbutton" class="btn btn-success col-lg-12 col-md-12 col-xs-12" type="submit"
+        disabled="disabled">Projekt erstellen
+</button>
 
 </form>
 
@@ -208,8 +211,7 @@
 
         if (finish) {
             document.getElementById("submitbutton").disabled = false;
-        } else
-        {
+        } else {
             document.getElementById("submitbutton").disabled = true;
         }
 

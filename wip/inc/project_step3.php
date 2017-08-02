@@ -5,16 +5,16 @@
     <div class="form-group col-centered">
         <div class="btn-group" data-toggle="buttons">
             <label class="btn btn-info">
-                <input type="radio" name="project_status" value="0" checked="checked"> in Bearbeitung
+                <input type="radio" id="status_0" name="project_status" value="0" checked="checked"> in Bearbeitung
             </label>
             <label class="btn btn-success">
-                <input type="radio" name="project_status" value="1"> abgeschlossen
+                <input type="radio" id="status_1" name="project_status" value="1"> abgeschlossen
             </label>
             <label class="btn btn-warning">
-                <input type="radio" name="project_status" value="2"> verzögert
+                <input type="radio" id="status_2" name="project_status" value="2"> verzögert
             </label>
             <label class="btn btn-danger">
-                <input type="radio" name="project_status" value="3"> Es gibt Probleme
+                <input type="radio" id="status_3" name="project_status" value="3"> Es gibt Probleme
             </label>
         </div>
     </div>
@@ -32,15 +32,13 @@
 
     <div id="tabellebenutzer" style="height: 10em">Bisher keine Benutzer ausgewählt</div>
 
-
-
-
 </form>
-    Zusatzinformationen:
-    <TEXTAREA form="step3" id="project_zusatz" class="form-control col-md-7 col-xs-12" rows="20"></TEXTAREA>
+Zusatzinformationen:
+<TEXTAREA form="step3" id="project_zusatz" class="form-control col-md-7 col-xs-12" rows="20" value="789"></TEXTAREA>
 <div style="height: 10em"></div>
 <div class="bs-example-popovers">
-    <div class="alert alert-success">Das Einfügen von Dateien ist nach dem Erstellen des Projektes möglich!</div>
+    <div class="alert alert-success"><s>Das Einfügen von Dateien ist nach dem Erstellen des Projektes möglich!</s>
+          <B>Bisher nicht umgesetzt. Auf der ToDo-Liste!</B></div>
 </div>
 
 
@@ -146,6 +144,11 @@
 
         var qtb = "";
 
+        //console.log("ich zeichne...");
+        //console.log(arraybenutzernamen)
+        //console.log("ich bin namen und "+arraybenutzernamen.length+" lang")
+        //console.log("ich bin ids und "+arraybenutzerids.length+" lang")
+
         if (arraybenutzernamen.length == 0) {
 
             qtb = "Es wurden keine Benutzer ausgewählt.";
@@ -169,8 +172,49 @@
         zeichnebenutzer();
     }
 
+    function phpweitergabebenutzer(weitergabearray, weitergabestatus) {
+        arraybenutzerids = weitergabearray;
+        arraybenutzernamen = [];
+
+
+        for (var i = 0; i < arraybenutzerids.length; i++) {
+            $.ajax({
+                url: "./func/return_benutzername.php?e=" + arraybenutzerids[i],
+                success: function (result) {
+                    arraybenutzernamen.push(result);
+                },
+                async: false  //Ansonsten kommt Ergebnis nachdem es eigentlich gebraucht wird
+            });
+        }
+        zeichnebenutzer();
+
+        // Wähle gewünschten Status an
+        document.getElementById("status_" + weitergabestatus).checked = true;
+
+
+    }
 
 </script>
+
+<?php
+
+// HIER HAND ANLEGEN: SONDERZEICHENPROBLEM
+
+if (isset($_GET['bearbeiten'])) {
+    echo "<body onload='
+    
+    phpweitergabeorte(" . $abfrage['ortgeo'] . ");
+    phpweitergabebenutzer(" . $abfrage['benutzer'] . "," . $abfrage['status'] . ");
+    zeichnebenutzer();
+    
+    document.getElementById(\"project_zusatz\").value = \"" . htmlspecialchars ($abfrage['zusatz'],ENT_QUOTES,'UTF-8') . "\";
+    
+    
+    '></body>";
+
+}
+
+?>
 
 
 

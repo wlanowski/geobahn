@@ -492,5 +492,27 @@
 
     }
 
+    function phpweitergabeorte(weitergabearray) {
+
+        //console.log(weitergabearray);
+        arrayorte=weitergabearray;
+
+        document.geopicker1.reset();
+        document.geopicker2.reset();
+
+        zeichnetabelleorte();
+
+
+    }
+
 
 </script>
+
+<?php
+if (isset($_GET['bearbeiten'])) {
+    //Siehe Schritt 3
+    //echo "<body onload='phpweitergabeorte(".$abfrage['ortgeo'].");phpweitergabebenutzer(" . $abfrage['benutzer'] . ")'></body>";
+
+}
+
+?>

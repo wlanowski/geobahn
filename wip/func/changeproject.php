@@ -1,14 +1,15 @@
 <?php
+
+/* Hier werden Projekte geändert! */
 //require für Datenbankverbindungseinstellungen
+
 require_once(dirname(__DIR__) . '/globalconfig.php');
 session_start();
-
 
 if (!empty($_POST)) {
 
     $pdo = new PDO('mysql:host=' . $db_host . ';dbname=' . $db_name, $db_user, $db_pass);
     $pdo->exec("set names utf8");
-
 
     //$sql = "SELECT * FROM " . $db_pref . "_alles WHERE strecke=" . $_GET['strecke'] . " ORDER BY km_i ASC";
 
@@ -18,8 +19,9 @@ if (!empty($_POST)) {
     $ende = strtotime($_POST['fin-ende']);
     $ende = date('Y-m-d', $ende);
 
+    //$sqlabfrage = 'INSERT INTO ' . $db_pref . '_projekte (projektname, ortgeo, ansprechpartner, projektleiter, start, ende, zusatz, erstelltvon, benutzer, status) VALUES (:u_projektname, :u_ortgeo, :u_ansprechpartner, :u_projektleiter, :u_start, :u_ende, :u_zusatz, :u_erstelltvon, :u_benutzer, :u_status)';
+    $sqlabfrage = 'UPDATE' . $db_pref . 'projektname = :u_projektname, ortgeo = :u_ortgeo, ansprechpartner = :u_ansprechpartner, projektleiter = :u_projektleiter, start = :u_start, ende = :u_ende, zusatz = :u_zusatz, erstelltvon = :u_erstelltvon, benutzer = :u_benutzer, status = :u_status WHERE ID = :u_id;';
 
-    $sqlabfrage = 'INSERT INTO ' . $db_pref . '_projekte (projektname, ortgeo, ansprechpartner, projektleiter, start, ende, zusatz, erstelltvon, benutzer, status) VALUES (:u_projektname, :u_ortgeo, :u_ansprechpartner, :u_projektleiter, :u_start, :u_ende, :u_zusatz, :u_erstelltvon, :u_benutzer, :u_status)';
     $sql = $pdo->prepare($sqlabfrage);
 
     //echo $sql;
@@ -38,14 +40,17 @@ if (!empty($_POST)) {
     $sql->bindParam(':u_benutzer', $_POST['fin-benutzerids']);
     $sql->bindParam(':u_status', $_POST['fin-name']);
 
+    $sql->bindparam(':u_id', $_SESSION['changeproject']);
+
     $sql->execute();
 
     //$antwort = $sql->fetch();
     //echo $antwort;
 
-    $id = $pdo->lastInsertId();
+    $id = $pdo->$_SESSION['changeproject'];
 
-    header('location:../projectdetail.php?projectid='.$id.'&c');
+    $_SESSION['changeproject'] = '';
+    header('location:../projectdetail.php?projectid='.$id.'&g');
 
 
 } else {

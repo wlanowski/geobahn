@@ -13,9 +13,30 @@ require_once(__DIR__ . '/inc/layout.php');
 
 
     <!-- page content -->
-<?php if (isset($_GET['nos'])) {
+<?php
+if(isset($_GET['nos']))
+{
     echo '<BODY onLoad="zeigefehler(\'Bitte Projekt in der Projektübersicht wählen!\')">';
-} ?>
+}
+
+if(isset($_GET['nv']))
+{
+    echo '<BODY onLoad="zeigefehler(\'Das eingegebene Projekt ist nicht vorhanden\')">';
+}
+
+if(isset($_GET['nb']))
+{
+    echo '<BODY onLoad="zeigefehler(\'Sie sind nicht berechtigt dieses Projekt zu bearbeiten\')">';
+}
+
+
+
+
+
+
+
+
+?>
 
     <div class="right_col" role="main" style="background-color:#ffffff;">
         <div class="">

@@ -8,6 +8,90 @@ require_once(__DIR__ . '/inc/header.php');
 require_once(__DIR__ . '/globalconfig.php');
 
 
+?>
+<?php
+//Bearbeitungsmöglichkeiten werden initialisiert.
+
+/*
+ * Issi ist blöd.
+ */
+$berechtigt = false;
+
+
+// Array nur zur Vorbeugung von E_NOTICE-Meldung wegen nicht definitierten Indizies
+$abfrage = array(
+    'ID' => '',
+    'projektname' => '',
+    'typ' => '',
+    'ort' => '',
+    'ortgeo' => '',
+    'ort_geo_lat' => '',
+    'ansprechpartner' => '',
+    'projektleiter' => '',
+    'start' => '',
+    'ende' => '',
+    'ende_prog' => '',
+    'status' => '',
+    'zusatz' => '',
+    'erstellt' => '',
+    'benutzer' => '',
+    'erstelltvon' => '',
+    'geändertvon' => '',
+    'strecke' =>'');
+
+if (isset($_GET['bearbeiten'])) {
+    // Überprüfe ob Projekt überhaupt vorhanden
+
+    $pdo = new PDO('mysql:host=' . $db_host . ';dbname=' . $db_name, $db_user, $db_pass);
+    $pdo->exec("set names utf8");
+
+    $sql = $pdo->prepare("SELECT * FROM " . $db_pref . "_projekte WHERE ID= :uebergabe LIMIT 1");
+    $sql->bindParam(':uebergabe', $_GET['bearbeiten']);
+    $sql->execute();
+
+    $abfrage = $sql->fetch();
+
+    if ($abfrage == "") {
+        //Kein Ergebnis, Projekt existiert nicht
+        header('location: ./projects.php?nv');
+        exit();
+
+    }
+
+    if ($_SESSION['user']['role'] == !1) {
+
+        $berechtigte_benutzer = json_decode($abfrage['benutzer']);
+        if ((in_array($_SESSION['user']['userid'], $berechtigte_benutzer)) OR ($_SESSION['user']['userid'] == $abfrage['erstelltvon'])) {
+            $berechtigt = true;
+        }
+
+
+    } else {
+        $berechtigt = true;
+    }
+
+    if (!$berechtigt) {
+        header('location: ./projects.php?nb');
+        exit();
+    } else {
+        //Für eine sichere (?) Übertragung der Projekt-ID an das Formular
+        $_SESSION['changeproject']=$_GET['bearbeiten'];
+    }
+
+}
+
+function val($standartterm, $bearbeitungsterm)
+{
+    if (isset($_GET['bearbeiten'])) {
+        return $bearbeitungsterm;
+    } else {
+        return $standartterm;
+    }
+}
+
+
+?>
+<?php
 require_once(__DIR__ . '/inc/layout.php');
 ?>
 
@@ -45,6 +129,7 @@ require_once(__DIR__ . '/inc/layout.php');
                                           </span>
                                     </a>
                                 </li>
+
                                 <li>
                                     <a href="#step-2">
                                         <span class="step_no">2</span>

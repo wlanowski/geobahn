@@ -9,7 +9,8 @@
         <div class="col-md-6 col-sm-6 col-xs-12">
             <input type="text" id="project_name" required="required"
                    class="form-control col-md-7 col-xs-12 "
-                   placeholder="Bsp.: AP Bffm Dresden-Neustadt">
+                   placeholder="Bsp.: AP Bffm Dresden-Neustadt"
+            value="<?php echo val('',$abfrage['projektname']); ?>">
         </div>
     </div>
 
@@ -19,7 +20,7 @@
                     class="required">*</span>
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" placeholder="Bsp.: max.mustermann" value="<?php echo $_SESSION['user']['username']; ?>"
+            <input type="text" placeholder="Bsp.: max.mustermann" value="<?php echo val($_SESSION['user']['username'],$abfrage['ansprechpartner']); ?>"
                    id="project_ansprechpartner" required="required"
                    class="form-control col-md-7 col-xs-12">
         </div>
@@ -27,10 +28,10 @@
 
     <!-- PROJEKTLEITER -->
     <div class="form-group">
-        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="project_projektleiter">Projektleiter (Benutzername/Mail-Name)
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="project_projektleiter">Projektleiter (Benutzername)
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" placeholder="Bsp.: max.mu.mustermann" value="<?php echo $_SESSION['user']['username']; ?>"
+            <input type="text" placeholder="Bsp.: max.mustermann" value="<?php echo val($_SESSION['user']['username'],$abfrage['projektleiter']); ?>"
                    id="project_projektleiter" required="required"
                    class="form-control col-md-7 col-xs-12">
         </div>
@@ -44,7 +45,7 @@
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
             <input type="text" id="project_start" name="project_start" required="required"
-                   class="form-control col-md-7 col-xs-12">
+                   class="form-control col-md-7 col-xs-12" value="<?php echo val('',date("d.m.Y", strtotime($abfrage['start'])))?>">
         </div>
     </div>
     <div class="form-group">
@@ -52,7 +53,8 @@
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
             <input type="text" id="project_ende" name="project_ende"
-                   class="form-control col-md-7 col-xs-12">
+                   class="form-control col-md-7 col-xs-12"
+                   value="<?php echo val('',date("d.m.Y", strtotime($abfrage['ende'])))?>">
         </div>
     </div>
 

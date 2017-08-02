@@ -1,6 +1,6 @@
 <?php
 require_once(__DIR__ . '/auth.php');
-$seitentitel = 'Plain vorlage';
+$seitentitel = 'Benutzerinformationen';
 require_once(__DIR__ . '/inc/header.php');
 
 // require für Datenbankverbindungseinstellungen
