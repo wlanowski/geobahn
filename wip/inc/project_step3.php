@@ -34,11 +34,11 @@
 
 </form>
 Zusatzinformationen:
-<TEXTAREA form="step3" id="project_zusatz" class="form-control col-md-7 col-xs-12" rows="20" value="789"></TEXTAREA>
+<TEXTAREA form="step3" id="project_zusatz" class="form-control col-md-7 col-xs-12" rows="20" wrap="hard" cols="20" value=""></TEXTAREA>
 <div style="height: 10em"></div>
 <div class="bs-example-popovers">
     <div class="alert alert-success"><s>Das Einfügen von Dateien ist nach dem Erstellen des Projektes möglich!</s>
-          <B>Bisher nicht umgesetzt. Auf der ToDo-Liste!</B></div>
+        <B>Bisher nicht umgesetzt. Auf der ToDo-Liste!</B></div>
 </div>
 
 
@@ -201,16 +201,22 @@ Zusatzinformationen:
 // HIER HAND ANLEGEN: SONDERZEICHENPROBLEM
 
 if (isset($_GET['bearbeiten'])) {
-    echo "<body onload='
+
+    $ausgabe_zusatz = htmlspecialchars($abfrage['zusatz'], ENT_QUOTES, 'UTF-8');
+    $ausgabe_zusatz = str_replace( array( "\n", "\r" ), array( "\\n", "\\r" ), $ausgabe_zusatz );
+    echo "<script>
+
+    document.onload = startenachladen();
     
-    phpweitergabeorte(" . $abfrage['ortgeo'] . ");
-    phpweitergabebenutzer(" . $abfrage['benutzer'] . "," . $abfrage['status'] . ");
-    zeichnebenutzer();
+    function startenachladen()
+    {
+        phpweitergabeorte(" . $abfrage['ortgeo'] . ");
+        phpweitergabebenutzer(" . $abfrage['benutzer'] . "," . $abfrage['status'] . ");
+        zeichnebenutzer();
+        document.getElementById(\"project_zusatz\").value = \"" . $ausgabe_zusatz . "\";
+    }
     
-    document.getElementById(\"project_zusatz\").value = \"" . htmlspecialchars ($abfrage['zusatz'],ENT_QUOTES,'UTF-8') . "\";
-    
-    
-    '></body>";
+    </script>";
 
 }
 

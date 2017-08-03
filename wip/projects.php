@@ -60,6 +60,7 @@ if(isset($_GET['nb']))
                     <th>Ort</th>
                     <th>Ansprechpartner</th>
                     <th>Angelegt</th>
+                    <th>Status</th>
                 </tr>
                 </thead>
 
@@ -69,6 +70,7 @@ if(isset($_GET['nb']))
                     <th>Ort</th>
                     <th>Ansprechpartner</th>
                     <th>Angelegt</th>
+                    <th>Status</th>
                 </tr>
                 </tfoot>
 
@@ -79,8 +81,10 @@ if(isset($_GET['nb']))
                 <?php
                 $pdo = new PDO('mysql:host=' . $db_host . ';dbname=' . $db_name, $db_user, $db_pass);
 
-                $sql = "SELECT * FROM " . $db_pref . "_projekte";
-                foreach ($pdo->query($sql) as $row) {
+                $sql = $pdo->prepare("SELECT ID, projektname, ort, ansprechpartner, status, erstellt FROM " . $db_pref . "_projekte");
+                $sql->execute();
+
+                foreach ($sql->fetchAll() as $row) {
                     echo "<tr>\n<td>";
 
                     echo "<a href='projectdetail.php?projectid=";
@@ -92,14 +96,52 @@ if(isset($_GET['nb']))
                     echo $row['ort'];
                     echo "</td>\n<td>";
 
-                    $sqlname = "SELECT nameclear FROM " . $db_pref . "_users WHERE username='" . $row['ansprechpartner'] . "'";
-                    $stmt = $pdo->query($sqlname);
-                    $rowname = $stmt->fetchObject();
-                    echo "<a href =user.php?username=" . $row['ansprechpartner'] . "><i class='fa fa-external-link'></i> " . $rowname->nameclear . "  </a>";
+                    $sqlnameabfrage = "SELECT nameclear FROM " . $db_pref . "_users WHERE username= :u_username";
+                    $sqlname = $pdo->prepare($sqlnameabfrage);
+
+                    $sqlname->bindParam(':u_username', $row['ansprechpartner']);
+                    $sqlname->execute();
+
+
+
+                    $rowname = $sqlname->fetch();
+                    echo "<a href='user.php?username=" . $row['ansprechpartner'] . "'><i class='fa fa-external-link'></i> " . $rowname['nameclear'] . "  </a>";
                     echo "</td>\n<td>";
 
                     $date = new DateTime($row['erstellt']);
                     echo $date->format('d.m.Y H:i:s') . "<br />";
+
+                    echo "</td>\n<td>";
+
+                    switch ($row['status']) {
+                        case 0: {
+                            $status_text = "in Bearbeitung";
+                            $status_class = "info";
+                            break;
+                        }
+                        case 1: {
+                            $status_text = "abgeschlossen";
+                            $status_class = "success";
+                            break;
+                        }
+                        case 2: {
+                            $status_text = "verzögert";
+                            $status_class = "warning";
+                            break;
+                        }
+                        case 3: {
+                            $status_text = "Es gibt Probleme/Projekt pausiert";
+                            $status_class = "danger";
+                            break;
+                        }
+                        default: {
+                            $status_text = "nicht definiert";
+                            $status_class = "primary";
+                        }
+                    }
+
+                    echo '<span class="label label-' . $status_class . '"> ' . $status_text . ' </span>';
+
 
                     echo "</td>\n</tr>";
 

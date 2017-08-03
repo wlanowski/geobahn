@@ -217,6 +217,7 @@
 <!--
 <script type="text/javascript">
     $(document).ready(function() {
+    $(document).ready(function() {
         // Initialize Smart Wizard
         $('#wizard').smartWizard();
     });
@@ -224,6 +225,10 @@
 
 <!-- Switchery -->
 <script src="../vendors/switchery/dist/switchery.min.js"></script>
+
+
+
+
 
 
 </body>

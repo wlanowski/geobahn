@@ -59,7 +59,7 @@ require_once('globalconfig.php');
                 type: 'error',
                 styling: 'bootstrap3'
             })
-        };
+        }
 
         function zeigeerfolg(fehlertext) {
             new PNotify({
@@ -68,7 +68,7 @@ require_once('globalconfig.php');
                 type: 'success',
                 styling: 'bootstrap3'
             })
-        };
+        }
     </script>
 
     <!-- Switchery -->

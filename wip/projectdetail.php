@@ -140,7 +140,7 @@ require_once(__DIR__ . '/inc/layout.php');
     echo '
 		<div class="row">
               <div class="col-md-12">
-                <!--<div class="x_panel">-->
+                <div class="x_panel">
                   <div class="x_title">
                     <h3>' . $projectinfo ['projektname'] . '</h3>
                     <div class="clearfix"></div>
@@ -166,7 +166,7 @@ require_once(__DIR__ . '/inc/layout.php');
                       </ul>
                       <br />
 
-                      <div id="mainb" style="height:350px;"><p> ' . $projectinfo['zusatz'] . '
+                      <div id="mainb" style="height: 30em; overflow: auto;"><p> ' . nl2br($projectinfo['zusatz']) . '
           
 					  </p></div>
 					  
@@ -313,7 +313,7 @@ require_once(__DIR__ . '/inc/layout.php');
                     <!--end project - detail sidebar-->
 
                   </div >
-                <!--</div > -->
+                </div >
               </div >
             </div >
           

@@ -141,7 +141,7 @@
                     </label>
 
 
-                    <input class="col-md-9 col-md-9 col-xs-12" id="eingabe_km" type="numer" placeholder="12,251"/>
+                    <input class="col-md-9 col-md-9 col-xs-12" id="eingabe_km" type="number" placeholder="12,251"/>
                     <br/>
                     <br/>
                     <br/>
@@ -476,8 +476,8 @@
             zeigefehler("Sie haben keine Bezeichnung für den Ort eingegeben!");
         } else {
 
-            arrayorte.push([document.getElementById('ort_bezeichnung').value, document.getElementById('ort_strecke').value, document.getElementById('ort_kilometer').value, document.getElementById('longitude').value, document.getElementById('latitude').value]);
-
+            arrayorte.push([escapeHTML(document.getElementById('ort_bezeichnung').value), escapeHTML(document.getElementById('ort_strecke').value), escapeHTML(document.getElementById('ort_kilometer').value), document.getElementById('longitude').value, document.getElementById('latitude').value]);
+            console.log(escapeHTML(document.getElementById('ort_bezeichnung').value));
             //Debug:
             //console.log(arrayorte);
 
@@ -494,7 +494,7 @@
 
     function phpweitergabeorte(weitergabearray) {
 
-        //console.log(weitergabearray);
+        console.log(weitergabearray);
         arrayorte=weitergabearray;
 
         document.geopicker1.reset();

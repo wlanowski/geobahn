@@ -25,18 +25,18 @@ if (!empty($_POST)) {
     //echo $sql;
 
 
-    $sql->bindParam(':u_projektname', $_POST['fin-name']);
-    //$tmp_a = serialize($_POST['fin-orte']);
+    $sql->bindParam(':u_projektname', htmlspecialchars($_POST['fin-name'], ENT_QUOTES));
+    //$tmp_a = serialize(htmlspecialchars($_POST['fin-orte']);
     $sql->bindParam(':u_ortgeo', $_POST['fin-orte']);
-    $sql->bindParam(':u_ansprechpartner', $_POST['fin-ansprechpartner']);
-    $sql->bindParam(':u_projektleiter', $_POST['fin-projektleiter']);
+    $sql->bindParam(':u_ansprechpartner', htmlspecialchars($_POST['fin-ansprechpartner'], ENT_QUOTES));
+    $sql->bindParam(':u_projektleiter', htmlspecialchars($_POST['fin-projektleiter'], ENT_QUOTES));
     $sql->bindParam(':u_start', $start);
     $sql->bindParam(':u_ende', $ende);
-    $sql->bindParam(':u_zusatz', $_POST['fin-zusatz']);
+    $sql->bindParam(':u_zusatz', htmlspecialchars($_POST['fin-zusatz'], ENT_QUOTES));
     $sql->bindParam(':u_erstelltvon', $_SESSION['user']['userid']);
-    //$tmp_b = serialize($_POST['fin-benutzerids']);
-    $sql->bindParam(':u_benutzer', $_POST['fin-benutzerids']);
-    $sql->bindParam(':u_status', $_POST['fin-name']);
+    //$tmp_b = serialize(htmlspecialchars($_POST['fin-benutzerids']);
+    $sql->bindParam(':u_benutzer', $_POST['fin-benutzerids']);;
+    $sql->bindParam(':u_status', htmlspecialchars($_POST['fin-name'], ENT_QUOTES));
 
     $sql->execute();
 

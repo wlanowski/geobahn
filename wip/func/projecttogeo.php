@@ -28,9 +28,10 @@ $geojson = array(
 
 
 foreach ($sqlabfrage->fetchAll() as $row) {
-    //echo ($row['ortgeo']);
+
     $tmparray = json_decode($row['ortgeo']);
-    //var_dump($tmparray);
+
+
     foreach ($tmparray as $rowarray) {
         // Hier wird der GEOJSON-Code generiert
         // $properties = $rowarray;

@@ -78,7 +78,7 @@
     </label>
     <div class="col-md-6 col-sm-6 col-xs-12">
             <TEXTAREA form="form-fin" id="id-fin-zusatz" name="fin-zusatz" class="form-control col-md-7 col-xs-12"
-                      rows="20" readonly></TEXTAREA>
+                      rows="20" wrap="hard" cols="20" readonly></TEXTAREA>
     </div>
 </div>
 
@@ -139,6 +139,9 @@
     function aktuallisierefin() {
 
         var finish = true;
+
+        //makearraysafe(arrayorte);
+        //makearraysafe(arraybenutzernamen);
 
 
         document.getElementById('id-fin-projektleiter').value = document.getElementById('project_projektleiter').value;

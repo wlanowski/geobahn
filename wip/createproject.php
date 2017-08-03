@@ -1,7 +1,9 @@
 <?php
 require_once(__DIR__ . '/auth.php');
-$seitentitel = 'Projekterstellung';
-require_once(__DIR__ . '/inc/header.php');
+
+//Seitentitel wird später definiert
+//$seitentitel = 'Projekterstellung';
+
 
 // require für Datenbankverbindungseinstellungen
 
@@ -9,6 +11,7 @@ require_once(__DIR__ . '/globalconfig.php');
 
 
 ?>
+
 <?php
 //Bearbeitungsmöglichkeiten werden initialisiert.
 
@@ -37,10 +40,12 @@ $abfrage = array(
     'benutzer' => '',
     'erstelltvon' => '',
     'geändertvon' => '',
-    'strecke' =>'');
+    'strecke' => '');
 
 if (isset($_GET['bearbeiten'])) {
     // Überprüfe ob Projekt überhaupt vorhanden
+
+    $seitentitel = 'Projekt bearbeiten';
 
     $pdo = new PDO('mysql:host=' . $db_host . ';dbname=' . $db_name, $db_user, $db_pass);
     $pdo->exec("set names utf8");
@@ -75,9 +80,13 @@ if (isset($_GET['bearbeiten'])) {
         exit();
     } else {
         //Für eine sichere (?) Übertragung der Projekt-ID an das Formular
-        $_SESSION['changeproject']=$_GET['bearbeiten'];
+        $_SESSION['changeproject'] = $_GET['bearbeiten'];
     }
 
+}
+else
+{
+    $seitentitel = 'Projekt erstellen';
 }
 
 function val($standartterm, $bearbeitungsterm)
@@ -91,9 +100,39 @@ function val($standartterm, $bearbeitungsterm)
 
 
 ?>
+
+
 <?php
+require_once(__DIR__ . '/inc/header.php');
 require_once(__DIR__ . '/inc/layout.php');
 ?>
+    <script>
+        /*
+        Für das Escapen von unsicheren Arrays
+         */
+
+        function escapeHTML(unsicher) {
+            /*
+            unsicher.replace(/&/g,"&amp;");
+            unsicher.replace(/</g,"&lt;");
+            unsicher.replace(/>/g,"&gt;");
+            unsicher.replace(/"/g,"&quot;");
+            unsicher.replace(/'/g,"&#039;");*/
+
+            unsicher.replace('\'','\\\'');
+            unsicher.replace('\"','\\\"');
+
+            return unsicher;
+        }
+
+        function makearraysafe(arrayweiter) {
+
+            for (var i = 0; i < arrayweiter.length; i++) {
+                arrayweiter[i] = arrayweiter(quiz[i]);
+            }
+        }
+
+    </script>
 
     <!-- page content -->
 

@@ -76,7 +76,7 @@
             "fromLabel": "von",
             "toLabel": "bis",
             "customRangeLabel": "benutzerdefiniert",
-            "weekLabel": "W",
+            "weekLabel": "KW",
             "daysOfWeek": [
                 "So",
                 "Mo",

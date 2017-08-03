@@ -1,5 +1,8 @@
 <!-- Anfang Layout -->
 <body class="nav-md">
+
+
+
 <!-- Body wird in footer geschlossen, in Footer wird nur Body und HTML geschlossen -->
 <!-- Hier Hintergrund soll weiß, wegen Tabelle -->
 
