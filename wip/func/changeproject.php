@@ -20,15 +20,32 @@ if (!empty($_POST)) {
     $ende = date('Y-m-d', $ende);
 
     //$sqlabfrage = 'INSERT INTO ' . $db_pref . '_projekte (projektname, ortgeo, ansprechpartner, projektleiter, start, ende, zusatz, erstelltvon, benutzer, status) VALUES (:u_projektname, :u_ortgeo, :u_ansprechpartner, :u_projektleiter, :u_start, :u_ende, :u_zusatz, :u_erstelltvon, :u_benutzer, :u_status)';
-    $sqlabfrage = 'UPDATE' . $db_pref . '_projekte SET projektname = :u_projektname, ortgeo = :u_ortgeo, ansprechpartner = :u_ansprechpartner, projektleiter = :u_projektleiter, start = :u_start, ende = :u_ende, zusatz = :u_zusatz, geändertvon = :u_geändertvon, benutzer = :u_benutzer, status = :u_status, geändert = NOW()  WHERE ID = :u_id;';
+    $sqlabfrage = 'UPDATE ' . $db_pref . '_projekte SET
+    projektname =:u_projektname,
+    ortgeo = :u_ortgeo,
+    ansprechpartner = :u_ansprechpartner,
+    projektleiter = :u_projektleiter,
+    start = :u_start,
+    ende = :u_ende,
+    zusatz = :u_zusatz,
+    geändertvon = :u_geändertvon,
+    benutzer = :u_benutzer,
+    status = :u_status,
+    geändert = NOW() 
+    
+    WHERE ID = :u_id;';
+
+
+
+
 
     $sql = $pdo->prepare($sqlabfrage);
 
-    //echo $sql;
+    //echo $sqlabfrage;
 
     $notice_name = htmlspecialchars($_POST['fin-name'], ENT_QUOTES);
     $notice_ansprech = htmlspecialchars($_POST['fin-ansprechpartner'], ENT_QUOTES);
-    $notice_projekt =
+    $notice_projekt = htmlspecialchars($_POST['fin-projektleiter'], ENT_QUOTES);
     $notice_zusatz = htmlspecialchars($_POST['fin-zusatz'], ENT_QUOTES);
     $notice_status = htmlspecialchars($_POST['fin-status'], ENT_QUOTES);
     $notice_projekt = htmlspecialchars($_POST['fin-projektleiter'], ENT_QUOTES);
@@ -45,7 +62,6 @@ if (!empty($_POST)) {
     $sql->bindParam(':u_benutzer', $_POST['fin-benutzerids']);
     $sql->bindParam(':u_status', $notice_status);
     $sql->bindparam(':u_id', $_SESSION['changeproject']);
-
 
     $sql->execute();
 
