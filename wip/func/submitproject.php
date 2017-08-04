@@ -24,19 +24,25 @@ if (!empty($_POST)) {
 
     //echo $sql;
 
+    $notice_name = htmlspecialchars($_POST['fin-name'], ENT_QUOTES);
+    $notice_ansprech = htmlspecialchars($_POST['fin-ansprechpartner'], ENT_QUOTES);
+    $notice_projekt = htmlspecialchars($_POST['fin-projektleiter'], ENT_QUOTES);
+    $notice_zusatz = htmlspecialchars($_POST['fin-zusatz'], ENT_QUOTES);
+    $notice_status = htmlspecialchars($_POST['fin-status'], ENT_QUOTES);
 
-    $sql->bindParam(':u_projektname', htmlspecialchars($_POST['fin-name'], ENT_QUOTES));
+
+    $sql->bindParam(':u_projektname', $notice_name);
     //$tmp_a = serialize(htmlspecialchars($_POST['fin-orte']);
     $sql->bindParam(':u_ortgeo', $_POST['fin-orte']);
-    $sql->bindParam(':u_ansprechpartner', htmlspecialchars($_POST['fin-ansprechpartner'], ENT_QUOTES));
-    $sql->bindParam(':u_projektleiter', htmlspecialchars($_POST['fin-projektleiter'], ENT_QUOTES));
+    $sql->bindParam(':u_ansprechpartner', $notice_ansprech);
+    $sql->bindParam(':u_projektleiter', $notice_projekt);
     $sql->bindParam(':u_start', $start);
     $sql->bindParam(':u_ende', $ende);
-    $sql->bindParam(':u_zusatz', htmlspecialchars($_POST['fin-zusatz'], ENT_QUOTES));
+    $sql->bindParam(':u_zusatz', $notice_zusatz);
     $sql->bindParam(':u_erstelltvon', $_SESSION['user']['userid']);
     //$tmp_b = serialize(htmlspecialchars($_POST['fin-benutzerids']);
     $sql->bindParam(':u_benutzer', $_POST['fin-benutzerids']);;
-    $sql->bindParam(':u_status', htmlspecialchars($_POST['fin-name'], ENT_QUOTES));
+    $sql->bindParam(':u_status', $notice_status);
 
     $sql->execute();
 
@@ -45,7 +51,7 @@ if (!empty($_POST)) {
 
     $id = $pdo->lastInsertId();
 
-    header('location:../projectdetail.php?projectid='.$id.'&c');
+    //header('location:../projectdetail.php?projectid='.$id.'&c');
 
 
 } else {

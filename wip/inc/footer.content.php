@@ -4,7 +4,8 @@
 <footer>
     <div class="pull-left">
         <?php echo $projectxname ?> - Ein Projekt von John Nitzsche. <a
-                href="https://github.com/wlanowski/wlanowski.github.io">Informationen und Quelltext</a> (Stand: 01. August 2017)
+                href="https://github.com/wlanowski/wlanowski.github.io">Informationen und Quelltext</a> (Stand: 04.
+        August 2017)
     </div>
     <div class="pull-right">
         Theme: <a href="https://github.com/puikinsh/gentelella">Gentelella von colorlib</a>. <a href="license.php">Weiterhin verwendete Software</a>
