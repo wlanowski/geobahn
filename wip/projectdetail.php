@@ -7,34 +7,28 @@ if (!isset($_GET['projectid'])) {
 }
 
 
-require_once(__DIR__ . '/inc/header.php');
-
 // require für Datenbankverbindungseinstellungen
 
 require_once(__DIR__ . '/globalconfig.php');
 
 
-require_once(__DIR__ . '/inc/layout.php');
-
 ?>
 <!-- page content -->
 
-<div class="right_col" role="main" style="background-color:#FFFFFF;">
 
+<?php
 
-    <?php
+if (isset($_GET['c'])) {
+    echo '<BODY onLoad="zeigeerfolg(\'Projekt wurde erfolgreich erstellt.\')">';
+}
 
-    if (isset($_GET['c'])) {
-        echo '<BODY onLoad="zeigeerfolg(\'Projekt wurde erfolgreich erstellt.\')">';
-    }
+if (isset($_GET['g'])) {
+    echo '<BODY onLoad="zeigeerfolg(\'Projekt erfolgreich aktuallisiert.\')">';
+}
 
-    if (isset($_GET['g'])) {
-        echo '<BODY onLoad="zeigeerfolg(\'Projekt erfolgreich aktuallisiert.\')">';
-    }
-
-    if (!isset($_GET['projectid'])) {
-        echo '<BODY onLoad="zeigefehler(\'Bitte Projekt in der Projektübersicht wählen!\')">';
-    } else {
+if (!isset($_GET['projectid'])) {
+    echo '<BODY onLoad="zeigefehler(\'Bitte Projekt in der Projektübersicht wählen!\')">';
+} else {
 
 
     // Frage Projektinfos aus Datenbank ab
@@ -50,6 +44,10 @@ require_once(__DIR__ . '/inc/layout.php');
 
     $projectinfo = $abfrage->fetch();
 
+    if ($projectinfo == "") {
+        header('Location: projects.php?nf');
+    }
+
     // Frage Benutzerinformationen ab ANSPRECHPARTNER
     $sqlansprechpartner = "SELECT * FROM " . $db_pref . "_users WHERE username= :u_an LIMIT 1";
     $abfragean = $pdo->prepare($sqlansprechpartner);
@@ -59,7 +57,7 @@ require_once(__DIR__ . '/inc/layout.php');
     $ansprechpartnerinfo = $abfragean->fetch();
 
     // Frage Benutzerinformationen ab ERSTELLT VON
-    $sqlerstellt = "SELECT * FROM " . $db_pref . "_users WHERE username= :u_an LIMIT 1";
+    $sqlerstellt = "SELECT * FROM " . $db_pref . "_users WHERE ID= :u_an LIMIT 1";
     $abfrageerstellt = $pdo->prepare($sqlerstellt);
     $abfrageerstellt->bindParam('u_an', $projectinfo['erstelltvon']);
     $abfrageerstellt->execute();
@@ -67,9 +65,9 @@ require_once(__DIR__ . '/inc/layout.php');
     $erstelltinfo = $abfrageerstellt->fetch();
 
     // Frage Benutzerinformationen ab geändert
-    $sqlge = "SELECT * FROM " . $db_pref . "_users WHERE username= :u_an LIMIT 1";
+    $sqlge = "SELECT * FROM " . $db_pref . "_users WHERE ID= :u_an LIMIT 1";
     $abfragege = $pdo->prepare($sqlge);
-    $abfragege->bindParam('u_an', $projectinfo['gändertvon']);
+    $abfragege->bindParam('u_an', $projectinfo['geändertvon']);
     $abfragege->execute();
 
     $geändertinfo = $abfragege->fetch();
@@ -82,7 +80,7 @@ require_once(__DIR__ . '/inc/layout.php');
     */
 
 
-    /* Start und Enddaten vorher auswerten durch neue funktion */
+    // Start und Enddaten vorher auswerten durch neue funktion
     function datumpruefen($datum)
     {
         if ($datum == NULL) {
@@ -94,6 +92,7 @@ require_once(__DIR__ . '/inc/layout.php');
         return $r;
     }
 
+
     // Für Erstell- und Änderungsdaten brauchen wir die Uhrzeit
     function datumpruefenuhr($datum)
     {
@@ -101,7 +100,7 @@ require_once(__DIR__ . '/inc/layout.php');
             $r = "n. def.";
         } else {
             $date = new DateTime($datum);
-            $r = $date->format('d.m.Y H:i:s');
+            $r = $date->format('d.m.Y H:i:s (T)');
         }
         return $r;
     }
@@ -136,8 +135,12 @@ require_once(__DIR__ . '/inc/layout.php');
         }
     }
 
+    require_once(__DIR__ . '/inc/header.php');
+    require_once(__DIR__ . '/inc/layout.php');
 
     echo '
+
+<div class="right_col" role="main" style="background-color:#FFFFFF;">
 		<div class="row">
               <div class="col-md-12">
                 <div class="x_panel">
@@ -284,7 +287,7 @@ require_once(__DIR__ . '/inc/layout.php');
                           <br />
 -->
 
-                          <div class="text-center mtop20">
+                          <div class="mtop20">
                             <a href="mailto:' . $ansprechpartnerinfo['mail'] . '" class="btn btn-sm btn-success"><i class="fa fa-envelope"></i> Mail</a>
                             <a target="_tab" href="https://evi.intranet.deutschebahn.com/evi31/simpleSearchAction.do?filter=' . $projectinfo['ansprechpartner'] . '" class="btn btn-sm btn-primary"><i class="fa fa-phone"></i> EVI</a>
                           </div>
@@ -299,12 +302,13 @@ require_once(__DIR__ . '/inc/layout.php');
 							<p><a href="user.php?userid=' . $projectinfo['erstelltvon'] . '"><i class="fa fa-external-link"></i> ' . $erstelltinfo['username'] . '</a> am ' . datumpruefenuhr($projectinfo['erstellt']) . '</p>
 							';
 
-    if ($projectinfo['geändertvon']!="")
-{ echo '
+    if ($projectinfo['geändertvon'] != "") {
+        echo '
                         <p class="title">Projekt zuletzt geändert von Benutzer</p>
                         <p><a href = "user.php?userid=' . $projectinfo['geändertvon'] . '"><i class="fa fa-external-link" ></i> ' . $geändertinfo['username'] . ' </a> am ' . datumpruefenuhr($projectinfo['geändert']) . ' </p>
-							 ';}
-        echo '</small>
+							 ';
+    }
+    echo '</small>
 							</div >
 						  
                       </section >
@@ -318,10 +322,10 @@ require_once(__DIR__ . '/inc/layout.php');
             </div >
           
         <!-- /page content-->';
-        }
-        ?>
+}
+?>
 
-    </div>
+</div>
 </div>
 </div>
 

@@ -41,11 +41,11 @@ if (!empty($_POST)) {
                         )
                     );
 
-                    //$message['success'] = 'Anmeldung erfolgreich, <a href="map.php">weiter zum Inhalt.';
+                    //$message['success'] = 'Anmeldung erfolgreich, <a href="index.php">weiter zum Inhalt.';
                     if (isset($_GET['weiter'])) {
                         header('location: ../' . $_GET['weiter']);
                     } else {
-                        header('Location: ../map.php');
+                        header('Location: ../index.php');
                     }
                 } else {
                     //$message['error'] = 'Das Kennwort ist nicht korrekt.';

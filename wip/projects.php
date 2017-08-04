@@ -28,6 +28,9 @@ if(isset($_GET['nb']))
 {
     echo '<BODY onLoad="zeigefehler(\'Sie sind nicht berechtigt dieses Projekt zu bearbeiten\')">';
 }
+if (isset($_GET['nf'])) {
+    echo '<BODY onLoad="zeigefehler(\'Das Projekt wurde nicht gefunden. Bitte wählen Sie ihr Projekt\')">';
+}
 
 
 
@@ -109,7 +112,7 @@ if(isset($_GET['nb']))
                     echo "</td>\n<td>";
 
                     $date = new DateTime($row['erstellt']);
-                    echo $date->format('d.m.Y H:i:s') . "<br />";
+                    echo $date->format('d.m.Y H:i:s (T)') . "<br />";
 
                     echo "</td>\n<td>";
 

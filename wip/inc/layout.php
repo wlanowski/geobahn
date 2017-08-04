@@ -52,14 +52,23 @@ setlocale(LC_TIME, "de_DE.utf8"); ?>
                         <ul class="nav side-menu">
 
                             <li><a href="map.php"><i class="fa fa-globe"></i> Karte </a></li>
-                            <li><a><i class="fa fa-tasks"></i> Projekte<span class="fa fa-chevron-down"></span></a>
+                            <li><a><i class="fa fa-tasks"></i> Daten<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a href="projects.php">Projektübersicht</a></li>
-                                    <li><a href="myprojects.php">Meine Projekte</a></li>
                                     <li><a href="createproject.php">Projekt erstellen</a></li>
+                                    <li><a href="userlist.php">Benutzerübersicht</a></li>
                                 </ul>
+                            </li>
                             <li><a href="inspector.php"><i class="fa fa-search"></i> Inspektor </a></li>
                             <li><a href="dateien.php"><i class="fa fa-file-o"></i> Download </a></li>
+                            <li><a><i class="fa fa-info"></i> Informationen<span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="about.php">Über</a></li>
+                                    <li><a href="license.php">Lizenz</a></li>
+                                    <li><a href="impressum.php">Impressum</a></li>
+
+                                </ul>
+                            </li>
 
                             <!-- <li><a href = "mailto:john.nitzsche@deutschebahn.com?cc=nitzschejohn@gmail.com?subject=Geodaten%20Bahn"><i class = "fa fa-comment"></i> Mailsupport </a></li> -->
                         </ul>
@@ -69,27 +78,7 @@ setlocale(LC_TIME, "de_DE.utf8"); ?>
                 <!-- /sidebar menu -->
 
                 <!-- /menu footer buttons -->
-                <div class="sidebar-footer hidden-small">
 
-
-                    <!--
-                      <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                        <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-                      </a>
-                      <a data-toggle="tooltip" data-placement="top" title="Lock">
-                        <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-                      </a>
-                    -->
-
-                    <a data-toggle="tooltip" data-placement="top" title="Support"
-                       href="mailto:john.nitzsche@deutschebahn.com">
-                        <span class="fa fa-comment" aria-hidden="true"></span>
-                    </a>
-                    <a data-toggle="tooltip" data-placement="top" title="Logout" href="logout.php">
-                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-                    </a>
-                </div>
-                <!-- /menu footer buttons -->
 
             </div>
         </div>
@@ -110,13 +99,10 @@ setlocale(LC_TIME, "de_DE.utf8"); ?>
                                 <span class=" fa fa-angle-down"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                <li><a href="javascript:;">Profil</a></li>
-                                <li>
-                                    <a href="javascript:;">
-                                        <span>Einstellungen</span>
-                                    </a>
-                                </li>
-                                <li><a href="javascript:;">Support</a></li>
+                                <li><a href="user.php?userid=<?php echo $_SESSION['user']['userid']; ?>">Mein Profil /
+                                        Meine Projekte</a></li>
+
+
                                 <li><a href="logout.php"><i class="fa fa-sign-out pull-right"></i>Logout</a></li>
                             </ul>
                         </li>

@@ -20,7 +20,7 @@ if (!empty($_POST)) {
     $ende = date('Y-m-d', $ende);
 
     //$sqlabfrage = 'INSERT INTO ' . $db_pref . '_projekte (projektname, ortgeo, ansprechpartner, projektleiter, start, ende, zusatz, erstelltvon, benutzer, status) VALUES (:u_projektname, :u_ortgeo, :u_ansprechpartner, :u_projektleiter, :u_start, :u_ende, :u_zusatz, :u_erstelltvon, :u_benutzer, :u_status)';
-    $sqlabfrage = 'UPDATE' . $db_pref . 'projektname = :u_projektname, ortgeo = :u_ortgeo, ansprechpartner = :u_ansprechpartner, projektleiter = :u_projektleiter, start = :u_start, ende = :u_ende, zusatz = :u_zusatz, geändertvon = :u_erstelltvon, benutzer = :u_benutzer, status = :u_status, geändert = NOW()  WHERE ID = :u_id;';
+    $sqlabfrage = 'UPDATE' . $db_pref . '_projekte SET projektname = :u_projektname, ortgeo = :u_ortgeo, ansprechpartner = :u_ansprechpartner, projektleiter = :u_projektleiter, start = :u_start, ende = :u_ende, zusatz = :u_zusatz, geändertvon = :u_geändertvon, benutzer = :u_benutzer, status = :u_status, geändert = NOW()  WHERE ID = :u_id;';
 
     $sql = $pdo->prepare($sqlabfrage);
 
@@ -28,7 +28,6 @@ if (!empty($_POST)) {
 
 
     $sql->bindParam(':u_projektname', htmlspecialchars($_POST['fin-name'], ENT_QUOTES));
-    //$tmp_a = serialize(htmlspecialchars($_POST['fin-orte']);
     $sql->bindParam(':u_ortgeo', $_POST['fin-orte']);
     $sql->bindParam(':u_ansprechpartner', htmlspecialchars($_POST['fin-ansprechpartner'], ENT_QUOTES));
     $sql->bindParam(':u_projektleiter', htmlspecialchars($_POST['fin-projektleiter'], ENT_QUOTES));
@@ -36,22 +35,20 @@ if (!empty($_POST)) {
     $sql->bindParam(':u_ende', $ende);
     $sql->bindParam(':u_zusatz', htmlspecialchars($_POST['fin-zusatz'], ENT_QUOTES));
     $sql->bindParam(':u_geändertvon', $_SESSION['user']['userid']);
-    //$tmp_b = serialize(htmlspecialchars($_POST['fin-benutzerids']);
     $sql->bindParam(':u_benutzer', $_POST['fin-benutzerids']);
     $sql->bindParam(':u_status', htmlspecialchars($_POST['fin-name'], ENT_QUOTES));
     $sql->bindparam(':u_id', $_SESSION['changeproject']);
 
 
-
     $sql->execute();
 
-    //$antwort = $sql->fetch();
+    $sql->fetch();
     //echo $antwort;
 
-    $id = $pdo->$_SESSION['changeproject'];
+    $id = $_SESSION['changeproject'];
 
     $_SESSION['changeproject'] = '';
-    header('location:../projectdetail.php?projectid='.$id.'&g');
+    //header('location:../projectdetail.php?projectid='.$id.'&g');
 
 
 } else {
