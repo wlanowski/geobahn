@@ -1,5 +1,5 @@
 <?php
 
-header('Location: ./wip/map.php');
+header('Location: ./wip/index.php');
 exit();
 ?>
