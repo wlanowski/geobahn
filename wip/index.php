@@ -56,7 +56,7 @@ require_once(__DIR__ . '/inc/layout.php');
 
                                 echo '<a href="user.php?userid=' . $row['geaendertvon'] . '">';
                                 echo $benutzer->fetch()['nameclear'];
-                                echo '</a></div>';
+                                echo '</a></div></div></div></li>';
                             }
                             ?>
                         </ul>
@@ -98,7 +98,7 @@ require_once(__DIR__ . '/inc/layout.php');
 
                                 echo '<a href="user.php?userid=' . $row['erstelltvon'] . '">';
                                 echo $benutzer->fetch()['nameclear'];
-                                echo '</a></div>';
+                                echo '</a></div></div></div></li>';
                             }
                             ?>
                         </ul>
@@ -109,6 +109,8 @@ require_once(__DIR__ . '/inc/layout.php');
 
             <!-- Das waren die neuen Projekte -->
         </div>
+    </div>
+    </div>
 
     </div>
 
