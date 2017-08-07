@@ -22,11 +22,12 @@ require_once(__DIR__ . '/inc/layout.php');
                     echo $seitentitel; ?></h3><br/>
             </div>
         </div>
+        <div class="clearfix"></div>
 
         <!-- Hier kommen die letzten Änderungen -->
         <div class="row">
 
-            <div class="col-md-6">
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
 
                 <div class="x_panel">
                     <div class="x_title">
@@ -68,10 +69,11 @@ require_once(__DIR__ . '/inc/layout.php');
             <!-- Das waren die letzten Änderungen -->
 
             <!-- Hier kommen die neuen Projekte -->
-            <div class="col-md-6">
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
 
                 <div class="x_panel">
                     <div class="x_title">
+                        <div class="clearfix"></div>
                         <h2>Neu hinzugefügte Projekte</h2>
                         <div class="clearfix"></div>
                     </div>
