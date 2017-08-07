@@ -34,7 +34,8 @@
 
 </form>
 Zusatzinformationen:
-<TEXTAREA form="step3" id="project_zusatz" class="form-control col-md-7 col-xs-12" rows="20" wrap="hard" cols="20" value=""></TEXTAREA>
+<TEXTAREA form="step3" id="project_zusatz" class="form-control col-md-7 col-xs-12" rows="20" wrap="hard" cols="20"
+          value=""></TEXTAREA>
 <div style="height: 10em"></div>
 <div class="bs-example-popovers">
     <div class="alert alert-success"><s>Das Einfügen von Dateien ist nach dem Erstellen des Projektes möglich!</s>
@@ -202,18 +203,27 @@ Zusatzinformationen:
 
 if (isset($_GET['bearbeiten'])) {
 
+    //$ausgabe_zusatz = htmlspecialchars($abfrage['zusatz'], ENT_QUOTES, 'UTF-8');
     $ausgabe_zusatz = htmlspecialchars($abfrage['zusatz'], ENT_QUOTES, 'UTF-8');
-    $ausgabe_zusatz = str_replace( array( "\n", "\r" ), array( "\\n", "\\r" ), $ausgabe_zusatz );
+    $ausgabe_zusatz = str_replace(array("\n", "\r"), array("\\n", "\\r"), $ausgabe_zusatz);
     echo "<script>
 
     document.onload = startenachladen();
+    
+    function decodeHTML(HTMLTEXT) {
+        var erg = document.createElement(\"textarea\");
+        erg.innerHTML = HTMLTEXT;
+        return erg.value;
+    }
     
     function startenachladen()
     {
         phpweitergabeorte(" . $abfrage['ortgeo'] . ");
         phpweitergabebenutzer(" . $abfrage['benutzer'] . "," . $abfrage['status'] . ");
         zeichnebenutzer();
-        document.getElementById(\"project_zusatz\").value = \"" . $ausgabe_zusatz . "\";
+        var zusatz = decodeHTML(\"" . $ausgabe_zusatz . "\");
+        console.log(zusatz)
+        document.getElementById(\"project_zusatz\").value = zusatz;
     }
     
     </script>";

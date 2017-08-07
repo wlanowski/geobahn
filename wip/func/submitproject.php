@@ -28,7 +28,7 @@ if (!empty($_POST)) {
     $notice_ansprech = htmlspecialchars($_POST['fin-ansprechpartner'], ENT_QUOTES);
     $notice_projekt = htmlspecialchars($_POST['fin-projektleiter'], ENT_QUOTES);
     $notice_zusatz = htmlspecialchars($_POST['fin-zusatz'], ENT_QUOTES);
-    $notice_status = htmlspecialchars($_POST['fin-status'], ENT_QUOTES);
+    //$notice_status = htmlspecialchars($_POST['fin-statusnr'], ENT_QUOTES);
 
 
     $sql->bindParam(':u_projektname', $notice_name);
@@ -42,7 +42,7 @@ if (!empty($_POST)) {
     $sql->bindParam(':u_erstelltvon', $_SESSION['user']['userid']);
     //$tmp_b = serialize(htmlspecialchars($_POST['fin-benutzerids']);
     $sql->bindParam(':u_benutzer', $_POST['fin-benutzerids']);;
-    $sql->bindParam(':u_status', $notice_status);
+    $sql->bindParam(':u_status', $_POST['fin-statusnr'], PDO::PARAM_INT);
 
     $sql->execute();
 

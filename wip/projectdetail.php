@@ -67,7 +67,7 @@ if (!isset($_GET['projectid'])) {
     // Frage Benutzerinformationen ab geändert
     $sqlge = "SELECT * FROM " . $db_pref . "_users WHERE ID= :u_an LIMIT 1";
     $abfragege = $pdo->prepare($sqlge);
-    $abfragege->bindParam('u_an', $projectinfo['geändertvon']);
+    $abfragege->bindParam('u_an', $projectinfo['geaendertvon']);
     $abfragege->execute();
 
     $geändertinfo = $abfragege->fetch();
@@ -169,7 +169,7 @@ if (!isset($_GET['projectid'])) {
                       </ul>
                       <br />
 
-                      <div id="mainb" style="height: 30em; overflow: auto;"><p> ' . nl2br($projectinfo['zusatz']) . '
+                      <div id="mainb" style="height: 30em; overflow: auto;"><p> ' . htmlspecialchars_decode(nl2br($projectinfo['zusatz']), ENT_QUOTES) . '
           
 					  </p></div>
 					  
@@ -302,10 +302,10 @@ if (!isset($_GET['projectid'])) {
 							<p><a href="user.php?userid=' . $projectinfo['erstelltvon'] . '"><i class="fa fa-external-link"></i> ' . $erstelltinfo['username'] . '</a> am ' . datumpruefenuhr($projectinfo['erstellt']) . '</p>
 							';
 
-    if ($projectinfo['geändertvon'] != "") {
+    if ($projectinfo['geaendertvon'] != "") {
         echo '
                         <p class="title">Projekt zuletzt geändert von Benutzer</p>
-                        <p><a href = "user.php?userid=' . $projectinfo['geändertvon'] . '"><i class="fa fa-external-link" ></i> ' . $geändertinfo['username'] . ' </a> am ' . datumpruefenuhr($projectinfo['geändert']) . ' </p>
+                        <p><a href = "user.php?userid=' . $projectinfo['geaendertvon'] . '"><i class="fa fa-external-link" ></i> ' . $geändertinfo['username'] . ' </a> am ' . datumpruefenuhr($projectinfo['geaendert']) . ' </p>
 							 ';
     }
     echo '</small>
