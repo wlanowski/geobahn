@@ -4,7 +4,7 @@
 <footer>
     <div class="pull-left">
         <?php echo $projectxname ?> - Ein Projekt von John Nitzsche. <a
-                href="https://github.com/wlanowski/wlanowski.github.io">Informationen und Quelltext</a> (Stand: 04.
+                href="https://github.com/wlanowski/wlanowski.github.io">Informationen und Quelltext</a> (Stand: 08.
         August 2017)
     </div>
     <div class="pull-right">

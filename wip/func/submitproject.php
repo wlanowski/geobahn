@@ -51,7 +51,7 @@ if (!empty($_POST)) {
 
     $id = $pdo->lastInsertId();
 
-    //header('location:../projectdetail.php?projectid='.$id.'&c');
+    header('location:../projectdetail.php?projectid=' . $id . '&c');
 
 
 } else {

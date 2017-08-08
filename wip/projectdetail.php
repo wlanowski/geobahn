@@ -375,7 +375,7 @@ require_once(__DIR__ . '/inc/footer.php');
                 }));
 
                 // ADD A POPUP WITH A CHART
-                layer.bindPopup("<b>feature.properties.ortsname" + "</b></br>Strecke: " + feature.properties.strecke + "(Bkm:" +
+                layer.bindPopup("<b>" + feature.properties.ortsname + "</b></br>Strecke: " + feature.properties.strecke + " (Bkm:" +
                     feature.properties.bkm + ")");
 
 
