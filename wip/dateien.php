@@ -74,7 +74,7 @@ require_once(__DIR__ . '/inc/layout.php');
             <h4>SQL-Dateien</h4>
             Zur Auswertung der Geodaten wurden diese in eine MySQL-Datenbank überführt. Die exportierten Datenbanken
             stehen hier als SQL-Dateien zur Verfügung.<br/>
-            <a class="btn btn-success" href="../geodata/sql/zusammengeführt.sql"><i class="fa fa-file-code-o"></i>
+            <a class="btn btn-success" href="../geodata/sql/geodataonly.sql"><i class="fa fa-file-code-o"></i>
                 SQL</a><br/>
 
             <h4>Kilometer und weitere Formate</h4>
