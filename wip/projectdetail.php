@@ -25,7 +25,9 @@ if (isset($_GET['c'])) {
 if (isset($_GET['g'])) {
     echo '<BODY onLoad="zeigeerfolg(\'Projekt erfolgreich aktuallisiert.\')">';
 }
-
+if (isset($_GET['nb'])) {
+    echo '<BODY onLoad="zeigefehler(\'Sie sind nicht berechtigt dieses Projekt zu bearbeiten\')">';
+}
 if (!isset($_GET['projectid'])) {
     echo '<BODY onLoad="zeigefehler(\'Bitte Projekt in der Projektübersicht wählen!\')">';
 } else {
@@ -317,9 +319,12 @@ if (!isset($_GET['projectid'])) {
                     <!--end project - detail sidebar-->
 
                   </div >
+                 
                 </div >
+                
               </div >
             </div >
+              <a href="createproject.php?bearbeiten='.$_GET['projectid'].'"><small><i class="fa fa-external-link" ></i> Projekt bearbeiten</small></a>
           
         <!-- /page content-->';
 }

@@ -14,29 +14,20 @@ require_once(__DIR__ . '/inc/layout.php');
 
     <!-- page content -->
 <?php
-if(isset($_GET['nos']))
-{
+if (isset($_GET['nos'])) {
     echo '<BODY onLoad="zeigefehler(\'Bitte Projekt in der Projektübersicht wählen!\')">';
 }
 
-if(isset($_GET['nv']))
-{
+if (isset($_GET['nv'])) {
     echo '<BODY onLoad="zeigefehler(\'Das eingegebene Projekt ist nicht vorhanden\')">';
 }
 
-if(isset($_GET['nb']))
-{
+if (isset($_GET['nb'])) {
     echo '<BODY onLoad="zeigefehler(\'Sie sind nicht berechtigt dieses Projekt zu bearbeiten\')">';
 }
 if (isset($_GET['nf'])) {
     echo '<BODY onLoad="zeigefehler(\'Das Projekt wurde nicht gefunden. Bitte wählen Sie ihr Projekt\')">';
 }
-
-
-
-
-
-
 
 
 ?>
@@ -60,7 +51,6 @@ if (isset($_GET['nf'])) {
                 <thead>
                 <tr>
                     <th>Projektname</th>
-                    <th>Ort</th>
                     <th>Ansprechpartner</th>
                     <th>Angelegt</th>
                     <th>Status</th>
@@ -70,7 +60,6 @@ if (isset($_GET['nf'])) {
                 <tfoot>
                 <tr>
                     <th>Projektname</th>
-                    <th>Ort</th>
                     <th>Ansprechpartner</th>
                     <th>Angelegt</th>
                     <th>Status</th>
@@ -96,15 +85,13 @@ if (isset($_GET['nf'])) {
                     echo "</a>";
                     echo "</td>\n<td>";
 
-                    echo $row['ort'];
-                    echo "</td>\n<td>";
+
 
                     $sqlnameabfrage = "SELECT nameclear FROM " . $db_pref . "_users WHERE username= :u_username";
                     $sqlname = $pdo->prepare($sqlnameabfrage);
 
                     $sqlname->bindParam(':u_username', $row['ansprechpartner']);
                     $sqlname->execute();
-
 
 
                     $rowname = $sqlname->fetch();

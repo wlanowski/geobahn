@@ -76,7 +76,7 @@ if (isset($_GET['bearbeiten'])) {
     }
 
     if (!$berechtigt) {
-        header('location: ./projects.php?nb');
+        header('location: ./projectdetail.php?projectid='.$_GET['bearbeiten'].'&nb');
         exit();
     } else {
         //Für eine sichere (?) Übertragung der Projekt-ID an das Formular

@@ -69,6 +69,14 @@ setlocale(LC_TIME, "de_DE.utf8"); ?>
 
                                 </ul>
                             </li>
+                            <?php
+                             if($_SESSION['user']['role']==1)
+                             {
+                                 echo '<li><a href="control.php"><i class="fa fa-cog"></i> Kontrollzentrum </a></li>';
+                             }
+
+
+                            ?>
 
                             <!-- <li><a href = "mailto:john.nitzsche@deutschebahn.com?cc=nitzschejohn@gmail.com?subject=Geodaten%20Bahn"><i class = "fa fa-comment"></i> Mailsupport </a></li> -->
                         </ul>

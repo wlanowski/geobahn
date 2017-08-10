@@ -61,7 +61,63 @@
                         {
                             extend: "print",
                             className: "btn-sm"
+                        }
+                    ],
+                    responsive: true
+                });
+            }
+            if ($("#datatable-buttons-user").length) {
+                $("#datatable-buttons-user").DataTable({
+                    dom: "Bfrtip",
+                    buttons: [
+                        {
+                            extend: "copy",
+                            className: "btn-sm"
                         },
+                        {
+                            extend: "csv",
+                            className: "btn-sm"
+                        },
+                        {
+                            extend: "excel",
+                            className: "btn-sm"
+                        },
+                        {
+                            extend: "pdfHtml5",
+                            className: "btn-sm"
+                        },
+                        {
+                            extend: "print",
+                            className: "btn-sm"
+                        }
+                    ],
+                    responsive: true
+                });
+            }
+            if ($("#datatable-buttons-projects").length) {
+                $("#datatable-buttons-projects").DataTable({
+                    dom: "Bfrtip",
+                    buttons: [
+                        {
+                            extend: "copy",
+                            className: "btn-sm"
+                        },
+                        {
+                            extend: "csv",
+                            className: "btn-sm"
+                        },
+                        {
+                            extend: "excel",
+                            className: "btn-sm"
+                        },
+                        {
+                            extend: "pdfHtml5",
+                            className: "btn-sm"
+                        },
+                        {
+                            extend: "print",
+                            className: "btn-sm"
+                        }
                     ],
                     responsive: true
                 });
@@ -103,6 +159,60 @@
 
         // DataTable
         var table = $('#datatable-buttons').DataTable();
+        table.page.len(20).draw();
+
+        // Apply the search
+        table.columns().every(function () {
+            var that = this;
+
+            $('input', this.footer()).on('keyup change', function () {
+                if (that.search() !== this.value) {
+                    that
+                        .search(this.value)
+                        .draw();
+                }
+            });
+        });
+        //
+        // FÜR BENUTZER
+        //
+
+        // Setup - add a text input to each footer cell
+        $('#datatable-buttons-user tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" placeholder="Suche ' + title + '" />');
+        });
+
+        // DataTable
+        var table = $('#datatable-buttons-user').DataTable();
+        table.page.len(20).draw();
+
+        // Apply the search
+        table.columns().every(function () {
+            var that = this;
+
+            $('input', this.footer()).on('keyup change', function () {
+                if (that.search() !== this.value) {
+                    that
+                        .search(this.value)
+                        .draw();
+                }
+            });
+        });
+
+
+
+        //
+        // Für Projekte
+        //
+        // Setup - add a text input to each footer cell
+        $('#datatable-buttons-projects tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" placeholder="Suche ' + title + '" />');
+        });
+
+        // DataTable
+        var table = $('#datatable-buttons-projects').DataTable();
         table.page.len(20).draw();
 
         // Apply the search

@@ -150,6 +150,8 @@ require_once(__DIR__ . '/inc/layout.php');
                             <li><a href="http://www.knothemedia.de/iframe-responsive-gestalten.html"><i class='fa fa-external-link'></i> Knothemedia</a></li>
                             <li><a href="https://kau-boys.de/643/webentwicklung/arrays-und-andere-komplexe-daten-mit-php-in-einer-mysql-datenbank-speichern"><i class='fa fa-external-link'></i> Kau-Boys.de</a></li>
                             <li><a href="https://github.com/bmcbride/PHP-Database-GeoJSON"><i class='fa fa-external-link'></i> PHP-Database-GeoJSON von bmcbride</a></li>
+                            <li><a href="https://wiki.selfhtml.org/wiki/HTML/Tutorials/Formulare_erstellen_und_gestalten"><i class='fa fa-external-link'></i> selfhtml.org: Formulare erstellen und gestalten</a></li>
+                            <li><a href="https://wiki.selfhtml.org/wiki/PHP/Anwendung_und_Praxis/Loginsystem"><i class='fa fa-external-link'></i> selfhtml.org: Loginsystem</a></li>
                         </ul>
                         <h3>Daten</h3>
                         <ul>

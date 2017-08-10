@@ -40,8 +40,8 @@ if (isset($_GET['nf'])) {
                    width="100%">
                 <thead>
                 <tr>
-                    <th>Klarname</th>
                     <th>Benutzername</th>
+                    <th>Klarname</th>
                     <th>Email-Adresse</th>
                     <th>EVI</th>
                 </tr>
@@ -49,8 +49,8 @@ if (isset($_GET['nf'])) {
 
                 <tfoot>
                 <tr>
-                    <th>Klarname</th>
                     <th>Benutzername</th>
+                    <th>Klarname</th>
                     <th>Email-Adresse</th>
                     <th>EVI</th>
                 </tr>
@@ -58,8 +58,6 @@ if (isset($_GET['nf'])) {
 
 
                 <tbody>
-
-
                 <?php
                 $pdo = new PDO('mysql:host=' . $db_host . ';dbname=' . $db_name, $db_user, $db_pass);
 

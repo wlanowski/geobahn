@@ -1,11 +1,13 @@
 <?php
+require_once(__DIR__ . '/globalconfig.php');
+require_once(__DIR__ . '/auth.php');
+
 $seitentitel = 'Exceltabellen';
 require_once(__DIR__ . '/inc/header.php');
 
 // require für Datenbankverbindungseinstellungen
 
-require_once(__DIR__ . '/globalconfig.php');
-require_once(__DIR__ . '/auth.php');
+
 
 require_once(__DIR__ . '/inc/layout.php');
 ?>

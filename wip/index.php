@@ -1,5 +1,8 @@
 <?php
 require_once(__DIR__ . '/auth.php');
+
+
+
 $seitentitel = 'Neuigkeiten';
 require_once(__DIR__ . '/inc/header.php');
 
@@ -8,6 +11,10 @@ require_once(__DIR__ . '/inc/header.php');
 require_once(__DIR__ . '/globalconfig.php');
 
 require_once(__DIR__ . '/inc/layout.php');
+
+if (isset($_GET['nb'])) {
+    echo '<BODY onLoad="zeigefehler(\'Sie sind nicht berechtigt diese Seite zu betreten\')">';
+}
 
 ?>
 
