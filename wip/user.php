@@ -114,7 +114,7 @@ require_once(__DIR__ . '/inc/layout.php');
                                         <td class="col-md-5">Mail</td>
                                         <td>
                                             <!--<i class='fa fa-external-link'></i> <a href="mailto:<?php echo $sqlergebnis['mail']; ?>"><?php echo $sqlergebnis['mail']; ?></a>-->
-                                            <a href="mailto:' . $ansprechpartnerinfo['mail'] . '"
+                                            <a href="mailto:<?php echo $sqlergebnis['mail']; ?>"
                                                class="btn btn-sm btn-success"><i class="fa fa-envelope"></i> Mail</a>
                                             <a target="_tab"
                                                href="https://evi.intranet.deutschebahn.com/evi31/simpleSearchAction.do?filter=' . $projectinfo['ansprechpartner'] . '"

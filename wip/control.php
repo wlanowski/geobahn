@@ -66,6 +66,7 @@ require_once(__DIR__ . '/inc/layout.php');
                         <tbody>
                         <?php
                         $pdo = new PDO('mysql:host=' . $db_host . ';dbname=' . $db_name, $db_user, $db_pass);
+                        $pdo->exec("set names utf8");
 
                         $sql = $pdo->prepare("SELECT ID,username, mail, nameclear FROM " . $db_pref . "_users");
                         $sql->execute();
@@ -101,8 +102,12 @@ require_once(__DIR__ . '/inc/layout.php');
                     </table>
                     <br/><br/>
                     <div class="col-md-12 col-xs-12">
-                        <a href="control_adduser.php" class="col-md-12 col-xs-12 btn btn-sm btn-success">Neuen Benutzer
-                            hinzufügen</a>
+                        <!-- <a href="control_adduser.php" class="col-md-12 col-xs-12 btn btn-sm btn-success">Neuen Benutzer
+                            hinzufügen</a>-->
+                        <button type="button" class="col-md-12 col-xs-12 btn btn-sm btn-success" data-toggle="modal"
+                                data-target=".bs-example-modal-lg-neuerbenutzer">
+                            Neuen Benutzer hinzufügen
+                        </button>
                     </div>
                     <br/>
                 </div>
@@ -235,12 +240,94 @@ require_once(__DIR__ . '/inc/layout.php');
 
     </div>
     </div>
+    </div>
+    <!-- Large modal (Koordinaten) -->
+    <div class="modal fade bs-example-modal-lg-neuerbenutzer" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form action="func/control_adduser.php" method="post">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Neuen Benutzer hinzufügen</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-horizontal form-label-left">
+
+
+                            <!-- Benutzername -->
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Benutzername
+                                    <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" name="user_username" required="required"
+                                           class="form-control col-md-7 col-xs-12 "
+                                           placeholder="max.muster">
+                                </div>
+                            </div>
+
+                            <!-- Klarname -->
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Klarname
+                                    <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" placeholder="Bsp.: Max Muster"
+                                           name="user_nameclear" required="required"
+                                           class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+
+                            <!-- Email-Adresse -->
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Projektleiter
+                                    (Benutzername)
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" placeholder="Bsp.: max.muster@deutschebahn.com"
+                                           name="user_mail" required="required"
+                                           class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+
+                            <!-- Administrator? -->
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        Administratorrechte
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input class="flat col-md-7 col-xs-12" name="user_role" type="checkbox">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                <div class="col-md-3 col-lg-3 col-sm-3"></div>
+                                <input type="submit" class="btn btn-primary col-md-3 col-lg-3 col-sm-3 col-xs-6"
+                                       name="submit" value="Benutzer hinzufügen"/>
+                                <button type="button" class="btn btn-default col-md-3 col-lg-3 col-sm-3 col-xs-6"
+                                        data-dismiss="modal">Abbrechen
+                                </button>
+                                <div class="col-md-3 col-lg-3 col-sm-3"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- /Large modal (Koordinaten) -->
 
 <?php
 require_once(__DIR__ . '/inc/footer.content.php');
 ?>
 
-    </div>
 
 <?php
 require_once(__DIR__ . '/inc/footer.php');
