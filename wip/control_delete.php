@@ -3,14 +3,16 @@
 require_once(__DIR__ . '/globalconfig.php');
 require_once(__DIR__ . '/auth.php');
 
-
+if (isset($_GET['falschespw'])) {
+    echo '<BODY onLoad="zeigefehler(\'Das Passwort ist falsch!\')">';
+}
 if ($_SESSION['user']['role'] != 1) {
     header('Location: index.php?nb');
 }
 
 if (isset($_GET['userid']) && isset($_GET['projectid'])) {
     //Unklare Eingabe! Sie können nur ein Objekt pro Instanz löschen.
-    header('location:404.php');
+    header('location:404.php?unklar');
 } else {
     if (isset($_GET['userid'])) {
         loescheobjekt('user', $_GET['userid']);
@@ -19,7 +21,7 @@ if (isset($_GET['userid']) && isset($_GET['projectid'])) {
         loescheobjekt('project', $_GET['projectid']);
     } else {
         // Keine Übergabe
-        header('location:404.php');
+        header('location:404.php?keineeingabe');
     }
 
 }

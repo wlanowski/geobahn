@@ -14,7 +14,20 @@ if ($_SESSION['user']['role'] != 1) {
 
 require_once(__DIR__ . '/inc/header.php');
 require_once(__DIR__ . '/inc/layout.php');
+
+
+if (isset($_GET['falschespw'])) {
+    echo '<BODY onLoad="zeigefehler(\'Das Passwort ist falsch!\')">';
+}
+
+if (isset($_GET['erfolg'])) {
+    echo '<BODY onLoad="zeigeerfolg(\'Objekt erfolgreich gelöscht!\')">';
+}
+
+
 ?>
+
+
 
 
     <div class="right_col" role="main">

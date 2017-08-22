@@ -60,6 +60,7 @@ if (isset($_GET['nf'])) {
                 <tbody>
                 <?php
                 $pdo = new PDO('mysql:host=' . $db_host . ';dbname=' . $db_name, $db_user, $db_pass);
+                $pdo->exec("set names utf8");
 
                 $sql = $pdo->prepare("SELECT ID,username, mail, nameclear FROM " . $db_pref . "_users");
                 $sql->execute();
