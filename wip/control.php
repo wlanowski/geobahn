@@ -294,8 +294,7 @@ if (isset($_GET['erfolg'])) {
 
                             <!-- Email-Adresse -->
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Projektleiter
-                                    (Benutzername)
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Email-Adresse
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="text" placeholder="Bsp.: max.muster@deutschebahn.com"
