@@ -169,6 +169,7 @@ if (isset($_GET['erfolg'])) {
 
                         <?php
                         $pdo = new PDO('mysql:host=' . $db_host . ';dbname=' . $db_name, $db_user, $db_pass);
+                        $pdo->exec("set names utf8");
 
                         $sql = $pdo->prepare("SELECT ID, projektname, ort, ansprechpartner, status, erstellt FROM " . $db_pref . "_projekte");
                         $sql->execute();
