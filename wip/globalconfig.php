@@ -3,14 +3,14 @@
 
 
 // Übergeordnerter Projektname
-$projectxname = "Geo-Bahn";
+$projectxname = "Geobahn";
 
 
 // Datenbankeinstellungen (hier: XAMPP!=)
 $db_host = 'localhost';
 $db_user = 'root';
 $db_pass = '';
-$db_name = 'geobahndb';
+$db_name = 'geobahn';
 $db_pref = 'geo';
 
 
