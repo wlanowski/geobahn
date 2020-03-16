@@ -1,4 +1,4 @@
-## Github-Repository zu geobahn#
+## Github-Repository zu geobahn
 freigegeben von John Nitzsche unter MIT-Lizenz
 
 weitere Informationen, die Dokumentation, sowie die Präsentation befinden sich hier: 
