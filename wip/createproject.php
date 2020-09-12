@@ -1,5 +1,8 @@
 <?php
 require_once(__DIR__ . '/auth.php');
+if ($_SESSION['user']['role'] == 99) {
+    header('Location: map.php?nb');
+}
 
 //Seitentitel wird später definiert
 //$seitentitel = 'Projekterstellung';

@@ -8,9 +8,12 @@ require_once(__DIR__ . '/inc/header.php');
 require_once(__DIR__ . '/globalconfig.php');
 
 require_once(__DIR__ . '/inc/layout.php');
+
+    if (isset($_GET['nb'])) {
+    echo '<BODY onLoad="zeigefehler(\'Sie haben nur Zugriff auf die eingeschränkten Funktionen ohne Projektbezug!\')">';
+}
+
 ?>
-
-
     <!-- page content -->
 
     <div class="right_col" role="main">

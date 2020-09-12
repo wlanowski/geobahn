@@ -1,5 +1,8 @@
 ﻿<?php
 require_once(__DIR__ . '/auth.php');
+if ($_SESSION['user']['role'] == 99) {
+    header('Location: map.php?nb');
+}
 $seitentitel = 'Projektübersicht';
 require_once(__DIR__ . '/inc/header.php');
 

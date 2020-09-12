@@ -10,6 +10,9 @@ require_once(__DIR__ . '/auth.php');
 if ($_SESSION['user']['role'] != 1) {
     header('Location: index.php?nb');
 }
+if ($_SESSION['user']['role'] == 99) {
+    header('Location: map.php');
+}
 
 
 require_once(__DIR__ . '/inc/header.php');

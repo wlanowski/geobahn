@@ -10,12 +10,22 @@ session_start();
 require_once(dirname(__DIR__) . '/globalconfig.php');
 
 if (!empty($_POST)) {
+
+    if($_POST['submit'] == 'geouser')
+    {
+        //header('Location: ../test.php');
+        $_POST['f']['username'] = 'geouser';
+        $_POST['f']['password'] = '';
+    }
+
+
+
+
     if (
-        empty($_POST['f']['username']) ||
-        empty($_POST['f']['password'])
+        empty($_POST['f']['username'])
     ) {
         //$message['error'] = 'Es wurden nicht alle Felder ausgefüllt.';
-        header('Location: ../login.php?status=`naf');
+        header('Location: ../login.php?status=naf');
     } else {
         $mysqli = @new mysqli($db_host, $db_user, $db_pass, $db_name);
         if ($mysqli->connect_error) {
@@ -41,6 +51,11 @@ if (!empty($_POST)) {
                         )
                     );
 
+                    if( $_SESSION['user'] == 'geouser')
+                    {
+                        header('location: ../map.php?ja');
+                    }
+
                     //$message['success'] = 'Anmeldung erfolgreich, <a href="index.php">weiter zum Inhalt.';
                     if (isset($_GET['weiter'])) {
                         header('location: ../' . $_GET['weiter']);
@@ -58,6 +73,7 @@ if (!empty($_POST)) {
             $mysqli->close();
         }
     }
+
 } else {
     //$message['notice'] = 'Geben Sie Ihre Zugangsdaten ein um sich anzumelden.<br />' .
     //    'Wenn Sie noch kein Konto haben, gehen Sie <a href="./register.php">zur Registrierung</a>.';

@@ -64,6 +64,8 @@ require_once(__DIR__ . '/globalconfig.php');
             <section class="login_content">
 
 
+
+
                 <?php
                 if (ISSET($_GET["weiter"])) {
                     echo '<form action="func/login_task.php?weiter=' . $_GET['weiter'] . '" method="post">';
@@ -76,18 +78,30 @@ require_once(__DIR__ . '/globalconfig.php');
                 <h1>Login</h1>
 
 
+
+
                 <div>
-                    <input type="TEXT" class="form-control" placeholder="Benutzername" required=""
+                    <input type="TEXT" class="form-control" placeholder="Benutzername"
                            name="f[username]"/>
                 </div>
                 <div>
-                    <input type="password" class="form-control" placeholder="Passwort" required=""
+                    <input type="password" class="form-control" placeholder="Passwort"
                            name="f[password]"/>
                 </div>
                 <div>
 
-                    <input type="submit" class="btn btn-default submit" name="submit" value="Login"/>
-                    <a class="reset_pass" href="#">Passwort vergessen?</a>
+                    <button type="submit" class="btn btn-primary submit" name="submit" value="login">Login</button>
+                    <br>
+                    <br>
+
+                    Falls Sie nur auf die Webkarte und den Streckeninspektor zugreifen möchten, benötigen Sie keine Anmeldedaten. Klicken Sie dazu auf den folgenden Button.<br>
+                    Sie haben dann keinen Zugriff auf die Funktionen zur Projektkoordination!
+
+                    <br>
+
+
+                    <button type="submit" class="btn btn-default submit" name="submit" value="geouser">Ich möchte nur die Geo-Funktionen nutzen!</button>
+                    <!--<a class="reset_pass" href="#">Passwort vergessen?</a>-->
 
                 </div>
 
@@ -104,7 +118,7 @@ require_once(__DIR__ . '/globalconfig.php');
                     <br/>
 
                     <div>
-                        <p>WIP! von John Nitzsche (2017)</p>
+                        <p>WIP! von John Nitzsche, Niklas Jäger (2019)</p>
                     </div>
                 </div>
                 </form>

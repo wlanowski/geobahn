@@ -52,15 +52,20 @@ setlocale(LC_TIME, "de_DE.utf8"); ?>
                         <ul class="nav side-menu">
 
                             <li><a href="map.php"><i class="fa fa-globe"></i> Karte </a></li>
+
+                            <?php
+                            if ($_SESSION['user']['role'] != 99)
+                            {
+                                echo '
                             <li><a><i class="fa fa-tasks"></i> Daten<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a href="projects.php">Projektübersicht</a></li>
                                     <li><a href="createproject.php">Projekt erstellen</a></li>
                                     <li><a href="userlist.php">Benutzerübersicht</a></li>
                                 </ul>
-                            </li>
+                            </li>';}?>
                             <li><a href="inspector.php"><i class="fa fa-search"></i> Inspektor </a></li>
-                            <li><a href="dateien.php"><i class="fa fa-file-o"></i> Download </a></li>
+                            <!--<li><a href="dateien.php"><i class="fa fa-file-o"></i> Download </a></li>-->
                             <li><a><i class="fa fa-info"></i> Informationen<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a href="about.php">Über</a></li>

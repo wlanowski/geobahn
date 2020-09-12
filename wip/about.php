@@ -26,6 +26,17 @@ require_once(__DIR__ . '/inc/layout.php');
             </div>
         </div>
 
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Wo kann ich mehr erfahren?</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                Es gibt Bewegungen, das Projekt praxistauglich zu machen.
+                Informationen: <a href="https://kreativworkshop.tk">kreativworkshop.tk</a>
+            </div>
+        </div>
+
 
         <div class="x_panel">
             <div class="x_title">

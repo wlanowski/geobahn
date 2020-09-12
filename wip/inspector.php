@@ -1,11 +1,22 @@
 ﻿<?php
+
 require_once(__DIR__ . '/auth.php');
+require_once(__DIR__ . '/globalconfig.php');
+
+require_once(__DIR__ . '/func/kmwandler.php');
+
+// What3Words Implementation
+require_once(__DIR__ . '/func/Geocoder.php');
+use What3words\Geocoder\Geocoder;
+use What3words\Geocoder\AutoSuggestOption;
+
+$w3wapi = new Geocoder($w3w_apikey);
+
 $seitentitel = 'Streckeninspektor';
 require_once(__DIR__ . '/inc/header.php');
 
 // require für Datenbankverbindungseinstellungen
 
-require_once(__DIR__ . '/globalconfig.php');
 
 require_once(__DIR__ . '/inc/layout.php');
 ?>
@@ -76,7 +87,10 @@ if (isset($_GET['strecke']))
         <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab"
                                                   aria-expanded="true">Streckenelemente</a>
         </li>
-        <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab"
+        <li role="presentation" class=""><a href="#tab_content2" id="home-tab" role="tab" data-toggle="tab"
+                                                  aria-expanded="true"><b>Testbetrieb/WIP!</b> Streckenelemente (tabellarisch)</a>
+        </li>
+        <li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab" data-toggle="tab"
                                             aria-expanded="false">Streckenabschnitte</a>
         </li>
 
@@ -94,7 +108,7 @@ if (isset($_GET['strecke']))
                                 <img src="img/bruecke.png" class="avatar" alt="Avatar">
                                 <div class="message_date">
                                   <h3 class="date text-info">Bkm</h3>
-                                  <p class="month">' . $row['von_km_l'] . ' – ' . $row['bis_km_l'] . '</p>
+                                  <p class="month">' . $row['km_l']. '</p>
                                 </div>
                                 <div class="message_wrapper">
                                   <h4>Brückenbauwerk</h4>
@@ -126,6 +140,8 @@ if (isset($_GET['strecke']))
                         break;
 
 
+// kleine Brücken mit Geodaten 2019 entfallen
+/*
                     case 'kleinebruecken': // KLEINE BRÜCKE
                         echo '							
 							<li>
@@ -153,7 +169,7 @@ if (isset($_GET['strecke']))
                             default:
                                 echo 'k. A.';
                         }
-
+*/
                         echo '
 								  
                                   <br />
@@ -286,10 +302,165 @@ if (isset($_GET['strecke']))
         </ul>
     </div>
 
+<!-- START STRECKENELEMENTE TABELLARISCH -->
+    <div role="tabpanel" class="tab-pane fade active in" id="tab_content2" aria-labelledby="home-tab">
+        <ul class="messages">
+            <table id="datatable-buttons" class="display table table-striped table-bordered" cellspacing="0"
+                   width="100%">
+                <thead>
+                <tr>
+                    <th>(von) km</th>
+                    <th>bis km</th>
+                    <th>Elementtyp</th>
+                    <th>Richtung</th>
+                    <th>Länge</th>
+                    <th>Benennung</th>
+                    <th>weitere Details</th>
+                    <th>Geoinformationen (BETA!)</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <?php
+
+                foreach ($ergebnis as $row) {
+
+                switch ($row['geoart']) {
+
+                    case 'bruecke':
+                        echo "<tr>\n<td>";
+                        echo $row['km_i']; //(von) km
+                        echo "</td><td>";
+                        echo $row['km_i']+$row['laenge'];
+                        echo "</td><td>";
+                        echo "Brücke";  //geoart
+                        echo "</td><td>";
+
+                        switch ($row['richtung']){
+                            case 0: echo "eingleisig oder Richtungsgleise parallel";break;
+                            case 1: echo "Richtungsgleis";break;
+                            case 2: echo "Gegenrichtungsgleis";break;
+                        }
+
+                        echo "</td><td>";
+                        echo $row['laenge']; // Länge
+                        echo"</td><td>";
+                        // Benennung
+                        echo "</td><td>";
+                        // weitere Details
+                        echo "</td><td>";
+                        echo $row['geogr_laenge']." ".$row['geogr_breite']." <br>R: ".$row['gk_r_dgn']." H: ".$row['gk_r_dgn']."<br> ";
+                        $w3w=($w3wapi->convertTo3wa($row['geogr_breite'], $row['geogr_laenge'], 'de'))['words'];
+                        echo 'W3W: <a href="https://what3words.com/'.$w3w.'" target="_blank">///'.$w3w.'</a>';
+                        echo "</td>";
+                        echo "</tr>";
+                        break;
+
+                    case 'bst':
+                        echo "<tr>\n<td>";
+                        echo $row['km_i']; //(von) km
+                        echo "</td><td>";
+                        // bis km
+                        echo "</td><td>";
+                        echo "Betriebsstelle";  //geoart
+                        echo "</td><td>";
+
+                        switch ($row['richtung']){
+                            case 0: echo "eingleisig oder Richtungsgleise parallel";break;
+                            case 1: echo "Richtungsgleis";break;
+                            case 2: echo "Gegenrichtungsgleis";break;
+                        }
+
+                        echo "</td><td>";
+                        // Länge
+                        echo"</td><td>";
+                        echo $row ['bezeichnung'];// Benennung
+                        echo "</td><td>";
+                        echo "Betriebsstellenart: ".$row['stelle_art']." <br>Kürzel: ".$row['kuerzel'];
+                        echo "</td><td>";
+                        echo $row['geogr_laenge']." ".$row['geogr_breite']." <br>R: ".$row['gk_r_dgn']." H: ".$row['gk_r_dgn']."<br> ";
+                        $w3w=($w3wapi->convertTo3wa($row['geogr_breite'], $row['geogr_laenge'], 'de'))['words'];
+                        echo 'W3W: <a href="https://what3words.com/'.$w3w.'" target="_blank">///'.$w3w.'</a>';
+                        echo "</td>";
+                        echo "</tr>";
+                        break;
+
+                    case 'bue':
+                        echo "<tr>\n<td>";
+                        echo $row['km_i']; //(von) km
+                        echo "</td><td>";
+                        // bis km
+                        echo "</td><td>";
+                        echo "Bahnübergang";  //geoart
+                        echo "</td><td>";
+
+                        switch ($row['richtung']){
+                            case 0: echo "eingleisig oder Richtungsgleise parallel";break;
+                            case 1: echo "Richtungsgleis";break;
+                            case 2: echo "Gegenrichtungsgleis";break;
+                        }
+
+                        echo "</td><td>";
+                        // Länge
+                        echo"</td><td>";
+                        echo $row ['bezeichnung'];// Benennung
+                        echo "</td><td>";
+                        echo $row['techn_sicherung']." <br>Straßenart: ".$row['strassenart'];
+                        echo "</td><td>";
+                        echo $row['geogr_laenge']." ".$row['geogr_breite']." <br>R: ".$row['gk_r_dgn']." H: ".$row['gk_r_dgn']."<br> ";
+                        $w3w=($w3wapi->convertTo3wa($row['geogr_breite'], $row['geogr_laenge'], 'de'))['words'];
+                        echo 'W3W: <a href="https://what3words.com/'.$w3w.'" target="_blank">///'.$w3w.'</a>';
+                        echo "</td>";
+                        echo "</tr>";
+                        break;
+
+                    case 'tunnel':
+                        echo "<tr>\n<td>";
+                        echo $row['km_i']; //(von) km
+                        echo "</td><td>";
+                        echo $row['bis_km_i']; //bis km
+                        echo "</td><td>";
+                        echo "Tunnel";  //geoart
+                        echo "</td><td>";
+
+
+                        switch ($row['richtung']){
+                            case 0: echo "eingleisig oder Richtungsgleise parallel";break;
+                            case 1: echo "Richtungsgleis";break;
+                            case 2: echo "Gegenrichtungsgleis";break;
+                        }
+
+                        echo "</td><td>";
+                        echo $row['laenge']; // Länge
+                        echo"</td><td>";
+                        echo $row ['bezeichnung'];// Benennung
+                        echo "</td><td>";
+                        // weitere Details
+                        echo "</td><td>";
+                        echo "nicht verfügbar";
+                        echo "</td>";
+                        echo "</tr>";
+                        break;
+
+                    //case 'strecke': break;
+                    //default: echo '</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>';
+
+                    default: break;
+                }
+
+                }
+
+                ?>
+                </tbody>
+            </table>
+
+
+        </ul>
+    </div>
 
     <!-- START STRECKENVERLAUF -->
 
-    <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+    <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
     <ul class="messages">
     <?php
     foreach ($ergebnis as $row) {

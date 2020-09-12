@@ -64,7 +64,7 @@ var markers_dbnetz_betriebsstellen = L.markerClusterGroup();
  */
 
 // BST
-$.getJSON("../geodata/konvertiert/bst/bst.geojson", function (data) {
+$.getJSON("../geodata-2019/geojson/bst.geojson", function (data) {
     var geojson = L.geoJson(data, {
         onEachFeature: function (feature, layer) {
 
@@ -78,7 +78,7 @@ $.getJSON("../geodata/konvertiert/bst/bst.geojson", function (data) {
             }));
 
             // ADD A POPUP WITH A CHART
-            layer.bindPopup("<b>" + feature.properties.bezeichnun + "</b><br>Kürzel: <tab id=t1>" + feature.properties.kuerzel + "<br>Strecke: <tab to=t1>" + feature.properties.streckennu + "<br>Bkm: <tab to=t1>" + feature.properties.km_l);
+            layer.bindPopup("<b>" + feature.properties.bezeichnung + "</b><br>Kürzel: <tab id=t1>" + feature.properties.kuerzel + "<br>Strecke: <tab to=t1>" + feature.properties.streckennummer + "<br>Bkm: <tab to=t1>" + feature.properties.km_l);
         }
     });
     markers_dbnetz_betriebsstellen.addLayer(geojson);
@@ -94,7 +94,7 @@ var bueIcon = L.icon({
 
 var markers_dbnetz_bahnuebergang = L.markerClusterGroup();
 
-$.getJSON("../geodata/konvertiert/bue/bue.geojson", function (data) {
+$.getJSON("../geodata-2019/geojson/bue.geojson", function (data) {
     var geojson = L.geoJson(data, {
         onEachFeature: function (feature, layer) {
 
@@ -104,7 +104,7 @@ $.getJSON("../geodata/konvertiert/bue/bue.geojson", function (data) {
 
             // ADD A POPUP WITH A CHART
 
-            layer.bindPopup("<b>" + feature.properties.bezeichnun + "</b><br>Sicherung: <tab id=t1>" + feature.properties.techn_sich + "<br>Straßenart: <tab to=t1>" + feature.properties.strassenar + "<br>Strecke: <tab to=t1>" + feature.properties.strecke_nr + "<br>Bkm: <tab to=t1>" + feature.properties.km_l);
+            layer.bindPopup("<b>" + feature.properties.bezeichnung + "</b><br>Sicherung: <tab id=t1>" + feature.properties.techn_sicherung + "<br>Straßenart: <tab to=t1>" + feature.properties.strassenart + "<br>Strecke: <tab to=t1>" + feature.properties.strecke_nr + "<br>Bkm: <tab to=t1>" + feature.properties.km_l);
         }
     });
     markers_dbnetz_bahnuebergang.addLayer(geojson);
@@ -114,7 +114,7 @@ $.getJSON("../geodata/konvertiert/bue/bue.geojson", function (data) {
 // Kilometer
 var markers_dbnetz_kilometer = L.markerClusterGroup();
 
-$.getJSON("../geodata/konvertiert/km/km.geojson", function (data) {
+$.getJSON("../geodata-2019/geojson/km.geojson", function (data) {
     var geojson = L.geoJson(data, {
         onEachFeature: function (feature, layer) {
 
@@ -129,7 +129,7 @@ $.getJSON("../geodata/konvertiert/km/km.geojson", function (data) {
             }));
 
             // ADD A POPUP WITH A CHART
-            layer.bindPopup("<br><b>Bkm: <tab to=t1>" + feature.properties.km_l + "</b><br>Strecke: <tab to=t1>" + feature.properties.streckennu);
+            layer.bindPopup("<b>Bkm: <tab to=t1>" + feature.properties.km_l + "</b><br>Strecke: <tab to=t1>" + feature.properties.streckennummer);
         }
     });
     markers_dbnetz_kilometer.addLayer(geojson);
@@ -139,13 +139,13 @@ $.getJSON("../geodata/konvertiert/km/km.geojson", function (data) {
 // Tunnel 
 var markers_dbnetz_tunnel = L.markerClusterGroup();
 
-$.getJSON("../geodata/konvertiert/tunnel/tunnel.geojson", function (data) {
+$.getJSON("../geodata-2019/geojson/tunnel.geojson", function (data) {
     var geojson = L.geoJson(data, {
         onEachFeature: function (feature, layer) {
 
 
             // ADD A POPUP WITH A CHART
-            layer.bindPopup("<b>" + feature.properties.bezeichnun + "</b><br>Strecke: <tab to=t1>" + feature.properties.streckennu + "<br>Bkm: <tab to=t1>" + feature.properties.von_km_l + " bis " + feature.properties.bis_km_l + "<br>Länge (m): <tab to=t1>" + feature.properties.laenge);
+            layer.bindPopup("<b>" + feature.properties.bezeichnung + "</b><br>Strecke: <tab to=t1>" + feature.properties.streckennummer + "<br>Bkm: <tab to=t1>" + feature.properties.von_km_l + " bis " + feature.properties.bis_km_l + "<br>Länge (m): <tab to=t1>" + feature.properties.laenge);
         }
     });
     markers_dbnetz_tunnel.addLayer(geojson);
@@ -161,15 +161,15 @@ var brueckIcon = L.icon({
 
 var markers_dbnetz_bruecken = L.markerClusterGroup();
 
-$.getJSON("../geodata/konvertiert/bruecken-gross/bruecken-gross.geojson", function (data) {
+$.getJSON("../geodata-2019/geojson/bruecken_gross.geojson", function (data) {
     var geojson = L.geoJson(data, {
         onEachFeature: function (feature, layer) {
 
             // layer.setIcon(brueckIcon);
 
             // ADD A POPUP WITH A CHART
-            // ALT: 	layer.bindPopup("Strecke: <tab to=t1>" + feature.properties.streckennu + "<br>Bkm: <tab to=t1>" + feature.properties.km_l + "<br>Länge (m): <tab to=t1>" + feature.properties.laenge);
-            layer.bindPopup("Strecke: <tab to=t1>" + feature.properties.streckennu + "<br>Bkm: <tab to=t1>" + feature.properties.von_km_l + " bis " + feature.properties.bis_km_l + "<br>Länge (m): <tab to=t1>" + feature.properties.laenge);
+            // ALT: 	layer.bindPopup("Strecke: <tab to=t1>" + feature.properties.streckennummer + "<br>Bkm: <tab to=t1>" + feature.properties.km_l + "<br>Länge (m): <tab to=t1>" + feature.properties.laenge);
+            layer.bindPopup("Strecke: <tab to=t1>" + feature.properties.streckennummer + "<br>Bkm: <tab to=t1>" + feature.properties.von_km_l + " bis " + feature.properties.bis_km_l + "<br>Länge (m): <tab to=t1>" + feature.properties.laenge);
         }
     });
 
@@ -184,15 +184,15 @@ $.getJSON("../geodata/konvertiert/bruecken-gross/bruecken-gross.geojson", functi
 // Kleine Brücken
 
 
-$.getJSON("../geodata/konvertiert/bruecken/bruecken.geojson", function (data) {
+$.getJSON("../geodata-2019/geojson/bruecken_klein.geojson", function (data) {
     var geojson = L.geoJson(data, {
         onEachFeature: function (feature, layer) {
 
             layer.setIcon(brueckIcon);
 
             // ADD A POPUP WITH A CHART
-            // ALT: 	layer.bindPopup("Strecke: <tab to=t1>" + feature.properties.streckennu + "<br>Bkm: <tab to=t1>" + feature.properties.km_l + "<br>Länge (m): <tab to=t1>" + feature.properties.laenge);
-            layer.bindPopup("Strecke: <tab to=t1>" + feature.properties.streckennu + "<br>Bkm: <tab to=t1>" + feature.properties.km_l + "<br>Länge (m): <tab to=t1>" + feature.properties.laenge);
+            // ALT: 	layer.bindPopup("Strecke: <tab to=t1>" + feature.properties.streckennummer + "<br>Bkm: <tab to=t1>" + feature.properties.km_l + "<br>Länge (m): <tab to=t1>" + feature.properties.laenge);
+            layer.bindPopup("Strecke: <tab to=t1>" + feature.properties.streckennummer + "<br>Bkm: <tab to=t1>" + feature.properties.km_l + "<br>Länge (m): <tab to=t1>" + feature.properties.laenge);
         }
     });
 
@@ -207,7 +207,7 @@ $.getJSON("../geodata/konvertiert/bruecken/bruecken.geojson", function (data) {
 // Strecke
 var markers_dbnetz_strecke = L.markerClusterGroup();
 
-$.getJSON("../geodata/konvertiert/strecke/strecke.geojson", function (data) {
+$.getJSON("../geodata-2019/geojson/strecken.geojson", function (data) {
     var geojson = L.geoJson(data, {
         onEachFeature: function (feature, layer) {
 
@@ -265,7 +265,7 @@ var groupedoverlays = {
     "Projekte": {
         "Projekte": geojsonLayer_projekte
     },
-    "DB Netz AG (Stand: Januar 2017)": {
+    "DB Netz AG (Stand: Januar 2019)": {
         "<i>ausschalten</i>": markers_dbnetz_empty,
         "Betriebsstellen": markers_dbnetz_betriebsstellen,
         "Bahnübergänge": markers_dbnetz_bahnuebergang,
@@ -292,7 +292,7 @@ var mymap = L.map('mapid', {
 });
 
 var options = {
-    exclusiveGroups: ["OpenRailwayMap", "DB Netz AG (Stand: Januar 2017)"],
+    exclusiveGroups: ["OpenRailwayMap", "DB Netz AG (Stand: Januar 2019)"],
     groupCheckboxes: true
 
 };

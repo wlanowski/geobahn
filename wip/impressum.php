@@ -29,8 +29,9 @@ require_once(__DIR__ . '/inc/layout.php');
 
         <div class="x_panel">
             <div class="x_content">
-                Todo
-
+                John Nitzsche<br>
+                Obertorplatz 1<br>
+                01744 Dippoldiswalde<br>
             </div>
         </div>
 
